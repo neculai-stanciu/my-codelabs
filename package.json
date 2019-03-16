@@ -1,0 +1,21 @@
+{
+  "name": "my-codelabs",
+  "version": "1.0.0",
+  "description": "simple codelabs",
+  "main": "collect-codelabs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "",
+    "collect-codelabs": "node collect-codelabs.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neculai-stanciu/my-codelabs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neculai-stanciu/my-codelabs/issues"
+  },
+  "homepage": "https://github.com/neculai-stanciu/my-codelabs#readme"
+}

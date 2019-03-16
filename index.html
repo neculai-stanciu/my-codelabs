@@ -1,19 +1,101 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hello world</title>
-    <script>
-        fetch('https://neculai-stanciu.github.io/my-codelabs/README.md')
-          .then(function(response) {
-            console.log("Request with success: ",response.text());
-          }).catch(err => console.log("error: ",err));
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hello world</title>
+  <script>
+    fetch('all-codelabs.json')
+      .then(res => res.json())
+      .then(codelabs => {
+        createCards(codelabs);
+      })
+      .catch(err => console.log("error: ", err));
+
+      function createCodelab(codelab){
+        const codelabDiv = document.createElement('div');
+        codelabDiv.classList.add('codelab');
+
+        const titleH3 = document.createElement('h3');
+        titleH3.classList.add('title');
+        titleH3.textContent = codelab.title;
+
+        const summaryDiv = document.createElement('div');
+        summaryDiv.classList.add('summary');
+        summaryDiv.textContent = codelab.summary;
+
+        const dateSpan = document.createElement('span');
+        dateSpan.textContent = 'updated: '+ new Date(codelab.updated).toLocaleDateString();
+
+        const authorSpan = document.createElement('span');
+        authorSpan.classList.add('floatRight');
+        authorSpan.textContent = codelab.author;
+
+        const openButton = document.createElement('button');
+        openButton.classList.add('floatRight');
+        openButton.textContent = "open"
+        openButton.addEventListener('click',(ev) => {
+            document.location.href = 'codelabs/'+codelab.id;
+        });
+
+        const footerDiv = document.createElement('div');
+        footerDiv.classList.add('footer');
+        footerDiv.appendChild(dateSpan);
+        footerDiv.appendChild(openButton);
+        footerDiv.appendChild(authorSpan);
+
+        codelabDiv.appendChild(titleH3);
+        codelabDiv.appendChild(summaryDiv);
+        codelabDiv.appendChild(footerDiv);
+        return codelabDiv;
+      }
+      function addCodelab(codelab) {
+        const container = document.querySelector("#codelabs");
+        const codelabNode = createCodelab(codelab);
+       
+        container.appendChild(codelabNode);
+      }
+      function createCards(codelabs){
+        codelabs.forEach(codelab => {
+          addCodelab(codelab); 
+        });
+      }
+  </script>
+  <style>
+    #codelabs {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .codelab {
+      width: 30%;
+      margin: 0 1% 20px;
+      box-shadow:0px 0px 1px #b6b0b6;
+    }
+    .title {
+      text-align: center;
+      height: 20px;
+      overflow: hidden;
+    }
+    .footer {
+      margin: 0 20px;
+    }
+    .summary {
+      height: 100px;
+      overflow: hidden;
+      margin: 5px 10px;
+    }
+    .floatRight {
+      float: right;
+    }
+  </style>
 </head>
+
 <body>
-    <h1> Hello github pages </h1>
+  <h1> All codelabs </h1>
+  <div id="codelabs">
+  </div>
 </body>
+
 </html>

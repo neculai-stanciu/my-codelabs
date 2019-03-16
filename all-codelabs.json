@@ -1,0 +1,54 @@
+[
+  {
+    "environment": "web",
+    "source": "demo-codelab.md",
+    "format": "html",
+    "prefix": "../../",
+    "mainga": "UA-49880327-14",
+    "updated": "2019-02-17T12:09:35+02:00",
+    "id": "24242443",
+    "duration": 1,
+    "title": "TomTom Creating a custom Gangnam vector map style",
+    "author": "Mariusz Saramak",
+    "summary": "TomTom Creating a custom Gangnam vector map style",
+    "theme": "",
+    "status": [
+      "draft"
+    ],
+    "category": [
+      "sdk"
+    ],
+    "tags": [
+      "js"
+    ],
+    "feedback": "github.com/tomtom-gangdam-style-for-map",
+    "ga": "0",
+    "url": "24242443"
+  },
+  {
+    "environment": "web",
+    "source": ".\\js-basic-codelab.md",
+    "format": "html",
+    "prefix": "../../",
+    "mainga": "UA-49880327-14",
+    "updated": "2019-02-25T22:30:39+02:00",
+    "id": "js-01",
+    "duration": 220,
+    "title": "",
+    "author": "Stanciu Neculai",
+    "summary": "Javscript guide",
+    "theme": "",
+    "status": [
+      "draft"
+    ],
+    "category": [
+      "web"
+    ],
+    "tags": [
+      "js"
+    ],
+    "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
+    "ga": "0",
+    "url": "js-01"
+  }
+]

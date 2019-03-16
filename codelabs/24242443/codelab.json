@@ -1,0 +1,26 @@
+{
+  "environment": "web",
+  "source": "demo-codelab.md",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-02-17T12:09:35+02:00",
+  "id": "24242443",
+  "duration": 1,
+  "title": "TomTom Creating a custom Gangnam vector map style",
+  "author": "Mariusz Saramak",
+  "summary": "TomTom Creating a custom Gangnam vector map style",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "sdk"
+  ],
+  "tags": [
+    "js"
+  ],
+  "feedback": "github.com/tomtom-gangdam-style-for-map",
+  "ga": "0",
+  "url": "24242443"
+}
