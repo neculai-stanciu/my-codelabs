@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Hello world</title>
+  <title>My workshops</title>
   <script>
     fetch('all-codelabs.json')
       .then(res => res.json())
@@ -15,7 +15,7 @@
       })
       .catch(err => console.log("error: ", err));
 
-    function codelabTemplate(title,summary,presentationBtn,codelabBtn, createdDate, author){
+    function codelabTemplate(title,summary,presentationLink,codelabLink, createdDate, author){
       return `<div class="w3-card-4">
                 <header class="w3-container w3-light-grey" style="height: 50px;overflow: hidden;">
                   <h3>${title}</h3>
@@ -25,8 +25,8 @@
                     ${summary}
                   </p>
                   <div class="w3-section">
-                    <button id=${presentationBtn} class="w3-button w3-green">presentation</button>
-                    <button id=${codelabBtn} class="w3-button w3-dark-grey">codelab</button>
+                    <a href=${presentationLink} class="w3-button w3-green">presentation</a>
+                    <a href=${codelabLink} class="w3-button w3-dark-grey">codelab</a>
                   </div>
                 </div>                
                 <footer style="margin: 0 15px;">
@@ -43,8 +43,8 @@
       div.style.margin = "5px 20px";
       div.innerHTML = codelabTemplate(codelab.title,
           codelab.summary,
-          "prst",
-          "codelab1",
+          'presentation/'+codelab.id,
+          'codelabs/'+codelab.id,
           new Date(codelab.updated).toLocaleDateString(),
           codelab.author
           )
@@ -58,42 +58,10 @@
       });
     }
   </script>
-  <style>
-    #codelabs {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .codelab {
-      width: 30%;
-      margin: 0 1% 20px;
-      box-shadow: 0px 0px 1px #b6b0b6;
-    }
-
-    .title {
-      text-align: center;
-      height: 20px;
-      overflow: hidden;
-    }
-
-    .footer {
-      margin: 0 20px;
-    }
-
-    .summary {
-      height: 100px;
-      overflow: hidden;
-      margin: 5px 10px;
-    }
-
-    .floatRight {
-      float: right;
-    }
-  </style>
 </head>
 
 <body>
-  <h1> All codelabs </h1>
+  <h1 style="text-align: center;"> Let's begin </h1>
 
   <div id="codelabs">
   </div>
