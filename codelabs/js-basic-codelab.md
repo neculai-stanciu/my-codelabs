@@ -2,6 +2,7 @@
 
 <!-- Firstly we have to inform users what the document is about: -->
 author: Stanciu Neculai
+title: JS first codelab
 summary: Javscript guide
 id: js-01
 categories: web
