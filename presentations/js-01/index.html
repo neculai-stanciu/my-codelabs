@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Web componets standards</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h2>What are web components?</h2>
+				<p>
+					Web components are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML
+					tags to use in web pages and web apps. Custom components and widgets build on the Web Component standards, will
+					work across modern browsers, and can be used with any JavaScript library or framework that works with HTML.
+				</p>
+			</section>
+			<section>
+				<h2>What are web components?</h2>
+				<p>
+					Web components are based on existing web standards. Features to support web components are currently being added
+					to the HTML and DOM specs, letting web developers easily extend HTML with new elements with encapsulated styling
+					and custom behavior.
+				</p>
+			</section>
+			<section>
+				<h2>Custom Elements</h2>
+			</section>
+			<section>
+				<h2>Shadow DOM</h2>
+			</section>
+			<section>
+					<h2>ES modules</h2>
+				</section>
+				<section>
+					<h2>
+						HTML Template
+					</h2>
+				</section>
+			<section data-markdown>
+				<textarea data-template>
+						## Html templates
+				
+						A paragraph with some text and a [link](http://hakim.se).
+					</textarea>
+			</section>
+			<section>
+				<pre><code data-trim data-noescape>
+				(def lazy-fib
+				  (concat
+				   [0 1]
+				   <mark>((fn rfib [a b]</mark>
+						(lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
+					</code></pre>
+			</section>
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+			]
+		});
+	</script>
+</body>
+
+</html>
