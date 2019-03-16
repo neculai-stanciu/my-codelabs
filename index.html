@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Hello world</title>
@@ -14,78 +15,77 @@
       })
       .catch(err => console.log("error: ", err));
 
-      function createCodelab(codelab){
-        const codelabDiv = document.createElement('div');
-        codelabDiv.classList.add('codelab');
+    function codelabTemplate(title,summary,presentationBtn,codelabBtn, createdDate, author){
+      return `<div class="w3-card-4">
+                <header class="w3-container w3-light-grey" style="height: 50px;overflow: hidden;">
+                  <h3>${title}</h3>
+                </header>
+                <div class="w3-container w3-center">
+                  <p>
+                    ${summary}
+                  </p>
+                  <div class="w3-section">
+                    <button id=${presentationBtn} class="w3-button w3-green">presentation</button>
+                    <button id=${codelabBtn} class="w3-button w3-dark-grey">codelab</button>
+                  </div>
+                </div>                
+                <footer style="margin: 0 15px;">
+                  <span>${createdDate}</span>
+                  <span style="float:right">${author}</span>
+                </footer>
+              </div>`;
+    }  
 
-        const titleH3 = document.createElement('h3');
-        titleH3.classList.add('title');
-        titleH3.textContent = codelab.title;
+    function addCodelab(codelab) {
+      const container = document.querySelector("#codelabs");
+      const div = document.createElement('div');
+      div.style.width = "30%";
+      div.style.margin = "5px 20px";
+      div.innerHTML = codelabTemplate(codelab.title,
+          codelab.summary,
+          "prst",
+          "codelab1",
+          new Date(codelab.updated).toLocaleDateString(),
+          codelab.author
+          )
+      // const codelabNode = createCodelab(codelab);
 
-        const summaryDiv = document.createElement('div');
-        summaryDiv.classList.add('summary');
-        summaryDiv.textContent = codelab.summary;
-
-        const dateSpan = document.createElement('span');
-        dateSpan.textContent = 'updated: '+ new Date(codelab.updated).toLocaleDateString();
-
-        const authorSpan = document.createElement('span');
-        authorSpan.classList.add('floatRight');
-        authorSpan.textContent = codelab.author;
-
-        const openButton = document.createElement('button');
-        openButton.classList.add('floatRight');
-        openButton.textContent = "open"
-        openButton.addEventListener('click',(ev) => {
-            document.location.href = 'codelabs/'+codelab.id;
-        });
-
-        const footerDiv = document.createElement('div');
-        footerDiv.classList.add('footer');
-        footerDiv.appendChild(dateSpan);
-        footerDiv.appendChild(openButton);
-        footerDiv.appendChild(authorSpan);
-
-        codelabDiv.appendChild(titleH3);
-        codelabDiv.appendChild(summaryDiv);
-        codelabDiv.appendChild(footerDiv);
-        return codelabDiv;
-      }
-      function addCodelab(codelab) {
-        const container = document.querySelector("#codelabs");
-        const codelabNode = createCodelab(codelab);
-       
-        container.appendChild(codelabNode);
-      }
-      function createCards(codelabs){
-        codelabs.forEach(codelab => {
-          addCodelab(codelab); 
-        });
-      }
+      container.appendChild(div);
+    }
+    function createCards(codelabs) {
+      codelabs.forEach(codelab => {
+        addCodelab(codelab);
+      });
+    }
   </script>
   <style>
     #codelabs {
       display: flex;
       flex-wrap: wrap;
     }
+
     .codelab {
       width: 30%;
       margin: 0 1% 20px;
-      box-shadow:0px 0px 1px #b6b0b6;
+      box-shadow: 0px 0px 1px #b6b0b6;
     }
+
     .title {
       text-align: center;
       height: 20px;
       overflow: hidden;
     }
+
     .footer {
       margin: 0 20px;
     }
+
     .summary {
       height: 100px;
       overflow: hidden;
       margin: 5px 10px;
     }
+
     .floatRight {
       float: right;
     }
@@ -94,6 +94,7 @@
 
 <body>
   <h1> All codelabs </h1>
+
   <div id="codelabs">
   </div>
 </body>

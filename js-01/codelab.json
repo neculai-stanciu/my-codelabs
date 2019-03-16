@@ -1,0 +1,26 @@
+{
+  "environment": "web",
+  "source": "codelabs/js-basic-codelab.md",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-03-16T22:53:21+02:00",
+  "id": "js-01",
+  "duration": 110,
+  "title": "Javscript step by step guide",
+  "author": "Stanciu Neculai",
+  "summary": "Javscript guide",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "js"
+  ],
+  "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
+  "ga": "0",
+  "url": "js-01"
+}

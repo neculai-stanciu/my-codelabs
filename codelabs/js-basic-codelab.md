@@ -15,7 +15,7 @@ analytics account: 0
 To specify the title of tutorial just use one “#” like below: 
  -->
 
-Javscript step by step guide
+# Javscript step by step guide
 
 <!-- 
 To specify the title of the first step, use two chars “##” right after title provide information about how much time user should spend on that part.
