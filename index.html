@@ -15,7 +15,7 @@
       })
       .catch(err => console.log("error: ", err));
 
-    function codelabTemplate(title,summary,presentationLink,codelabLink, createdDate, author){
+    function codelabTemplate(title,summary,presentationLink,codelabLink,demoLink, createdDate, author){
       return `<div class="w3-card-4">
                 <header class="w3-container w3-light-grey" style="height: 50px;overflow: hidden;">
                   <h3>${title}</h3>
@@ -27,6 +27,7 @@
                   <div class="w3-section">
                     <a href=${presentationLink} class="w3-button w3-green">presentation</a>
                     <a href=${codelabLink} class="w3-button w3-dark-grey">codelab</a>
+                    <a href=${demoLink} class="w3-button w3-dark-grey">demo</a>
                   </div>
                 </div>                
                 <footer style="margin: 0 15px;">
@@ -45,6 +46,7 @@
           codelab.summary,
           'presentations/'+codelab.id,
           'codelabs/'+codelab.id,
+          'demo/'+codelab.id,
           new Date(codelab.updated).toLocaleDateString(),
           codelab.author
           )

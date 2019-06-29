@@ -1,0 +1,362 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>JS modules</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="JS modules"
+                  environment="web"
+                  feedback-link="https://github.com/neculai-stanciu/my-codelabs/issues">
+    
+      <google-codelab-step label="Module systems for current JavaScript" duration="0">
+        <p>JavaScript does not have built-in support for modules, but the community has created impressive work-arounds. The two most important (and unfortunately incompatible) standards are:</p>
+<ul>
+<li>CommonJS Modules: The dominant implementation of this standard is in Node.js (Node.js modules have a few features that go beyond CommonJS). Characteristics:<ul>
+<li>Compact syntax</li>
+<li>Designed for synchronous loading</li>
+<li>Main use: server</li>
+</ul>
+</li>
+<li>Asynchronous Module Definition (AMD): The most popular implementation of this standard is RequireJS. Characteristics:<ul>
+<li>Slightly more complicated syntax, enabling AMD to work without eval() (or a compilation step).</li>
+<li>Designed for asynchronous loading</li>
+<li>Main use: browser</li>
+</ul>
+</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ECMAScript 6 modules" duration="0">
+        <p>The goal for ECMAScript 6 modules was to create a format that both users of CommonJS and of AMD are happy with:</p>
+<ul>
+<li>Similar to CommonJS, they have a compact syntax, a preference for single exports and support for cyclic dependencies.</li>
+<li>Similar to AMD, they have direct support for asynchronous loading and configurable module loading.</li>
+</ul>
+<p>Being built into the language allows ES6 modules to go beyond CommonJS and AMD (details are explained later):</p>
+<ul>
+<li>Their syntax is even more compact than CommonJS&#39;s.</li>
+<li>Their structure can be statically analyzed (for static checking, optimization, etc.).</li>
+<li>Their support for cyclic dependencies is better than CommonJS&#39;s.</li>
+</ul>
+<p>The ES6 module standard has two parts:</p>
+<ul>
+<li>Declarative syntax (for importing and exporting)</li>
+<li>Programmatic loader API: to configure how modules are loaded and to conditionally load modules</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="An overview of the ES6 module syntax" duration="0">
+        <p>There are two kinds of exports: named exports (several per module) and default exports (one per module).</p>
+<h2>Named exports (several per module)</h2>
+<p>A module can export multiple things by prefixing their declarations with the keyword export. These exports are distinguished by their names and are called named exports.</p>
+<pre><code>//------ lib.js ------
+export const sqrt = Math.sqrt;
+export function square(x) {
+    return x * x;
+}
+export function diag(x, y) {
+    return sqrt(square(x) + square(y));
+}
+
+//------ main.js ------
+import { square, diag } from &#39;lib&#39;;
+console.log(square(11)); // 121
+console.log(diag(4, 3)); // 5
+</code></pre>
+<p>There are other ways to specify named exports (which are explained later), but I find this one quite convenient: simply write your code as if there were no outside world, then label everything that you want to export with a keyword.</p>
+<p>If you want to, you can also import the whole module and refer to its named exports via property notation:</p>
+<pre><code>//------ main.js ------
+import * as lib from &#39;lib&#39;;
+console.log(lib.square(11)); // 121
+console.log(lib.diag(4, 3)); // 5
+</code></pre>
+<p><strong>The same code in CommonJS syntax</strong>:</p>
+<pre><code>//------ lib.js ------
+var sqrt = Math.sqrt;
+function square(x) {
+    return x * x;
+}
+function diag(x, y) {
+    return sqrt(square(x) + square(y));
+}
+module.exports = {
+    sqrt: sqrt,
+    square: square,
+    diag: diag,
+};
+
+//------ main.js ------
+var square = require(&#39;lib&#39;).square;
+var diag = require(&#39;lib&#39;).diag;
+console.log(square(11)); // 121
+console.log(diag(4, 3)); // 5
+</code></pre>
+<h2>Default exports (one per module)</h2>
+<p>Modules that only export single values are very popular in the Node.js community. But they are also common in frontend development where you often have constructors/classes for models, with one model per module. An ECMAScript 6 module can pick a default export, the most important exported value. Default exports are especially easy to import.</p>
+<p>The following ECMAScript 6 module &#34;is&#34; a single function:</p>
+<pre><code>//------ myFunc.js ------
+export default function () { ... };
+
+//------ main1.js ------
+import myFunc from &#39;myFunc&#39;;
+myFunc();
+</code></pre>
+<p>An ECMAScript 6 module whose default export is a class looks as follows:</p>
+<pre><code>//------ MyClass.js ------
+export default class { ... };
+
+//------ main2.js ------
+import MyClass from &#39;MyClass&#39;;
+let inst = new MyClass();
+</code></pre>
+<p>The operand of the default export declaration is an expression, it often does not have a name. Instead, it is to be identified via its module&#39;s name.</p>
+<h2>Having both named exports and a default export in a module</h2>
+<p>The following pattern is surprisingly common in JavaScript: A library is a single function, but additional services are provided via properties of that function. Examples include jQuery and Underscore.js. The following is a sketch of Underscore as a CommonJS module:</p>
+<pre><code>//------ underscore.js ------
+var _ = function (obj) {
+    ...
+};
+var each = _.each = _.forEach =
+    function (obj, iterator, context) {
+        ...
+    };
+module.exports = _;
+
+//------ main.js ------
+var _ = require(&#39;underscore&#39;);
+var each = _.each;
+...
+</code></pre>
+<p>With ES6 glasses, the function _ is the default export, while each and forEach are named exports. As it turns out, you can actually have named exports and a default export at the same time. As an example, the previous CommonJS module, rewritten as an ES6 module, looks like this:</p>
+<pre><code>//------ underscore.js ------
+export default function (obj) {
+    ...
+};
+export function each(obj, iterator, context) {
+    ...
+}
+export { each as forEach };
+
+//------ main.js ------
+import _, { each } from &#39;underscore&#39;;
+...
+</code></pre>
+<p>Note that the CommonJS version and the ECMAScript 6 version are only roughly similar. The latter has a flat structure, whereas the former is nested. Which style you prefer is a matter of taste, but the flat style has the advantage of being statically analyzable (why that is good is explained below). The CommonJS style seems partially motivated by the need for objects as namespaces, a need that can often be fulfilled via ES6 modules and named exports.</p>
+<h3>The default export is just another named export</h3>
+<p>The default export is actually just a named export with the special name default. That is, the following two statements are equivalent:</p>
+<pre><code>import { default as foo } from &#39;lib&#39;;
+import foo from &#39;lib&#39;;
+</code></pre>
+<p>Similarly, the following two modules have the same default export:</p>
+<pre><code>//------ module1.js ------
+export default 123;
+
+//------ module2.js ------
+const D = 123;
+export { D as default };
+</code></pre>
+<h3>Why do we need named exports?</h3>
+<p>You may be wondering – why do we need named exports if we could simply default-export objects (like CommonJS)? The answer is that you can&#39;t enforce a static structure via objects and lose all of the associated advantages (described in the next section).</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Design goals" duration="0">
+        <aside class="special"><p>You can read here <a href="http://2ality.com/2014/09/es6-modules-final.html" target="_blank">here</a></p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="More on importing and exporting" duration="0">
+        <h2>Importing</h2>
+<p>ECMAScript 6 provides the following ways of importing</p>
+<pre><code>// Default exports and named exports
+import theDefault, { named1, named2 } from &#39;src/mylib&#39;;
+import theDefault from &#39;src/mylib&#39;;
+import { named1, named2 } from &#39;src/mylib&#39;;
+
+// Renaming: import named1 as myNamed1
+import { named1 as myNamed1, named2 } from &#39;src/mylib&#39;;
+
+// Importing the module as an object
+// (with one property per named export)
+import * as mylib from &#39;src/mylib&#39;;
+
+// Only load the module, don&#39;t import anything
+import &#39;src/mylib&#39;;
+</code></pre>
+<h2>Exporting</h2>
+<p>There are two ways in which you can export things that are inside the current module. On one hand, you can mark declarations with the keyword export.</p>
+<pre><code>export var myVar1 = ...;
+export let myVar2 = ...;
+export const MY_CONST = ...;
+
+export function myFunc() {
+    ...
+}
+export function* myGeneratorFunc() {
+    ...
+}
+export class MyClass {
+    ...
+}
+</code></pre>
+<p>The &#34;operand&#34; of a default export is an expression (including function expressions and class expressions). Examples:</p>
+<pre><code>export default 123;
+export default function (x) {
+    return x
+};
+export default x =&gt; x;
+export default class {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+};
+</code></pre>
+<p>On the other hand, you can list everything you want to export at the end of the module (which is once again similar in style to the revealing module pattern).</p>
+<pre><code>const MY_CONST = ...;
+function myFunc() {
+    ...
+}
+
+export { MY_CONST, myFunc };
+</code></pre>
+<p>You can also export things under different names:</p>
+<pre><code>export { MY_CONST as THE_CONST, myFunc as theFunc };
+</code></pre>
+<p>Note that you can&#39;t use reserved words (such as default and new) as variable names, but you can use them as names for exports (you can also use them as property names in ECMAScript 5). If you want to directly import such named exports, you have to rename them to proper variables names.</p>
+<h2>Re-exporting</h2>
+<p>Re-exporting means adding another module&#39;s exports to those of the current module. You can either add all of the other module&#39;s exports:</p>
+<pre><code>export * from &#39;src/other_module&#39;;
+</code></pre>
+<p>Or you can be more selective (optionally while renaming):</p>
+<pre><code>export { foo, bar } from &#39;src/other_module&#39;;
+
+// Export other_module&#39;s foo as myFoo
+export { foo as myFoo, bar } from &#39;src/other_module&#39;;
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="eval() and modules" duration="0">
+        <p><code>eval()</code> does not support module syntax. It parses its argument according to the Script grammar rule and scripts don&#39;t support module syntax (why is explained later). If you want to evaluate module code, you can use the module loader API (described next).</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="The ECMAScript 6 module loader API" duration="0">
+        <p>In addition to the declarative syntax for working with modules, there is also a <a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-loader-objects" target="_blank">programmatic API</a>. It allows you to:</p>
+<ul>
+<li>Programmatically work with modules and scripts</li>
+<li>Configure module loading</li>
+</ul>
+<p>Loaders handle resolving <em>module specifiers</em> (the string IDs at the end of import...from), loading modules, etc. Their constructor is Reflect.Loader. Each platform keeps a customized instance in the global variable System (the system loader), which implements its specific style of module loading.</p>
+<h2>Importing modules and loading scripts</h2>
+<p>You can programmatically import a module, via an API based on ES6 promises:</p>
+<pre><code>System.import(&#39;some_module&#39;)
+.then(some_module =&gt; {
+    // Use some_module
+})
+.catch(error =&gt; {
+    ...
+});
+</code></pre>
+<p>System.import() enables you to:</p>
+<ul>
+<li>Use modules inside <code>&lt;script&gt;</code> elements (where module syntax is not supported, consult Sect. &#34;Further information&#34; for details).</li>
+<li>Load modules conditionally.</li>
+</ul>
+<p>System.import() retrieves a single module, you can use Promise.all() to import several modules:</p>
+<pre><code>Promise.all(
+    [&#39;module1&#39;, &#39;module2&#39;, &#39;module3&#39;]
+    .map(x =&gt; System.import(x)))
+.then(([module1, module2, module3]) =&gt; {
+    // Use module1, module2, module3
+});
+</code></pre>
+<p>More loader methods:</p>
+<ul>
+<li><a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-reflect.loader.prototype.module" target="_blank">System.module(source, options?)</a> evaluates the JavaScript code in source to a module (which is delivered asynchronously via a promise).</li>
+<li><a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-reflect.loader.prototype.set" target="_blank">System.set(name, module)</a> is for registering a module (e.g. one you have created via System.module()).</li>
+<li><a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-reflect.loader.prototype.define" target="_blank">System.define(name, source, options?)</a> both evaluates the module code in source and registers the result.</li>
+</ul>
+<h2>Configuring module loading</h2>
+<p>The module loader API has various hooks for configuration. It is still work in progress. A first system loader for browsers is currently being implemented and tested. The goal is to figure out how to best make module loading configurable.</p>
+<p>The loader API will permit many customizations of the loading process. For example:</p>
+<ol type="1">
+<li>Lint modules on import (e.g. via JSLint or JSHint).</li>
+<li>Automatically translate modules on import (they could contain CoffeeScript or TypeScript code).</li>
+<li>Use legacy modules (AMD, Node.js).</li>
+</ol>
+<p>Configurable module loading is an area where Node.js and CommonJS are limited.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Further information" duration="0">
+        <p>The following content answers two important questions related to ECMAScript 6 modules: How do I use them today? How do I embed them in HTML?</p>
+<ul>
+<li><a href="http://2ality.com/2014/08/es6-today.html" target="_blank">&#34;Using ECMAScript 6 today&#34;</a> gives an overview of ECMAScript 6 and explains how to compile it to ECMAScript 5. If you are interested in the latter, start reading in Sect. 2. One intriguing minimal solution is the ES6 Module Transpiler which only adds ES6 module syntax to ES5 and compiles it to either AMD or CommonJS.</li>
+<li><strong>Embedding ES6 modules in HTML</strong>: The code inside <code>&lt;script&gt;</code> elements does not support module syntax, because the element&#39;s synchronous nature is incompatible with the asynchronicity of modules. Instead, you need to use the new <code>&lt;module&gt;</code> element. The blog post &#34;ECMAScript 6 modules in future browsers&#34; explains how <code>&lt;module&gt;</code> works. It has several significant advantages over <code>&lt;script&gt;</code> and can be polyfilled in its alternative version <code>&lt;script type=&#34;module&#34;&gt;</code>.</li>
+<li><strong>CommonJS vs. ES6</strong>: <a href="http://jsmodules.io/" target="_blank">&#34;JavaScript Modules&#34;</a> (by Yehuda Katz) is a quick intro to ECMAScript 6 modules. Especially interesting is a <a href="http://jsmodules.io/cjs.html" target="_blank">second page</a> where CommonJS modules are shown side by side with their ECMAScript 6 versions.</li>
+</ul>
+<p>Read more: http://2ality.com/2014/09/es6-modules-final.html</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '0';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>

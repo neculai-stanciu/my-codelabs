@@ -1,37 +1,21 @@
-## Welcome to GitHub Pages
+# Codelabs
 
-You can use the [editor on GitHub](https://github.com/neculai-stanciu/my-codelabs/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## Install claat
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+> More details about this tool can be find [here](https://github.com/googlecodelabs/tools)
 
-### Markdown
+## Create codelab
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+> This command should be run in **codelabs** folder 
+```bash
+claat export js-basic-codelab.md
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Collect all codelabs
 
-### Jekyll Themes
+```
+npm run collect-codelabs
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/neculai-stanciu/my-codelabs/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+## Run codelabs locally
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.

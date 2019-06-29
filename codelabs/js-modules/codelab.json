@@ -1,0 +1,26 @@
+{
+  "environment": "web",
+  "source": "js-modules-codelab.md",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-05-03T10:59:12+03:00",
+  "id": "js-modules",
+  "duration": 0,
+  "title": "JS modules",
+  "author": "Stanciu Neculai",
+  "summary": "A simple introduction to JS modules",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "js"
+  ],
+  "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
+  "ga": "0",
+  "url": "js-modules"
+}
