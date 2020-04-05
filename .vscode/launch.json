@@ -16,6 +16,12 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}\\collect-codelabs.js"
+        },
+        {
+            "type": "vscode-edge-devtools.debug",
+            "request": "launch",
+            "name": "Launch Microsoft Edge and open the Elements tool",
+            "url": "http://localhost:8000"
         }
     ]
 }

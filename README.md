@@ -6,16 +6,20 @@
 
 ## Create codelab
 
-> This command should be run in **codelabs** folder 
+> This command should be run in **codelabs** folder
+
 ```bash
 claat export js-basic-codelab.md
 ```
 
 ## Collect all codelabs
 
-```
-npm run collect-codelabs
+```bash
+  npm run collect-codelabs
 ```
 
 ## Run codelabs locally
 
+```bash
+npm start
+```

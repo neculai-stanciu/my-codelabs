@@ -4,10 +4,9 @@
   "description": "simple codelabs",
   "main": "collect-codelabs.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "serve",
     "export:basic": "cd codelabs && claat.exe export js-basic-codelab.md",
     "export:modules": "cd codelabs && claat.exe export js-modules-codelab.md",
-    "start": "serve",
     "prestart": "npm run export:basic & npm run export:modules & npm run collect-codelabs",
     "collect-codelabs": "node collect-codelabs.js"
   },
@@ -22,6 +21,6 @@
   },
   "homepage": "https://github.com/neculai-stanciu/my-codelabs#readme",
   "devDependencies": {
-    "serve": "^11.0.0"
+    "serve": "^11.3.0"
   }
 }

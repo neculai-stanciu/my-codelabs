@@ -2,10 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 const dir = 'codelabs';
+
 startCollecting = (dirPath) => {
     const self = this;
     const codelabs = [];
-    
     fs.readdirSync(dirPath).forEach((file) => {
         const fullPath = path.join(dirPath, file);
         const stats = fs.statSync(fullPath);
