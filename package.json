@@ -8,7 +8,7 @@
     "export:basic": "cd codelabs && claat.exe export js-basic-codelab.md",
     "export:modules": "cd codelabs && claat.exe export js-modules-codelab.md",
     "prestart": "npm run export:basic & npm run export:modules & npm run collect-codelabs",
-    "generate-pres": "node generate-presentations.js",
+    "generate-presentations": "node generate-presentations.js",
     "collect-codelabs": "node collect-codelabs.js"
   },
   "repository": {
