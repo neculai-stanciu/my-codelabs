@@ -22,5 +22,6 @@
   "homepage": "https://github.com/neculai-stanciu/my-codelabs#readme",
   "devDependencies": {
     "serve": "^11.3.0"
-  }
+  },
+  "dependencies": {}
 }
