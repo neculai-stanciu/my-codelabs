@@ -4,10 +4,11 @@
   "description": "simple codelabs",
   "main": "collect-codelabs.js",
   "scripts": {
-    "start": "serve",
+    "start": "http-server .",
     "export:basic": "cd codelabs && claat.exe export js-basic-codelab.md",
     "export:modules": "cd codelabs && claat.exe export js-modules-codelab.md",
     "prestart": "npm run export:basic & npm run export:modules & npm run collect-codelabs",
+    "generate-pres": "node generate-presentations.js",
     "collect-codelabs": "node collect-codelabs.js"
   },
   "repository": {
@@ -21,7 +22,8 @@
   },
   "homepage": "https://github.com/neculai-stanciu/my-codelabs#readme",
   "devDependencies": {
-    "serve": "^11.3.0"
+    "http-server": "^0.12.1",
+    "reveal-md": "^3.4.7"
   },
   "dependencies": {}
 }

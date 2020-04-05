@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>My workshops</title>
+  <title>Workshops</title>
   <script>
     fetch('all-codelabs.json')
       .then(res => res.json())
@@ -15,7 +15,7 @@
       })
       .catch(err => console.log("error: ", err));
 
-    function codelabTemplate(title,summary,presentationLink,codelabLink,demoLink, createdDate, author){
+    function codelabTemplate({title,summary,presentationLink,codelabLink,demoLink, createdDate, author}){
       return `<div class="w3-card-4">
                 <header class="w3-container w3-light-grey" style="height: 50px;overflow: hidden;">
                   <h3>${title}</h3>
@@ -42,14 +42,17 @@
       const div = document.createElement('div');
       div.style.width = "30%";
       div.style.margin = "5px 20px";
-      div.innerHTML = codelabTemplate(codelab.title,
-          codelab.summary,
-          'presentations/'+codelab.id,
-          'codelabs/'+codelab.id,
-          'demo/'+codelab.id,
-          new Date(codelab.updated).toLocaleDateString(),
-          codelab.author
-          )
+      div.innerHTML = codelabTemplate({
+          title: codelab.title,
+          summary: codelab.summary,
+          containsPresentation: codelab.containsPresentation,
+          presentationLink: 'presentations/'+codelab.id,
+          codelabLink: 'codelabs/'+codelab.id,
+          containsDemo: codelab.containsDemo,
+          demoLink: 'demo/'+codelab.id,
+          createdDate: new Date(codelab.updated).toLocaleDateString(),
+          author: codelab.author
+      })
       // const codelabNode = createCodelab(codelab);
 
       container.appendChild(div);

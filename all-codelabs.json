@@ -23,7 +23,9 @@
     ],
     "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
     "ga": "0",
-    "url": "js-basic"
+    "url": "js-basic",
+    "containsPresentation": true,
+    "containsDemo": false
   },
   {
     "environment": "web",
@@ -49,6 +51,8 @@
     ],
     "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
     "ga": "0",
-    "url": "js-modules"
+    "url": "js-modules",
+    "containsPresentation": true,
+    "containsDemo": false
   }
 ]

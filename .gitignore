@@ -1,2 +1,7 @@
 
 node_modules
+
+# Exclude all files except .md files
+presentations/*
+!presentations/*.md
+
