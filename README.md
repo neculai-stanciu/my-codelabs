@@ -8,6 +8,14 @@
 
 > This command should be run in **codelabs** folder
 
+- build codelab
+
+```bash
+claat export js-basic-codelab.md
+```
+
+- export codelab:
+
 ```bash
 claat export js-basic-codelab.md
 ```
@@ -15,7 +23,7 @@ claat export js-basic-codelab.md
 ## Collect all codelabs
 
 ```bash
-  npm run collect-codelabs
+  npm run collect:codelabs
 ```
 
 ## Run codelabs locally
@@ -29,7 +37,7 @@ npm start
 ## Generate all static presentations
 
 ```bash
-npm run generate-presentations
+npm run generate:presentations
 ```
 
 ## Added *codelab-generator* support
@@ -40,6 +48,12 @@ In order to use *codelab-generator* in the codelabs directory you must provide:
 
 - a json file with metadata for creating the card layout
 - a markdown file with all necessary steps for tutorial
+
+Codelab static content could be generated using:
+
+```bash
+npm run generate:codelabs
+```
 
 ## Todo
 
