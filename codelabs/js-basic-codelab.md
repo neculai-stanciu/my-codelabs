@@ -11,13 +11,13 @@ status: draft
 feedback link: https://github.com/neculai-stanciu/my-codelabs/issues
 analytics account: 0
 
-<!-- 
-To specify the title of tutorial just use one “#” like below: 
+<!--
+To specify the title of tutorial just use one “#” like below:
  -->
 
 # Javscript basic
 
-<!-- 
+<!--
 To specify the title of the first step, use two chars “##” right after title provide information about how much time user should spend on that part.
  -->
 
@@ -43,12 +43,12 @@ In JavaScript there are two types of scope:
 * Local scope
 * Global scope
 
-JavaScript has function scope: Each function creates a new scope.  
+JavaScript has function scope: Each function creates a new scope.
 Scope determines the accessibility (visibility) of these variables.\Variables defined inside a function are not accessible (visible) from outside the function.
 
 ### Local JavaScript Variables
 
-Variables declared within a JavaScript function, become **LOCAL** to the function.  
+Variables declared within a JavaScript function, become **LOCAL** to the function.
 Local variables have **Function scope**: They can only be accessed from within the function.
 
 ```js
@@ -97,7 +97,7 @@ myFunction();
 
 function myFunction() {
   carName = "Volvo";
-} 
+}
 ```
 
 ### Global Variables in HTML
@@ -113,8 +113,8 @@ var carName = "Volvo";
 ```
 
 Negative
-:Do NOT create global variables unless you intend to.  
-Your global variables (or functions) can overwrite window variables (or functions).  
+:Do NOT create global variables unless you intend to.
+Your global variables (or functions) can overwrite window variables (or functions).
 Any function, including the window object, can overwrite your global variables and functions.
 
 
@@ -125,18 +125,18 @@ Hoisting is JavaScript's default behavior of moving declarations to the top.
 
 ### JavaScript Declarations are Hoisted
 
-In JavaScript, a variable can be declared after it has been used.  
-In other words; a variable can be used before it has been declared.  
+In JavaScript, a variable can be declared after it has been used.
+In other words; a variable can be used before it has been declared.
 **Example 1** gives the same result as **Example 2**:
 
 ```js
 // Example 1
 x = 5; // Assign 5 to x
 
-elem = document.getElementById("demo"); // Find an element 
+elem = document.getElementById("demo"); // Find an element
 elem.innerHTML = x;                     // Display x in the element
 
-var x; // Declare x 
+var x; // Declare x
 ```
 
 ```js
@@ -144,11 +144,11 @@ var x; // Declare x
 var x; // Declare x
 x = 5; // Assign 5 to x
 
-elem = document.getElementById("demo"); // Find an element 
+elem = document.getElementById("demo"); // Find an element
 elem.innerHTML = x;                     // Display x in the element
 ```
 
-To understand this, you have to understand the term "hoisting".  
+To understand this, you have to understand the term "hoisting".
 Hoisting is JavaScript's default behavior of moving all declarations to the top of the current scope (to the top of the current script or the current function).
 
 ### The let and const Keywords
@@ -166,11 +166,11 @@ Duration: 5:00
 `use strict;` Defines that JavaScript code should be executed in "strict mode".
 
 ### The "use strict" Directive
-The "use strict" directive was new in ECMAScript version 5.  
+The "use strict" directive was new in ECMAScript version 5.
 
-It is not a statement, but a literal expression, ignored by earlier versions of JavaScript.  
+It is not a statement, but a literal expression, ignored by earlier versions of JavaScript.
 
-The purpose of "use strict" is to indicate that the code should be executed in "strict mode".  
+The purpose of "use strict" is to indicate that the code should be executed in "strict mode".
 
 With strict mode, you can not, for example, use undeclared variables.
 
@@ -191,7 +191,7 @@ myFunction();
 
 function myFunction() {
   y = 3.14;   // This will also cause an error because y is not declared
-} 
+}
 ```
 
 Declared inside a function, it has local scope (only the code inside the function is in strict mode):
@@ -225,7 +225,7 @@ In normal JavaScript, a developer will not receive any error feedback assigning 
 
 In strict mode, any assignment to a non-writable property, a getter-only property, a non-existing property, a non-existing variable, or a non-existing object, will throw an error.
 
-## *this* keyword
+## this keyword
 Duration: 30:00
 
 ```js
@@ -240,7 +240,7 @@ var person = {
 ```
 ### What is **this**?
 
-The JavaScript **this** keyword refers to the object it belongs to. 
+The JavaScript **this** keyword refers to the object it belongs to.
 
 Positive
 : It has different values depending on where it is used:
@@ -278,7 +278,7 @@ In **strict mode**, when used alone, `this` also refers to the Global object `[o
 
 ```js
 "use strict";
-var x = this; 
+var x = this;
 ```
 
 ### **this** in a Function (Default)
@@ -310,7 +310,7 @@ In HTML event handlers, `this` refers to the HTML element that received the even
 ```html
 <button onclick="this.style.display='none'">
   Click to Remove Me!
-</button> 
+</button>
 ```
 
 ### Object Method Binding
@@ -358,10 +358,10 @@ var person2 = {
   firstName:"John",
   lastName: "Doe",
 }
-person1.fullName.call(person2);  // Will return "John Doe" 
+person1.fullName.call(person2);  // Will return "John Doe"
 ```
 
-## *let* and *const*
+## let and const
 Duration: 10:00
 
 ### ECMAScript 2015
@@ -399,9 +399,9 @@ function myFunction() {
   // code here CAN use carName
 }
 
-// code here can NOT use carName 
+// code here can NOT use carName
 ```
-**Local** variables can only be accessed from inside the function where they are declared. 
+**Local** variables can only be accessed from inside the function where they are declared.
 
 ### JavaScript Block Scope
 
@@ -413,20 +413,20 @@ Variables declared inside a block `{}` can be accessed from outside the block.
 {
   var x = 2;
 }
-// x CAN be used here 
+// x CAN be used here
 ```
-Before ES2015 JavaScript did not have **Block Scope**.  
-Variables declared with the `let` keyword can have Block Scope.  
+Before ES2015 JavaScript did not have **Block Scope**.
+Variables declared with the `let` keyword can have Block Scope.
 Variables declared inside a block `{}` can not be accessed from outside the block:
 
 ```js
 {
   let x = 2;
 }
-// x can NOT be used here 
+// x can NOT be used here
 ```
 
-Declaring a variable with `const` is similar to `let` when it comes to **Block Scope**.  
+Declaring a variable with `const` is similar to `let` when it comes to **Block Scope**.
 
 The x declared in the block, in this example, is not the same as the x declared outside the block:
 
@@ -437,30 +437,30 @@ The x declared in the block, in this example, is not the same as the x declared 
   const x = 2;
   // Here x is 2
 }
-// Here x is 10 
+// Here x is 10
 ```
 ### Not Real Constants
 
-The keyword `const` is a little misleading.  
-It does NOT define a constant value. It defines a constant reference to a value.  
+The keyword `const` is a little misleading.
+It does NOT define a constant value. It defines a constant reference to a value.
 Because of this, we cannot change constant primitive values, but we can change the properties of constant objects.
 
 ### Hoisting
 
-Variables defined with `const` or `let` are not hoisted to the top.  
+Variables defined with `const` or `let` are not hoisted to the top.
 A `const` variable cannot be used before it is declared:
 
 ```js
 carName = "Volvo";    // You can NOT use carName here
-const carName = "Volvo"; 
+const carName = "Volvo";
 ```
 
-Using a `let` variable before it is declared will result in a `ReferenceError`.  
+Using a `let` variable before it is declared will result in a `ReferenceError`.
 The variable is in a "temporal dead zone" from the start of the block until it is declared:
 
 ```js
 // you can NOT use carName here
-let carName; 
+let carName;
 ```
 
 ## Debugging
@@ -498,7 +498,7 @@ console.log(c);
 </script>
 
 </body>
-</html> 
+</html>
 ```
 
 ## Best Prctices

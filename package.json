@@ -5,11 +5,12 @@
   "main": "collect-codelabs.js",
   "scripts": {
     "start": "http-server .",
-    "export:basic": "cd codelabs && claat.exe export js-basic-codelab.md",
-    "export:modules": "cd codelabs && claat.exe export js-modules-codelab.md",
-    "prestart": "npm run export:basic & npm run export:modules & npm run collect-codelabs",
-    "generate-presentations": "node generate-presentations.js",
-    "collect-codelabs": "node collect-codelabs.js"
+    "prestart": "npm run generate & npm run collect:codelabs",
+    "generate": "npm run generate:codelabs & npm run generate:presentations",
+    "generate:codelabs": "node generate-codelabs.js",
+    "generate:presentations": "node generate-presentations.js",
+    "collect:codelabs": "node collect-codelabs.js",
+    "debug": "node --nolazy --inspect-brk=9229 generate-codelabs.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +23,11 @@
   },
   "homepage": "https://github.com/neculai-stanciu/my-codelabs#readme",
   "devDependencies": {
+    "chokidar": "^3.3.1",
     "http-server": "^0.12.1",
     "reveal-md": "^3.4.7"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@dxdeveloperexperience/codelab-generator": "^1.0.7"
+  }
 }

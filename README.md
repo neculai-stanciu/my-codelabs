@@ -32,6 +32,15 @@ npm start
 npm run generate-presentations
 ```
 
+## Added *codelab-generator* support
+
+> Codelab-generator offers support only for some functionalities from claat tool.
+
+In order to use *codelab-generator* in the codelabs directory you must provide:
+
+- a json file with metadata for creating the card layout
+- a markdown file with all necessary steps for tutorial
+
 ## Todo
 
 - [X] Add reveal.js integration

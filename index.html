@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-deep-orange.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Workshops</title>
+  <title>Micronaut</title>
   <script>
     fetch('all-codelabs.json')
       .then(res => res.json())
@@ -15,22 +16,24 @@
       })
       .catch(err => console.log("error: ", err));
 
-    function codelabTemplate({title,summary,presentationLink,codelabLink,demoLink, createdDate, author}){
+    function codelabTemplate({ title, summary, presentationLink, codelabLink, demoLink, createdDate, author,
+      containsPresentation, containsDemo }) {
+
       return `<div class="w3-card-4">
-                <header class="w3-container w3-light-grey" style="height: 50px;overflow: hidden;">
+                <header class="w3-container w3-theme" style="height: 50px;overflow: hidden;">
                   <h3>${title}</h3>
                 </header>
-                <div class="w3-container w3-center">
-                  <p>
+                <div class="w3-container w3-text-theme w3-center" style="height:300px;overflow-x:auto;">
+                  <p style="height:200px;overflow-x:auto;">
                     ${summary}
                   </p>
-                  <div class="w3-section">
-                    <a href=${presentationLink} class="w3-button w3-green">presentation</a>
-                    <a href=${codelabLink} class="w3-button w3-dark-grey">codelab</a>
-                    <a href=${demoLink} class="w3-button w3-dark-grey">demo</a>
+                  <div class="w3-section" style="height:50px;">
+                    ${containsPresentation ? `<a href=${presentationLink} class="w3-button w3-indigo">presentation</a>` : ''}
+                    <a href=${codelabLink} class="w3-button w3-theme">codelab</a>
+                    ${containsDemo ? `<a href=${demoLink} class="w3-button w3-grey">demo</a>` : ''}
                   </div>
                 </div>
-                <footer style="margin: 0 15px;">
+                <footer class="w3-bar w3-theme" style="padding: 0 15px;">
                   <span>${createdDate}</span>
                   <span style="float:right">${author}</span>
                 </footer>
@@ -43,15 +46,15 @@
       div.style.width = "30%";
       div.style.margin = "5px 20px";
       div.innerHTML = codelabTemplate({
-          title: codelab.title,
-          summary: codelab.summary,
-          containsPresentation: codelab.containsPresentation,
-          presentationLink: 'presentations/'+codelab.id,
-          codelabLink: 'codelabs/'+codelab.id,
-          containsDemo: codelab.containsDemo,
-          demoLink: 'demo/'+codelab.id,
-          createdDate: new Date(codelab.updated).toLocaleDateString(),
-          author: codelab.author
+        title: codelab.title,
+        summary: codelab.summary,
+        containsPresentation: codelab.containsPresentation,
+        presentationLink: 'presentations/' + codelab.id,
+        codelabLink: 'codelabs/' + codelab.id,
+        containsDemo: codelab.containsDemo,
+        demoLink: 'demo/' + codelab.id,
+        createdDate: new Date(codelab.updated).toLocaleDateString(),
+        author: codelab.author,
       })
       // const codelabNode = createCodelab(codelab);
 
@@ -64,7 +67,7 @@
     }
   </script>
   <style>
-  #codelabs {
+    #codelabs {
       display: flex;
       flex-wrap: wrap;
     }
@@ -72,8 +75,7 @@
 </head>
 
 <body>
-  <h1 style="text-align: center;"> Let's begin </h1>
-
+  <h1 style="text-align: center;" class="w3-text-theme"> Micronaut tutorials </h1>
   <div id="codelabs">
   </div>
 </body>
