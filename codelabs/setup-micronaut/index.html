@@ -1,0 +1,132 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Setup micronaut CLI</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Setup micronaut CLI"
+                  environment="web"
+                  feedback-link="https://github.com/neculai-stanciu/my-codelabs/issues">
+    
+      <google-codelab-step label="Build/Install the CLI" duration="20">
+        <p><a href="https://www.youtube.com/watch?v=R90A8drFkyQ" target="_blank">https://www.youtube.com/watch?v=R90A8drFkyQ</a></p>
+<google-youtube fluid video-id="R90A8drFkyQ"></google-youtube>
+<h2>Install with Sdkman</h2>
+<p>In order to install Micronaut, run following command:</p>
+<pre><code>$ sdk install micronaut
+</code></pre>
+<p>You can also specify the version to the sdk install command.</p>
+<pre><code>$ sdk install micronaut 1.3.4
+</code></pre>
+<p>You can find more information about SDKMAN usage on the <a href="http://sdkman.io/usage" target="_blank">SDKMAN Docs</a></p>
+<p>You should now be able to run the Micronaut CLI.</p>
+<pre><code>$ mn
+| Starting interactive mode...
+| Enter a command name to run. Use TAB for completion:
+mn&gt;
+</code></pre>
+<h2>Install with Homebrew</h2>
+<p>In order to install Micronaut, run following command:</p>
+<pre><code>$ brew install micronaut
+</code></pre>
+<p>You can find more information about Homebrew usage on their <a href="https://brew.sh/" target="_blank">homepage</a>.</p>
+<h2>Install through Binary on Windows</h2>
+<ul>
+<li>Download the latest binary from <a href="http://micronaut.io/download.html" target="_blank">Micronaut Website</a></li>
+<li>Extract the binary to appropriate location (For example: C:\micronaut)</li>
+<li>Create an environment variable MICRONAUT_HOME which points to the installation directory i.e. C:\micronaut</li>
+<li>Update the PATH environment variable, append %MICRONAUT_HOME%\bin.</li>
+</ul>
+<aside class="warning"><p>If you are using an internal repository please make sure to mirror <em>jcenter</em> repository</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating a Server Application" duration="0">
+        <pre><code> mn create-app hello-world
+</code></pre>
+<aside class="special"><p>You can supply –build maven if you wish to create a Maven based build instead</p>
+</aside>
+<p>The previous command will create a new Java application in a directory called hello-world featuring a Gradle build. The application can be run with ./gradlew run:</p>
+<pre><code>$ ./gradlew run
+&gt; Task :run
+[main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 972ms. Server Running: http://localhost:28933
+</code></pre>
+<p>If you have created a Maven based project, use ./mvnw compile exec:exec instead.</p>
+<p>By default the Micronaut HTTP server is configured to run on port 8080. See the section Running Server on a Specific Port in the user guide for more options.</p>
+<p>In order to create a service that responds to &#34;Hello World&#34; you first need a controller. The following is an example of a controller:</p>
+<pre><code>import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+
+@Controller(&#34;/hello&#34;) //#1
+public class HelloController {
+
+    @Get(produces = MediaType.TEXT_PLAIN) //#2
+    public String index() {
+        return &#34;Hello World&#34;; //#3
+    }
+}
+</code></pre>
+<ol type="1">
+<li>The class is defined as a controller with the @Controller annotation mapped to the path /hello</li>
+<li>The @Get annotation is used to map the index method to all requests that use an HTTP GET</li>
+<li>A String &#34;Hello World&#34; is returned as the result</li>
+</ol>
+<p>If you start the application and send a request to the /hello URI then the text &#34;Hello World&#34; is returned:</p>
+<pre><code>$ curl http://localhost:8080/hello
+Hello World
+</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>

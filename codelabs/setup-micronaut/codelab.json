@@ -1,0 +1,23 @@
+{
+  "environment": "web",
+  "source": "setup-micronaut.codelab.md",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-04-12T22:30:08+03:00",
+  "id": "setup-micronaut",
+  "duration": 20,
+  "title": "Setup micronaut CLI",
+  "author": "Stanciu Neculai",
+  "summary": "In this moment Micronaut CLI is the way to go to generate a micronaut project. In this tutorial we will install this tool and create a",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
+  "url": "setup-micronaut"
+}

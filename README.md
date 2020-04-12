@@ -55,6 +55,10 @@ Codelab static content could be generated using:
 npm run generate:codelabs
 ```
 
+## Tutorials about claat
+
+- <https://medium.com/@zarinlo/publish-technical-tutorials-in-google-codelab-format-b07ef76972cd>
+
 ## Todo
 
 - [X] Add reveal.js integration
