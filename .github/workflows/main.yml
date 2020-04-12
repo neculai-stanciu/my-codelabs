@@ -26,6 +26,8 @@ jobs:
     # Run claat test
     - name: Run wget to retrieve claat
       run: wget https://github.com/googlecodelabs/tools/releases/download/v2.2.0/claat-linux-amd64 -O claat
+    - name: Run ls 
+      run: ls
     - name: Run claat help
       run: claat -h
     # Runs a set of commands using the runners shell
