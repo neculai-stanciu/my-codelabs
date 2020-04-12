@@ -28,7 +28,7 @@ jobs:
       run: go get github.com/googlecodelabs/tools/claat
     # Runs a single command using the runners shell
     - name: Run a one-line script
-      run: ls $GOROOT
+      run: ls $GOROOT/bin
     - name: Run pwd
       run: cd /bin && ls
     # Runs a set of commands using the runners shell
