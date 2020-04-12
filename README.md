@@ -17,7 +17,7 @@ claat export js-basic-codelab.md
 - export codelab:
 
 ```bash
-claat export js-basic-codelab.md
+claat build js-basic-codelab.md
 ```
 
 ## Collect all codelabs
