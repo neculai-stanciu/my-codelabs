@@ -41,6 +41,9 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '10.x'      
-    # Runs a set of commands using the runners shell
+    # Install dependencies
+    - name: Install dependencies
+      run: npm install
+    # Generate sources
     - name: Run generate codelab
       run: npm run generate
