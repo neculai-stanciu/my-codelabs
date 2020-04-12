@@ -25,7 +25,9 @@ jobs:
 
     # Run claat test
     - name: Run claat setup
-      run: go get github.com/googlecodelabs/tools/claat
+      run: $GOROOT/bin/go get github.com/googlecodelabs/tools/claat
+    - name: Run wget to retrieve claat
+      run: wget https://github.com/googlecodelabs/tools/releases/download/v2.2.0/claat-linux-amd64
     # Runs a single command using the runners shell
     - name: Run a one-line script
       run: ls $GOROOT/bin
