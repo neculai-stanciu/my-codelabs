@@ -11,5 +11,5 @@ presentations/*
 *.ipr
 
 # Exclude generated code labs
-codelabs/*
+codelabs/
 !codelabs/*.md
