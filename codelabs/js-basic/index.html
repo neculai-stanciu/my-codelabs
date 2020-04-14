@@ -1,0 +1,392 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Javscript basic</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="js-basic"
+                  title="Javscript basic"
+                  environment="web"
+                  feedback-link="https://github.com/neculai-stanciu/my-codelabs/issues">
+    
+      <google-codelab-step label="Overview of the tutorial" duration="0">
+        <p>In this course you will learn about:</p>
+<ol type="1">
+<li>Function Scope</li>
+<li>Hoisting</li>
+<li>Strict mode</li>
+<li>Prototype</li>
+<li><code>this</code> keyword</li>
+<li><code>let</code> and <code>const</code></li>
+<li>Debugging</li>
+<li>Best Prctices</li>
+<li>Versions</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Function Scope" duration="10">
+        <p>In JavaScript there are two types of scope:</p>
+<ul>
+<li>Local scope</li>
+<li>Global scope</li>
+</ul>
+<p>JavaScript has function scope: Each function creates a new scope.<br>Scope determines the accessibility (visibility) of these variables.\Variables defined inside a function are not accessible (visible) from outside the function.</p>
+<h2 is-upgraded>Local JavaScript Variables</h2>
+<p>Variables declared within a JavaScript function, become <strong>LOCAL</strong> to the function.<br>Local variables have <strong>Function scope</strong>: They can only be accessed from within the function.</p>
+<pre><code>// code here can NOT use carName
+
+function myFunction() {
+  var carName = &#34;Volvo&#34;;
+
+  // code here CAN use carName
+}
+</code></pre>
+<p>Since local variables are only recognized inside their functions, variables with the same name can be used in different functions.</p>
+<p>Local variables are created when a function starts, and deleted when the function is completed.</p>
+<h2 is-upgraded>Global JavaScript Variables</h2>
+<p>A variable declared outside a function, becomes <strong>GLOBAL</strong>.<br>A global variable has <strong>global scope</strong>: All scripts and functions on a web page can access it.</p>
+<pre><code>var carName = &#34;Volvo&#34;;
+
+// code here can use carName
+
+function myFunction() {
+
+  // code here can also use carName
+}
+</code></pre>
+<h2 is-upgraded>JavaScript Variables</h2>
+<p>In JavaScript, objects and functions are also variables.</p>
+<aside class="special"><p>Scope determines the accessibility of variables, objects, and functions from different parts of the code.</p>
+</aside>
+<h2 is-upgraded>Automatically Global</h2>
+<p>If you assign a value to a variable that has not been declared, it will automatically become a <strong>GLOBAL</strong> variable.<br>This code example will declare a global variable <code>carName</code>, even if the value is assigned inside a function.</p>
+<pre><code>myFunction();
+
+// code here can use carName
+
+function myFunction() {
+  carName = &#34;Volvo&#34;;
+}
+</code></pre>
+<h2 is-upgraded>Global Variables in HTML</h2>
+<p>With JavaScript, the global scope is the complete JavaScript environment.</p>
+<p>In HTML, the global scope is the window object. All global variables belong to the window object.</p>
+<pre><code>var carName = &#34;Volvo&#34;;
+
+// code here can use window.carName
+</code></pre>
+<p>Negative<br>:Do NOT create global variables unless you intend to.<br>Your global variables (or functions) can overwrite window variables (or functions).<br>Any function, including the window object, can overwrite your global variables and functions.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Hoisting" duration="10">
+        <p>Hoisting is JavaScript&#39;s default behavior of moving declarations to the top.</p>
+<h2 is-upgraded>JavaScript Declarations are Hoisted</h2>
+<p>In JavaScript, a variable can be declared after it has been used.<br>In other words; a variable can be used before it has been declared.<br><strong>Example 1</strong> gives the same result as <strong>Example 2</strong>:</p>
+<pre><code>// Example 1
+x = 5; // Assign 5 to x
+
+elem = document.getElementById(&#34;demo&#34;); // Find an element
+elem.innerHTML = x;                     // Display x in the element
+
+var x; // Declare x
+</code></pre>
+<pre><code>// Example 2
+var x; // Declare x
+x = 5; // Assign 5 to x
+
+elem = document.getElementById(&#34;demo&#34;); // Find an element
+elem.innerHTML = x;                     // Display x in the element
+</code></pre>
+<p>To understand this, you have to understand the term &#34;hoisting&#34;.<br>Hoisting is JavaScript&#39;s default behavior of moving all declarations to the top of the current scope (to the top of the current script or the current function).</p>
+<h2 is-upgraded>The let and const Keywords</h2>
+<aside class="special"><p>Variables and constants declared with let or const are not hoisted!</p>
+</aside>
+<aside class="special"><p>Read more about let and const in <a href="https://www.w3schools.com/Js/js_let.asp" target="_blank">JS Let / Const</a>.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Strict mode" duration="5">
+        <p><code>use strict;</code> Defines that JavaScript code should be executed in &#34;strict mode&#34;.</p>
+<h2 is-upgraded>The &#34;use strict&#34; Directive</h2>
+<p>The &#34;use strict&#34; directive was new in ECMAScript version 5.</p>
+<p>It is not a statement, but a literal expression, ignored by earlier versions of JavaScript.</p>
+<p>The purpose of &#34;use strict&#34; is to indicate that the code should be executed in &#34;strict mode&#34;.</p>
+<p>With strict mode, you can not, for example, use undeclared variables.</p>
+<h2 is-upgraded>Declaring Strict Mode</h2>
+<p>Strict mode is declared by adding <code>use strict;</code> to the beginning of a script or a function.</p>
+<p>Declared at the beginning of a script, it has global scope (all code in the script will execute in strict mode):</p>
+<pre><code>&#34;use strict&#34;;
+x = 3.14;       // This will cause an error because x is not declared
+</code></pre>
+<pre><code>&#34;use strict&#34;;
+myFunction();
+
+function myFunction() {
+  y = 3.14;   // This will also cause an error because y is not declared
+}
+</code></pre>
+<p>Declared inside a function, it has local scope (only the code inside the function is in strict mode):</p>
+<pre><code>x = 3.14;       // This will not cause an error.
+myFunction();
+
+function myFunction() {
+  &#34;use strict&#34;;
+  y = 3.14;   // This will cause an error
+}
+</code></pre>
+<h2 is-upgraded>The &#34;use strict&#34;; Syntax</h2>
+<p>The syntax, for declaring strict mode, was designed to be compatible with older versions of JavaScript.</p>
+<p>Compiling a numeric literal (4 + 5;) or a string literal (&#34;John Doe&#34;;) in a JavaScript program has no side effects. It simply compiles to a non existing variable and dies.</p>
+<p>So <code>use strict</code> only matters to new compilers that &#34;understand&#34; the meaning of it.</p>
+<h2 is-upgraded>Why Strict Mode?</h2>
+<p>Strict mode makes it easier to write &#34;secure&#34; JavaScript.</p>
+<p>Strict mode changes previously accepted &#34;bad syntax&#34; into real errors.</p>
+<p>As an example, in normal JavaScript, mistyping a variable name creates a new global variable. In strict mode, this will throw an error, making it impossible to accidentally create a global variable.</p>
+<p>In normal JavaScript, a developer will not receive any error feedback assigning values to non-writable properties.</p>
+<p>In strict mode, any assignment to a non-writable property, a getter-only property, a non-existing property, a non-existing variable, or a non-existing object, will throw an error.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="this keyword" duration="30">
+        <pre><code>var person = {
+  firstName: &#34;John&#34;,
+  lastName : &#34;Doe&#34;,
+  id       : 5566,
+  fullName : function() {
+    return this.firstName + &#34; &#34; + this.lastName;
+  }
+};
+</code></pre>
+<h2 is-upgraded>What is <strong>this</strong>?</h2>
+<p>The JavaScript <strong>this</strong> keyword refers to the object it belongs to.</p>
+<aside class="special"><p>It has different values depending on where it is used:<br><br></p>
+<ul>
+<li>In a method, this refers to the owner object.</li>
+<li>Alone, this refers to the global object.</li>
+<li>In a function, this refers to the global object.</li>
+<li>In a function, in strict mode, this is undefined.</li>
+<li>In an event, this refers to the element that received the event.</li>
+<li>Methods like call(), and apply() can refer this to any object.</li>
+</ul>
+</aside>
+<h2 is-upgraded><strong>this</strong> in a Method</h2>
+<p>In an object method, <code>this</code> refers to the &#34;<strong>owner</strong>&#34; of the method.</p>
+<p>In the example on the top of this page, this refers to the <strong>person</strong> object.</p>
+<p>The <strong>person</strong> object is the <strong>owner</strong> of the <strong>fullName</strong> method.</p>
+<pre><code>fullName : function() {
+  return this.firstName + &#34; &#34; + this.lastName;
+}
+</code></pre>
+<h2 is-upgraded><strong>this</strong> alone</h2>
+<p>When used alone, the <strong>owner</strong> is the Global object, so <code>this</code> refers to the Global object.<br>In a browser window the Global object is <code>[object Window]</code>:</p>
+<pre><code>  var x = this;
+</code></pre>
+<p>In <strong>strict mode</strong>, when used alone, <code>this</code> also refers to the Global object <code>[object Window]</code>:</p>
+<pre><code>&#34;use strict&#34;;
+var x = this;
+</code></pre>
+<h2 is-upgraded><strong>this</strong> in a Function (Default)</h2>
+<p>In a JavaScript function, the owner of the function is the <strong>default</strong> binding for <code>this</code>.<br>So, in a function, <code>this</code> refers to the Global object <code>[object Window]</code>.</p>
+<pre><code>function myFunction() {
+  return this;
+}
+</code></pre>
+<h2 is-upgraded><strong>this</strong> in a Function (Strict)</h2>
+<p>JavaScript <strong>strict mode</strong> does not allow default binding.<br>So, when used in a function, in strict mode, <code>this</code> is <code>undefined</code>.</p>
+<pre><code>&#34;use strict&#34;;
+function myFunction() {
+  return this;
+}
+</code></pre>
+<h2 is-upgraded><strong>this</strong> in Event Handlers</h2>
+<p>In HTML event handlers, <code>this</code> refers to the HTML element that received the event:</p>
+<pre><code>&lt;button onclick=&#34;this.style.display=&#39;none&#39;&#34;&gt;
+  Click to Remove Me!
+&lt;/button&gt;
+</code></pre>
+<h2 is-upgraded>Object Method Binding</h2>
+<p>In these examples, <code>this</code> is the person object (The person object is the &#34;owner&#34; of the function):</p>
+<pre><code>var person = {
+  firstName  : &#34;John&#34;,
+  lastName   : &#34;Doe&#34;,
+  id         : 5566,
+  myFunction : function() {
+    return this;
+  }
+};
+</code></pre>
+<pre><code>var person = {
+  firstName: &#34;John&#34;,
+  lastName : &#34;Doe&#34;,
+  id       : 5566,
+  fullName : function() {
+    return this.firstName + &#34; &#34; + this.lastName;
+  }
+};
+</code></pre>
+<p>In other words: <strong>this.firstName</strong> means the <strong>firstName</strong> property of <strong>this</strong> (person) object.</p>
+<h2 is-upgraded>Explicit Function Binding</h2>
+<p>The <code>call()</code> and <code>apply()</code> methods are predefined JavaScript methods.</p>
+<p>They can both be used to call an object method with another object as argument.</p>
+<p>In the example below, when calling person1.fullName with person2 as argument, this will refer to person2, even if it is a method of person1:</p>
+<pre><code> var person1 = {
+  fullName: function() {
+    return this.firstName + &#34; &#34; + this.lastName;
+  }
+}
+var person2 = {
+  firstName:&#34;John&#34;,
+  lastName: &#34;Doe&#34;,
+}
+person1.fullName.call(person2);  // Will return &#34;John Doe&#34;
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="let and const" duration="10">
+        <h2 is-upgraded>ECMAScript 2015</h2>
+<p>ES2015 introduced two important new JavaScript keywords: <code>let</code> and <code>const</code>.</p>
+<p>These two keywords provide <strong>Block Scope</strong> variables (and constants) in JavaScript.</p>
+<p>Before ES2015, JavaScript had only two types of scope: <strong>Global Scope</strong> and <strong>Function Scope</strong>.</p>
+<h2 is-upgraded>Global Scope</h2>
+<p>Variables declared <strong>Globally</strong> (outside any function) have <strong>Global Scope</strong>.</p>
+<pre><code>var carName = &#34;Volvo&#34;;
+
+// code here can use carName
+
+function myFunction() {
+  // code here can also use carName
+}
+</code></pre>
+<p><strong>Global</strong> variables can be accessed from anywhere in a JavaScript program.</p>
+<h2 is-upgraded>Function Scope</h2>
+<p>Variables declared <strong>Locally</strong> (inside a function) have <strong>Function Scope</strong>.</p>
+<pre><code>// code here can NOT use carName
+
+function myFunction() {
+  var carName = &#34;Volvo&#34;;
+  // code here CAN use carName
+}
+
+// code here can NOT use carName
+</code></pre>
+<p><strong>Local</strong> variables can only be accessed from inside the function where they are declared.</p>
+<h2 is-upgraded>JavaScript Block Scope</h2>
+<p>Variables declared with the <code>var</code> keyword can not have <strong>Block Scope</strong>.</p>
+<p>Variables declared inside a block <code>{}</code> can be accessed from outside the block.</p>
+<pre><code>{
+  var x = 2;
+}
+// x CAN be used here
+</code></pre>
+<p>Before ES2015 JavaScript did not have <strong>Block Scope</strong>.<br>Variables declared with the <code>let</code> keyword can have Block Scope.<br>Variables declared inside a block <code>{}</code> can not be accessed from outside the block:</p>
+<pre><code>{
+  let x = 2;
+}
+// x can NOT be used here
+</code></pre>
+<p>Declaring a variable with <code>const</code> is similar to <code>let</code> when it comes to <strong>Block Scope</strong>.</p>
+<p>The x declared in the block, in this example, is not the same as the x declared outside the block:</p>
+<pre><code> var x = 10;
+// Here x is 10
+{
+  const x = 2;
+  // Here x is 2
+}
+// Here x is 10
+</code></pre>
+<h2 is-upgraded>Not Real Constants</h2>
+<p>The keyword <code>const</code> is a little misleading.<br>It does NOT define a constant value. It defines a constant reference to a value.<br>Because of this, we cannot change constant primitive values, but we can change the properties of constant objects.</p>
+<h2 is-upgraded>Hoisting</h2>
+<p>Variables defined with <code>const</code> or <code>let</code> are not hoisted to the top.<br>A <code>const</code> variable cannot be used before it is declared:</p>
+<pre><code>carName = &#34;Volvo&#34;;    // You can NOT use carName here
+const carName = &#34;Volvo&#34;;
+</code></pre>
+<p>Using a <code>let</code> variable before it is declared will result in a <code>ReferenceError</code>.<br>The variable is in a &#34;temporal dead zone&#34; from the start of the block until it is declared:</p>
+<pre><code>// you can NOT use carName here
+let carName;
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Debugging" duration="5">
+        <aside class="special"><p>Errors can (will) happen, every time you write some new computer code.</p>
+</aside>
+<h2 is-upgraded>JavaScript Debuggers</h2>
+<p>Debugging is not easy. But fortunately, all modern browsers have a built-in JavaScript debugger.</p>
+<p>Built-in debuggers can be turned on and off, forcing errors to be reported to the user.</p>
+<p>With a debugger, you can also set breakpoints (places where code execution can be stopped), and examine variables while the code is executing.</p>
+<p>Normally, otherwise follow the steps at the bottom of this page, you activate debugging in your browser with the F12 key, and select &#34;Console&#34; in the debugger menu.</p>
+<h2 is-upgraded>The console.log() Method</h2>
+<p>If your browser supports debugging, you can use <code>console.log()</code> to display JavaScript values in the debugger window:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h1&gt;My First Web Page&lt;/h1&gt;
+
+&lt;script&gt;
+a = 5;
+b = 6;
+c = a + b;
+console.log(c);
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Best Prctices" duration="20">
+        
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Versions" duration="20">
+        
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Overview" duration="10">
+        
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>
