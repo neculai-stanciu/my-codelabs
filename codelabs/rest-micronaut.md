@@ -7,13 +7,12 @@ environments: Java
 status: draft
 feedback link: https://github.com/neculai-stanciu/my-codelabs/issues
 
-# REST api using micronaut
-Duration: 30:00
+# Micronaut REST api implementation
 
 ## Generate app using Micronaut cli
-Duration: 25:00
+Duration: 5:00
 
-If you need to configure Micronaut cli please check [this guide](/my-codelabs/setup-micronaut)
+If you need to configure Micronaut cli please check [this guide](/my-codelabs/codelabs/setup-micronaut)
 
 We will use **maven** as build tool and open-api integration. For this we need to run the following command:
 
@@ -69,6 +68,7 @@ $ mvn exec:exec
 ```
 
 ## Add OpenAPIDefinition
+Duration: 10:00
 
 Add swagger info in **application.yml**
 
@@ -119,6 +119,7 @@ In order to configure maven with this property you should add:
 ```
 
 ## Add first controller
+Duration: 10:00
 
 In order to create a service that responds to "Hello World" you first need a controller. The following is an example of a controller:
 

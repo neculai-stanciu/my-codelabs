@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>REST api using micronaut</title>
+  <title>Micronaut REST api implementation</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,12 +23,12 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="rest-micronaut"
-                  title="REST api using micronaut"
+                  title="Micronaut REST api implementation"
                   environment="web"
                   feedback-link="https://github.com/neculai-stanciu/my-codelabs/issues">
     
-      <google-codelab-step label="Generate app using Micronaut cli" duration="25">
-        <p>If you need to configure Micronaut cli please check <a href="/my-codelabs/setup-micronaut" target="_blank">this guide</a></p>
+      <google-codelab-step label="Generate app using Micronaut cli" duration="5">
+        <p>If you need to configure Micronaut cli please check <a href="/my-codelabs/codelabs/setup-micronaut" target="_blank">this guide</a></p>
 <p>We will use <strong>maven</strong> as build tool and open-api integration. For this we need to run the following command:</p>
 <pre><code>$ mn create-app com.ing.surveys-api --build maven --features swagger-java
 | Generating Java project...
@@ -75,7 +75,7 @@ localhost:stretch-ambitions rh69ua$
 
       </google-codelab-step>
     
-      <google-codelab-step label="Add OpenAPIDefinition" duration="0">
+      <google-codelab-step label="Add OpenAPIDefinition" duration="10">
         <p>Add swagger info in <strong>application.yml</strong></p>
 <pre><code>  router:
         static-resources:
@@ -115,7 +115,7 @@ info:
 
       </google-codelab-step>
     
-      <google-codelab-step label="Add first controller" duration="0">
+      <google-codelab-step label="Add first controller" duration="10">
         <p>In order to create a service that responds to &#34;Hello World&#34; you first need a controller. The following is an example of a controller:</p>
 <pre><code>import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
