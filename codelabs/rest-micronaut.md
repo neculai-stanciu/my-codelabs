@@ -1,9 +1,9 @@
-<!-- Firstly we have to inform users what the document is about: -->
 author: Stanciu Neculai
-title: Representational state transfer
+title: Micronaut REST api implementation
 summary: A step by step tutorial for a REST api using Micronaut framework.
 id: rest-micronaut
 categories: web
+environments: Java
 status: draft
 feedback link: https://github.com/neculai-stanciu/my-codelabs/issues
 
@@ -120,3 +120,23 @@ In order to configure maven with this property you should add:
 
 ## Add first controller
 
+In order to create a service that responds to "Hello World" you first need a controller. The following is an example of a controller:
+
+```java
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+
+@Controller("/hello") //#1
+public class HelloController {
+
+    @Get(produces = MediaType.TEXT_PLAIN) //#2
+    public String index() {
+        return "Hello World"; //#3
+    }
+}
+```
+
+1. The class is defined as a controller with the @Controller annotation mapped to the path /hello
+2. The @Get annotation is used to map the index method to all requests that use an HTTP GET
+3. A String "Hello World" is returned as the result

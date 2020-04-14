@@ -105,7 +105,7 @@
     "format": "html",
     "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
-    "updated": "2020-04-14T19:47:54+03:00",
+    "updated": "2020-04-14T20:03:06+03:00",
     "id": "rest-micronaut",
     "duration": 25,
     "title": "REST api using micronaut",
@@ -118,7 +118,9 @@
     "category": [
       "web"
     ],
-    "tags": [],
+    "tags": [
+      "java"
+    ],
     "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
     "url": "rest-micronaut",
     "containsPresentation": false,
