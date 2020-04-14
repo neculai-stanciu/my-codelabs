@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-04-13T21:41:29+03:00",
+  "id": "rest-micronaut",
+  "duration": 25,
+  "title": "REST api using micronaut",
+  "summary": "A step by step tutorial for a REST api using Micronaut framework.",
+  "source": "rest-micronaut.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
+  "url": "rest-micronaut"
+}

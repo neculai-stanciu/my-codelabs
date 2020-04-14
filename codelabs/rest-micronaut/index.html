@@ -1,0 +1,131 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>REST api using micronaut</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="rest-micronaut"
+                  title="REST api using micronaut"
+                  environment="web"
+                  feedback-link="https://github.com/neculai-stanciu/my-codelabs/issues">
+    
+      <google-codelab-step label="Generate app using Micronaut cli" duration="25">
+        <p>If you need to configure Micronaut cli please check <a href="/my-codelabs/setup-micronaut" target="_blank">this guide</a></p>
+<p>We will use <strong>maven</strong> as build tool and open-api integration. For this we need to run the following command:</p>
+<pre><code>$ mn create-app com.ing.surveys-api --build maven --features swagger-java
+| Generating Java project...
+| Application created at /Users/rh69ua/Developer/stretch-ambitions/surveys-api
+localhost:stretch-ambitions rh69ua$
+</code></pre>
+<p>After running mn the structure should look:</p>
+<pre><code>$ tree
+.
+├── Dockerfile
+├── micronaut-cli.yml
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── com
+    │   │       └── ing
+    │   │           └── Application.java
+    │   └── resources
+    │       ├── application.yml
+    │       └── logback.xml
+    └── test
+        └── java
+            └── com
+                └── ing
+</code></pre>
+<p>Then we should do:</p>
+<pre><code>$ mvn clean install
+</code></pre>
+<p>And then run the app:</p>
+<pre><code>$ mvn exec:exec
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] Building surveys-api 0.1
+[INFO] ------------------------------------------------------------------------
+[INFO]
+[INFO] --- exec-maven-plugin:1.6.0:exec (default-cli) @ surveys-api ---
+20:15:31.080 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 622ms. Server Running: http://localhost:8080
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Add OpenAPIDefinition" duration="0">
+        <p>Add swagger info in <strong>application.yml</strong></p>
+<pre><code>  router:
+        static-resources:
+            swagger:
+                paths: classpath:META-INF/swagger
+                mapping: /swagger/**
+</code></pre>
+<p>Compile and start api again an you should be able to get:</p>
+<pre><code>$ curl http://localhost:8080/swagger/surveys-api-0.0.yml
+openapi: 3.0.1
+info:
+  title: surveys-api
+  version: &#34;0.0&#34;
+</code></pre>
+<h2 is-upgraded>Generating OpenAPI Views</h2>
+<p>By default the generation of views is disabled. To turn it on you have to set the following system property micronaut.openapi.views.spec. The string syntax is a series of comma-separated key-value pairs, to enable and configure the views.</p>
+<pre><code>micronaut.openapi.views.spec=redoc.enabled=true,rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop
+</code></pre>
+<p>In order to configure maven with this property you should add:</p>
+<pre><code>&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;fork&gt;true&lt;/fork&gt;
+                &lt;compilerArgs&gt;
+                    &lt;arg&gt;-J-Dmicronaut.openapi.views.spec=rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop&lt;/arg&gt;
+                    ...
+                &lt;/compilerArgs&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Add first controller" duration="0">
+        
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

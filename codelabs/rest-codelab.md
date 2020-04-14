@@ -1,7 +1,7 @@
 <!-- Firstly we have to inform users what the document is about: -->
 author: Stanciu Neculai
 title: Representational state transfer
-summary: Representational state transfer (REST) is a software architectural style that defines a set of constraints to be used for creating Web services. Web services that conform to the REST architectural style, called RESTful Web services, provide interoperability between computer systems on the Internet. Mollit officia occaecat eiusmod cupidatat amet proident tempor duis laborum anim commodo cillum enim sint. Non voluptate ipsum occaecat sint dolore cillum veniam deserunt ad officia adipisicing sunt non laboris. Pariatur ea nostrud id velit.
+summary: Representational state transfer (REST) is a software architectural style that defines a set of constraints to be used for creating Web services. Web services that conform to the REST architectural style, called RESTful Web services, provide interoperability between computer systems on the Internet.
 id: rest
 categories: web
 status: draft

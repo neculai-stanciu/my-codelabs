@@ -9,22 +9,21 @@
     "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
     "environment": "web",
     "url": "js-basic",
-    "updated": "2020-04-12T19:30:19.501Z",
+    "updated": "2020-04-13T17:10:26.554Z",
     "containsPresentation": true,
     "containsDemo": false
   },
   {
     "environment": "web",
-    "source": "js-modules-codelab.md",
     "format": "html",
-    "prefix": "../../",
+    "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
-    "updated": "2019-05-03T10:59:12+03:00",
+    "updated": "2020-04-13T19:24:15+03:00",
     "id": "js-modules",
     "duration": 0,
     "title": "JS modules",
-    "author": "Stanciu Neculai",
     "summary": "A simple introduction to JS modules",
+    "source": "js-modules-codelab.md",
     "theme": "",
     "status": [
       "draft"
@@ -43,16 +42,15 @@
   },
   {
     "environment": "web",
-    "source": "rest-codelab.md",
     "format": "html",
-    "prefix": "../../",
+    "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
-    "updated": "2020-04-12T18:24:56+03:00",
+    "updated": "2020-04-13T19:43:56+03:00",
     "id": "rest",
     "duration": 65,
     "title": "Representational state transfer",
-    "author": "Stanciu Neculai",
-    "summary": "Representational state transfer (REST) is a software architectural style that defines a set of constraints to be used for creating Web services. Web services that conform to the REST architectural style, called RESTful Web services, provide interoperability between computer systems on the Internet. Mollit officia occaecat eiusmod cupidatat amet proident tempor duis laborum anim commodo cillum enim sint. Non voluptate ipsum occaecat sint dolore cillum veniam deserunt ad officia adipisicing sunt non laboris. Pariatur ea nostrud id velit.",
+    "summary": "Representational state transfer (REST) is a software architectural style that defines a set of constraints to be used for creating Web services. Web services that conform to the REST architectural style, called RESTful Web services, provide interoperability between computer systems on the Internet.",
+    "source": "rest-codelab.md",
     "theme": "",
     "status": [
       "draft"
@@ -63,21 +61,44 @@
     "tags": [],
     "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
     "url": "rest",
+    "containsPresentation": true,
+    "containsDemo": false
+  },
+  {
+    "environment": "web",
+    "format": "html",
+    "prefix": "https://storage.googleapis.com",
+    "mainga": "UA-49880327-14",
+    "updated": "2020-04-13T20:10:10+03:00",
+    "id": "rest-micronaut",
+    "duration": 25,
+    "title": "REST api using micronaut",
+    "summary": "A step by step tutorial for a REST api using Micronaut framework.",
+    "source": "rest-micronaut.md",
+    "theme": "",
+    "status": [
+      "draft"
+    ],
+    "category": [
+      "web"
+    ],
+    "tags": [],
+    "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
+    "url": "rest-micronaut",
     "containsPresentation": false,
     "containsDemo": false
   },
   {
     "environment": "web",
-    "source": "setup-micronaut.codelab.md",
     "format": "html",
-    "prefix": "../../",
+    "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
-    "updated": "2020-04-12T22:30:08+03:00",
+    "updated": "2020-04-13T19:24:15+03:00",
     "id": "setup-micronaut",
     "duration": 20,
     "title": "Setup micronaut CLI",
-    "author": "Stanciu Neculai",
     "summary": "In this moment Micronaut CLI is the way to go to generate a micronaut project. In this tutorial we will install this tool and create a",
+    "source": "setup-micronaut.codelab.md",
     "theme": "",
     "status": [
       "draft"

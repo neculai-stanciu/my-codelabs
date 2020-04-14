@@ -7,20 +7,23 @@
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
   <title>JS modules</title>
-  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <style is="custom-style">
-    body {
-      font-family: "Roboto",sans-serif;
-      background: var(--google-codelab-background, #F8F9FA);
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
     }
   </style>
-  
 </head>
-<body unresolved class="fullbleed">
-
-  <google-codelab title="JS modules"
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="0"
+                  id="js-modules"
+                  title="JS modules"
                   environment="web"
                   feedback-link="https://github.com/neculai-stanciu/my-codelabs/issues">
     
@@ -67,7 +70,7 @@
     
       <google-codelab-step label="An overview of the ES6 module syntax" duration="0">
         <p>There are two kinds of exports: named exports (several per module) and default exports (one per module).</p>
-<h2>Named exports (several per module)</h2>
+<h2 is-upgraded>Named exports (several per module)</h2>
 <p>A module can export multiple things by prefixing their declarations with the keyword export. These exports are distinguished by their names and are called named exports.</p>
 <pre><code>//------ lib.js ------
 export const sqrt = Math.sqrt;
@@ -111,7 +114,7 @@ var diag = require(&#39;lib&#39;).diag;
 console.log(square(11)); // 121
 console.log(diag(4, 3)); // 5
 </code></pre>
-<h2>Default exports (one per module)</h2>
+<h2 is-upgraded>Default exports (one per module)</h2>
 <p>Modules that only export single values are very popular in the Node.js community. But they are also common in frontend development where you often have constructors/classes for models, with one model per module. An ECMAScript 6 module can pick a default export, the most important exported value. Default exports are especially easy to import.</p>
 <p>The following ECMAScript 6 module &#34;is&#34; a single function:</p>
 <pre><code>//------ myFunc.js ------
@@ -130,7 +133,7 @@ import MyClass from &#39;MyClass&#39;;
 let inst = new MyClass();
 </code></pre>
 <p>The operand of the default export declaration is an expression, it often does not have a name. Instead, it is to be identified via its module&#39;s name.</p>
-<h2>Having both named exports and a default export in a module</h2>
+<h2 is-upgraded>Having both named exports and a default export in a module</h2>
 <p>The following pattern is surprisingly common in JavaScript: A library is a single function, but additional services are provided via properties of that function. Examples include jQuery and Underscore.js. The following is a sketch of Underscore as a CommonJS module:</p>
 <pre><code>//------ underscore.js ------
 var _ = function (obj) {
@@ -162,7 +165,7 @@ import _, { each } from &#39;underscore&#39;;
 ...
 </code></pre>
 <p>Note that the CommonJS version and the ECMAScript 6 version are only roughly similar. The latter has a flat structure, whereas the former is nested. Which style you prefer is a matter of taste, but the flat style has the advantage of being statically analyzable (why that is good is explained below). The CommonJS style seems partially motivated by the need for objects as namespaces, a need that can often be fulfilled via ES6 modules and named exports.</p>
-<h3>The default export is just another named export</h3>
+<h3 is-upgraded>The default export is just another named export</h3>
 <p>The default export is actually just a named export with the special name default. That is, the following two statements are equivalent:</p>
 <pre><code>import { default as foo } from &#39;lib&#39;;
 import foo from &#39;lib&#39;;
@@ -175,7 +178,7 @@ export default 123;
 const D = 123;
 export { D as default };
 </code></pre>
-<h3>Why do we need named exports?</h3>
+<h3 is-upgraded>Why do we need named exports?</h3>
 <p>You may be wondering – why do we need named exports if we could simply default-export objects (like CommonJS)? The answer is that you can&#39;t enforce a static structure via objects and lose all of the associated advantages (described in the next section).</p>
 
 
@@ -189,7 +192,7 @@ export { D as default };
       </google-codelab-step>
     
       <google-codelab-step label="More on importing and exporting" duration="0">
-        <h2>Importing</h2>
+        <h2 is-upgraded>Importing</h2>
 <p>ECMAScript 6 provides the following ways of importing</p>
 <pre><code>// Default exports and named exports
 import theDefault, { named1, named2 } from &#39;src/mylib&#39;;
@@ -206,7 +209,7 @@ import * as mylib from &#39;src/mylib&#39;;
 // Only load the module, don&#39;t import anything
 import &#39;src/mylib&#39;;
 </code></pre>
-<h2>Exporting</h2>
+<h2 is-upgraded>Exporting</h2>
 <p>There are two ways in which you can export things that are inside the current module. On one hand, you can mark declarations with the keyword export.</p>
 <pre><code>export var myVar1 = ...;
 export let myVar2 = ...;
@@ -247,7 +250,7 @@ export { MY_CONST, myFunc };
 <pre><code>export { MY_CONST as THE_CONST, myFunc as theFunc };
 </code></pre>
 <p>Note that you can&#39;t use reserved words (such as default and new) as variable names, but you can use them as names for exports (you can also use them as property names in ECMAScript 5). If you want to directly import such named exports, you have to rename them to proper variables names.</p>
-<h2>Re-exporting</h2>
+<h2 is-upgraded>Re-exporting</h2>
 <p>Re-exporting means adding another module&#39;s exports to those of the current module. You can either add all of the other module&#39;s exports:</p>
 <pre><code>export * from &#39;src/other_module&#39;;
 </code></pre>
@@ -274,7 +277,7 @@ export { foo as myFoo, bar } from &#39;src/other_module&#39;;
 <li>Configure module loading</li>
 </ul>
 <p>Loaders handle resolving <em>module specifiers</em> (the string IDs at the end of import...from), loading modules, etc. Their constructor is Reflect.Loader. Each platform keeps a customized instance in the global variable System (the system loader), which implements its specific style of module loading.</p>
-<h2>Importing modules and loading scripts</h2>
+<h2 is-upgraded>Importing modules and loading scripts</h2>
 <p>You can programmatically import a module, via an API based on ES6 promises:</p>
 <pre><code>System.import(&#39;some_module&#39;)
 .then(some_module =&gt; {
@@ -303,7 +306,7 @@ export { foo as myFoo, bar } from &#39;src/other_module&#39;;
 <li><a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-reflect.loader.prototype.set" target="_blank">System.set(name, module)</a> is for registering a module (e.g. one you have created via System.module()).</li>
 <li><a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-reflect.loader.prototype.define" target="_blank">System.define(name, source, options?)</a> both evaluates the module code in source and registers the result.</li>
 </ul>
-<h2>Configuring module loading</h2>
+<h2 is-upgraded>Configuring module loading</h2>
 <p>The module loader API has various hooks for configuration. It is still work in progress. A first system loader for browsers is currently being implemented and tested. The goal is to figure out how to best make module loading configurable.</p>
 <p>The loader API will permit many customizations of the loading process. For example:</p>
 <ol type="1">
@@ -330,33 +333,10 @@ export { foo as myFoo, bar } from &#39;src/other_module&#39;;
     
   </google-codelab>
 
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-49880327-14', 'auto');
-
-    (function() {
-      var gaCodelab = '0';
-      if (gaCodelab) {
-        ga('create', gaCodelab, 'auto', {name: 'codelab'});
-      }
-
-      var gaView;
-      var parts = location.search.substring(1).split('&');
-      for (var i = 0; i < parts.length; i++) {
-        var param = parts[i].split('=');
-        if (param[0] === 'viewga') {
-          gaView = param[1];
-          break;
-        }
-      }
-      if (gaView && gaView !== gaCodelab) {
-        ga('create', gaView, 'auto', {name: 'view'});
-      }
-    })();
-  </script>
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
 
 </body>
 </html>
