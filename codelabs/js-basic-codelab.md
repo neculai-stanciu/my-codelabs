@@ -1,19 +1,11 @@
-<!-- Read more here: https://medium.com/@mariopce/tutorial-how-to-make-tutorials-using-google-code-labs-gangdam-style-d62b35476816 -->
-
-<!-- Firstly we have to inform users what the document is about: -->
 author: Stanciu Neculai
-title: Javscript basic
+title: JavaScript basics
 summary: Javscript basic codelabs
 id: js-basic
 categories: web
 environments: js
 status: draft
 feedback link: https://github.com/neculai-stanciu/my-codelabs/issues
-analytics account: 0
-
-<!--
-To specify the title of tutorial just use one “#” like below:
- -->
 
 # Javscript basic
 
