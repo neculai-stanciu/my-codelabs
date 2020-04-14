@@ -5,7 +5,6 @@ summary: A step by step tutorial for a REST api using Micronaut framework.
 id: rest-micronaut
 categories: web
 status: draft
-url: "/my-codelabs/rest-micronaut"
 feedback link: https://github.com/neculai-stanciu/my-codelabs/issues
 
 # REST api using micronaut
