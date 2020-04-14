@@ -1,15 +1,27 @@
 [
   {
-    "source": "js-basic-codelab.md",
-    "format": "html",
-    "id": "js-basic",
-    "title": "Javscript basic",
-    "author": "Stanciu Neculai",
-    "summary": "Javscript basic codelabs",
-    "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
     "environment": "web",
+    "format": "html",
+    "prefix": "https://storage.googleapis.com",
+    "mainga": "UA-49880327-14",
+    "updated": "2020-04-14T19:42:07+03:00",
+    "id": "js-basic",
+    "duration": 120,
+    "title": "Javscript basic",
+    "summary": "Javscript basic codelabs",
+    "source": "js-basic-codelab.md",
+    "theme": "",
+    "status": [
+      "draft"
+    ],
+    "category": [
+      "web"
+    ],
+    "tags": [
+      "js"
+    ],
+    "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
     "url": "js-basic",
-    "updated": "2020-04-13T17:10:26.554Z",
     "containsPresentation": true,
     "containsDemo": false
   },
@@ -45,6 +57,30 @@
     "format": "html",
     "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
+    "updated": "2020-04-14T19:28:25+03:00",
+    "id": "kt-basics",
+    "duration": 0,
+    "title": "Kotlin basics",
+    "summary": "",
+    "source": "kt-basics-codelab.md",
+    "theme": "",
+    "status": [
+      "draft"
+    ],
+    "category": [
+      "jvm"
+    ],
+    "tags": [],
+    "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
+    "url": "kt-basics",
+    "containsPresentation": false,
+    "containsDemo": false
+  },
+  {
+    "environment": "web",
+    "format": "html",
+    "prefix": "https://storage.googleapis.com",
+    "mainga": "UA-49880327-14",
     "updated": "2020-04-13T19:43:56+03:00",
     "id": "rest",
     "duration": 65,
@@ -69,7 +105,7 @@
     "format": "html",
     "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
-    "updated": "2020-04-13T20:10:10+03:00",
+    "updated": "2020-04-14T19:36:45+03:00",
     "id": "rest-micronaut",
     "duration": 25,
     "title": "REST api using micronaut",

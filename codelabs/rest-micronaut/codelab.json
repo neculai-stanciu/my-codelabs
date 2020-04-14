@@ -3,7 +3,7 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-04-13T21:41:29+03:00",
+  "updated": "2020-04-14T19:36:45+03:00",
   "id": "rest-micronaut",
   "duration": 25,
   "title": "REST api using micronaut",

@@ -55,9 +55,10 @@ Codelab static content could be generated using:
 npm run generate:codelabs
 ```
 
-## Tutorials about claat
+## Tutorials 
 
 - <https://medium.com/@zarinlo/publish-technical-tutorials-in-google-codelab-format-b07ef76972cd>
+- <https://e.printstacktrace.blog/micronaut-non-blocking-and-async-part1/>
 
 ## Todo
 

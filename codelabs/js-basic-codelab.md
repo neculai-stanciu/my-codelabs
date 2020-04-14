@@ -4,6 +4,7 @@ summary: Javscript basic codelabs
 id: js-basic
 categories: web
 environments: js
+url: my-codelabs/js-basic
 status: draft
 feedback link: https://github.com/neculai-stanciu/my-codelabs/issues
 
