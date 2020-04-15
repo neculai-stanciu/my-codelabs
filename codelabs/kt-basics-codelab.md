@@ -64,8 +64,9 @@ This will be moved in a separate codelab!!!
 
 ## What’s next?
 
-Options
+**Options**
 
-  1. Functional programming with kotlin
-  2. Reactive programming with kotlin
-  3. Kotlin 1.4
+  1. Functional programming in kotlin
+  2. Kotlin Reactive programming
+  3. Micronaut and Kotlin
+  4. Kotlin 1.4
