@@ -72,7 +72,41 @@
       </google-codelab-step>
     
       <google-codelab-step label="Kotlin outstanding features" duration="0">
-        <p>tbd</p>
+        <h2 is-upgraded><strong>Null safety</strong></h2>
+<ul>
+<li><strong>Not null versus nullable types</strong> (<code>T and T?</code>)</li>
+</ul>
+<pre><code>  fun print(msg: String?) {}
+  fun printPage(msg: String) {}
+
+  print(&#34;Hello kotlin&#34;)
+  print(null)
+  printPage(null) // compilation error
+</code></pre>
+<ul>
+<li><strong>safe call operator</strong> (<code>?.</code>)</li>
+</ul>
+<pre><code>  &#34;test safe call operator&#34; {
+    data class User(val name: String, val address: String)
+
+    var user: User? = null
+    user?.address shouldBe null
+
+    user = User(&#34;Tony&#34;, &#34;Mihai Bravu&#34;)
+    user?.address shouldBe &#34;Mihai Bravu&#34;
+  }
+</code></pre>
+<ul>
+<li><strong>elvis operator</strong> (<code>?:</code>)</li>
+</ul>
+<pre><code>  &#34;test elvis operator&#34; {
+    var address: String? = null
+    address ?: &#34;unknown address&#34; shouldBe &#34;unknown address&#34;
+
+    address = &#34;Kotlin Island&#34;
+    address shouldBe &#34;Kotlin Island&#34;
+  }
+</code></pre>
 
 
       </google-codelab-step>

@@ -56,45 +56,45 @@ It went GA on **February 15, 2016**
 
 ## Kotlin outstanding features
 
-* **Null safety**
+### **Null safety**
+---
 
-  * **Not null versus nullable types**
+* **Not null versus nullable types** (`T and T?`)
 
-    ```kotlin
-      fun print(msg: String?) {}
+```kotlin
+  fun print(msg: String?) {}
+  fun printPage(msg: String) {}
 
-      fun printPage(msg: String) {}
+  print("Hello kotlin")
+  print(null)
+  printPage(null) // compilation error
+```
 
-      print("Hello kotlin")
-      print(null)
-      printPage(null) // compilation error.
-    ```
+* **safe call operator** (`?.`)
 
-  * **safe call operator** `?.`
+```kotlin
+  "test safe call operator" {
+    data class User(val name: String, val address: String)
 
-  ```kotlin
-    "test safe call operator" {
-      data class User(val name: String, val address: String)
+    var user: User? = null
+    user?.address shouldBe null
 
-      var user: User? = null
-      user?.address shouldBe null
+    user = User("Tony", "Mihai Bravu")
+    user?.address shouldBe "Mihai Bravu"
+  }
+```
 
-      user = User("Tony", "Mihai Bravu")
-      user?.address shouldBe "Mihai Bravu"
-    }
-  ```
+* **elvis operator** (`?:`)
 
-  * **elvis operator** `?:`
+```kotlin
+  "test elvis operator" {
+    var address: String? = null
+    address ?: "unknown address" shouldBe "unknown address"
 
-  ```kotlin
-    "test elvis operator" {
-      var address: String? = null
-      address ?: "unknown address" shouldBe "unknown address"
-
-      address = "Kotlin Island"
-      address shouldBe "Kotlin Island"
-    }
-  ```
+    address = "Kotlin Island"
+    address shouldBe "Kotlin Island"
+  }
+```
 
 ## Micronaut http client in kotlin
 
