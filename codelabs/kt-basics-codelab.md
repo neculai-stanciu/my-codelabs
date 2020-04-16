@@ -96,7 +96,21 @@ It went GA on **February 15, 2016**
   }
 ```
 
-## Micronaut http client in kotlin
+## OOP in Kotlin
+
+  What to do next:
+  - val, var
+  - fun
+  - const val
+  - data class
+  - primary constructor
+  - inheritance, implementation
+  - custom getters/setters
+  - primary and secondary constructors
+  - singleton with object
+  - companion object
+  - delegation (by)
+  - generics
 
 This will be moved in a separate codelab!!!
 
