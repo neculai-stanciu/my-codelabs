@@ -56,7 +56,45 @@ It went GA on **February 15, 2016**
 
 ## Kotlin outstanding features
 
-tbd
+* **Null safety**
+
+  * **Not null versus nullable types**
+
+    ```kotlin
+      fun print(msg: String?) {}
+
+      fun printPage(msg: String) {}
+
+      print("Hello kotlin")
+      print(null)
+      printPage(null) // compilation error.
+    ```
+
+  * **safe call operator** `?.`
+
+  ```kotlin
+    "test safe call operator" {
+      data class User(val name: String, val address: String)
+
+      var user: User? = null
+      user?.address shouldBe null
+
+      user = User("Tony", "Mihai Bravu")
+      user?.address shouldBe "Mihai Bravu"
+    }
+  ```
+
+  * **elvis operator** `?:`
+
+  ```kotlin
+    "test elvis operator" {
+      var address: String? = null
+      address ?: "unknown address" shouldBe "unknown address"
+
+      address = "Kotlin Island"
+      address shouldBe "Kotlin Island"
+    }
+  ```
 
 ## Micronaut http client in kotlin
 
