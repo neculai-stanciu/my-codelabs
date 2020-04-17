@@ -196,7 +196,35 @@
 
   }
 </code></pre>
-<p>Show it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/79fdd2c0c9f19f1b47c5138fa77bdd839185c3a7" target="_blank">github</a></p>
+<ul>
+<li><strong>Not null assertion</strong> (<code>!!</code>)</li>
+</ul>
+<pre><code>    &#34;test not null assertion&#34; {
+
+      fun length(s: String?): Int {
+        val notNullString: String = s!! //Kotlin.KotlinNullPointerException
+        return notNullString.length
+      }
+
+      length(&#34;jtonic&#34;) shouldBe 6
+
+      shouldThrow&lt;NullPointerException&gt; {
+        length(null)
+      }
+
+      shouldThrow&lt;KotlinNullPointerException&gt; {
+        length(null)
+      }
+
+    }
+</code></pre>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>throws <code>KotlinNullPointerException</code> which extends <code>java.lang.NullPointerException</code></li>
+<li>it is thrown at assignment site</li>
+<li>it should be avoided in application written entirely in kotlin. It is used when calling java API from kotlin</li>
+</ul>
+<p>Show it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/4f88d00e359ce3573051aa68bce14e2999992d99" target="_blank">github</a></p>
 
 
       </google-codelab-step>

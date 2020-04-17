@@ -185,8 +185,36 @@ It went GA on **February 15, 2016**
 
   }
 ```
+* **Not null assertion** (`!!`)
 
-  > Show it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/79fdd2c0c9f19f1b47c5138fa77bdd839185c3a7)
+```kotlin
+
+    "test not null assertion" {
+
+      fun length(s: String?): Int {
+        val notNullString: String = s!! //Kotlin.KotlinNullPointerException
+        return notNullString.length
+      }
+
+      length("jtonic") shouldBe 6
+
+      shouldThrow<NullPointerException> {
+        length(null)
+      }
+
+      shouldThrow<KotlinNullPointerException> {
+        length(null)
+      }
+
+    }
+```
+
+  **Notes:**
+  - throws `KotlinNullPointerException` which extends `java.lang.NullPointerException`
+  - it is thrown at assignment site
+  - it should be avoided in application written entirely in kotlin. It is used when calling java API from kotlin
+
+  > Show it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/4f88d00e359ce3573051aa68bce14e2999992d99)
 
 ## Kotlin plugins for IntelliJ Idea
 
