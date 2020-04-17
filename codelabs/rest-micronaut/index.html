@@ -78,10 +78,15 @@ localhost:stretch-ambitions rh69ua$
       <google-codelab-step label="Add OpenAPIDefinition" duration="10">
         <p>Add swagger info in <strong>application.yml</strong></p>
 <pre><code>  router:
-        static-resources:
-            swagger:
-                paths: classpath:META-INF/swagger
-                mapping: /swagger/**
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+        enabled: true
+        theme: MATERIAL
 </code></pre>
 <p>Compile and start api again an you should be able to get:</p>
 <pre><code>$ curl http://localhost:8080/swagger/surveys-api-0.0.yml
@@ -104,7 +109,6 @@ info:
                 &lt;fork&gt;true&lt;/fork&gt;
                 &lt;compilerArgs&gt;
                     &lt;arg&gt;-J-Dmicronaut.openapi.views.spec=rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop&lt;/arg&gt;
-                    ...
                 &lt;/compilerArgs&gt;
             &lt;/configuration&gt;
         &lt;/plugin&gt;
@@ -135,6 +139,29 @@ public class HelloController {
 <li>The @Get annotation is used to map the index method to all requests that use an HTTP GET</li>
 <li>A String &#34;Hello World&#34; is returned as the result</li>
 </ol>
+<aside class="warning"><p>In case you want to add lombok support please make sure that <strong>lombok</strong> dependency is first in <strong>annotationProcessorPaths</strong> like:</p>
+</aside>
+<pre><code>&lt;path&gt;
+  &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+  &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+  &lt;version&gt;1.18.12&lt;/version&gt;
+ &lt;/path&gt;
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Todo" duration="0">
+        <ul>
+<li>Bean introspection</li>
+<li>Config and replace</li>
+<li>Validation</li>
+<li><a href="https://docs.micronaut.io/1.2.6/guide/index.html#apiVersioning" target="_blank">Api versioning</a></li>
+<li><a href="https://docs.micronaut.io/1.2.6/guide/index.html#staticResources" target="_blank">Serving static resources</a></li>
+<li><a href="https://docs.micronaut.io/1.2.6/guide/index.html#errorHandling" target="_blank">Error Handling</a></li>
+<li><a href="https://docs.micronaut.io/1.2.6/guide/index.html#reactiveServer" target="_blank">Reactive request processing</a></li>
+<li><a href="https://docs.micronaut.io/1.2.6/guide/index.html#_using_project_lombok" target="_blank">Using project Lombok</a></li>
+</ul>
 
 
       </google-codelab-step>

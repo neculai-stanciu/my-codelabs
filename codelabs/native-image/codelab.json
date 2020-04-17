@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-04-17T14:16:39+03:00",
+  "id": "native-image",
+  "duration": 5,
+  "title": "Generate a Micronaut app's Native Image with GraalVM",
+  "summary": "A step by step tutorial for native-image generation for a Micronaut web application",
+  "source": "native-image.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "java"
+  ],
+  "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
+  "url": "native-image"
+}
