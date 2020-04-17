@@ -84,6 +84,8 @@ It went GA on **February 15, 2016**
   }
 ```
 
+  > Show it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/f6240e22b4d192ead921439ca43ded04fc6fb44c)
+
 * **elvis operator** (`?:`)
 
 ```kotlin
@@ -95,6 +97,8 @@ It went GA on **February 15, 2016**
     address shouldBe "Kotlin Island"
   }
 ```
+
+  > Show it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/afade3bcd15793ff398c2b39c4c288df8fd26cbf)
 
 ## OOP in Kotlin
 
@@ -110,7 +114,9 @@ It went GA on **February 15, 2016**
   - singleton with object
   - companion object
   - delegation (by)
-  - generics
+  - generics (reified)
+  - alias
+  - inline classes
 
 This will be moved in a separate codelab!!!
 
