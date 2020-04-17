@@ -109,6 +109,15 @@ It went GA on **February 15, 2016**
   **Notes:**
   - Kotlin can be use with ant build tool. See how [here](https://kotlinlang.org/docs/reference/using-ant.html)
 
+## **"Hello Kotlin world!"**
+
+  tbd
+
+  - top level main
+  - top level main simplified (w/o vararg...)
+  - "the java way" with companion object
+  - kt script file (notes: KEEP, Micronaut)
+
 ## Kotlin main features
 
 ### **Null safety**
@@ -145,15 +154,39 @@ It went GA on **February 15, 2016**
 
 ```kotlin
   "test elvis operator" {
+
     var address: String? = null
     address ?: "unknown address" shouldBe "unknown address"
 
     address = "Kotlin Island"
     address shouldBe "Kotlin Island"
+
   }
 ```
 
   > Show it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/afade3bcd15793ff398c2b39c4c288df8fd26cbf)
+
+* **safe cast operator** (`as?`)
+
+```kotlin
+  "test safe cast operator" {
+
+      val jtonic = User("jtonic", "Mihai Bravu") as Any
+      val tony = Person("Tony", 18) as Any
+
+      (jtonic as? User) shouldNotBe null
+      (tony as? User) shouldBe null
+
+      val jtonicUserAddress = (jtonic as? User)?.address
+      val tonyUserAddress = (tony as? User)?.address
+
+      jtonicUserAddress shouldBe "Mihai Bravu"
+      tonyUserAddress shouldBe null
+
+  }
+```
+
+  > Show it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/79fdd2c0c9f19f1b47c5138fa77bdd839185c3a7)
 
 ## Kotlin plugins for IntelliJ Idea
 

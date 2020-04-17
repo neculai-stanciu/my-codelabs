@@ -125,6 +125,18 @@
 
       </google-codelab-step>
     
+      <google-codelab-step label="&#34;Hello Kotlin world!&#34;" duration="0">
+        <p>tbd</p>
+<ul>
+<li>top level main</li>
+<li>top level main simplified (w/o vararg...)</li>
+<li>&#34;the java way&#34; with companion object</li>
+<li>kt script file (notes: KEEP, Micronaut)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Kotlin main features" duration="0">
         <h2 is-upgraded><strong>Null safety</strong></h2>
 <ul>
@@ -155,14 +167,36 @@
 <li><strong>elvis operator</strong> (<code>?:</code>)</li>
 </ul>
 <pre><code>  &#34;test elvis operator&#34; {
+
     var address: String? = null
     address ?: &#34;unknown address&#34; shouldBe &#34;unknown address&#34;
 
     address = &#34;Kotlin Island&#34;
     address shouldBe &#34;Kotlin Island&#34;
+
   }
 </code></pre>
 <p>Show it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/afade3bcd15793ff398c2b39c4c288df8fd26cbf" target="_blank">github</a></p>
+<ul>
+<li><strong>safe cast operator</strong> (<code>as?</code>)</li>
+</ul>
+<pre><code>  &#34;test safe cast operator&#34; {
+
+      val jtonic = User(&#34;jtonic&#34;, &#34;Mihai Bravu&#34;) as Any
+      val tony = Person(&#34;Tony&#34;, 18) as Any
+
+      (jtonic as? User) shouldNotBe null
+      (tony as? User) shouldBe null
+
+      val jtonicUserAddress = (jtonic as? User)?.address
+      val tonyUserAddress = (tony as? User)?.address
+
+      jtonicUserAddress shouldBe &#34;Mihai Bravu&#34;
+      tonyUserAddress shouldBe null
+
+  }
+</code></pre>
+<p>Show it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/79fdd2c0c9f19f1b47c5138fa77bdd839185c3a7" target="_blank">github</a></p>
 
 
       </google-codelab-step>
