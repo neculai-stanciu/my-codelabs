@@ -1,0 +1,133 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Generate a Micronaut app&#39;s Native Image with GraalVM</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="native-image"
+                  title="Generate a Micronaut app&#39;s Native Image with GraalVM"
+                  environment="web"
+                  feedback-link="https://github.com/neculai-stanciu/my-codelabs/issues">
+    
+      <google-codelab-step label="Install GraalVM and native-image tool" duration="5">
+        
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Add Micronaut dependencies for graal" duration="0">
+        <p>Add the following dependency:</p>
+<pre><code>&lt;dependency&gt;
+      &lt;groupId&gt;org.graalvm.nativeimage&lt;/groupId&gt;
+      &lt;artifactId&gt;svm&lt;/artifactId&gt;
+      &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>And then add the following annotation processor lib:</p>
+<pre><code>&lt;annotationProcessorPaths&gt;
+    ...
+    &lt;path&gt;
+        &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+        &lt;artifactId&gt;micronaut-graal&lt;/artifactId&gt;
+        &lt;version&gt;2.0.0.M2&lt;/version&gt;
+    &lt;/path&gt;
+&lt;/annotationProcessorPaths&gt;
+</code></pre>
+<p>To simplify building the image you need to create a <strong>native-image.properties</strong> file. The convention is to use the folder <strong>src/main/resources/META-INF/native-image</strong> and then a folder following the maven coordinates of the application.</p>
+<p>Content of properties file is:</p>
+<pre><code>Args = -H:IncludeResources=logback.xml|application.yml|.*/*.vm \
+       -H:Name=surveysapi \
+       -H:Class=com.ing.Application
+
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install GraalVM and native image" duration="0">
+        <p>I will use sdkman to install on my Mac:</p>
+<pre><code>$ sdk install java  20.0.0.r11-grl
+</code></pre>
+<p>For more details please check <a href="https://www.graalvm.org/docs/getting-started/" target="_blank">GraalVM getting started guide</a></p>
+<p>Then we need to install <strong>native-image</strong> tool using the following command:</p>
+<pre><code>gu install native-image
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Build and run native image" duration="0">
+        <p>First step is to create a package with the application using:</p>
+<pre><code>$ mvn clean install
+</code></pre>
+<h2 is-upgraded>Create native image with docker</h2>
+<p>Create a Dockerfile with the following content:</p>
+<pre><code>#FROM oracle/graalvm-ce:20.0.0-java8 as graalvm
+# For JDK 11
+FROM oracle/graalvm-ce:20.0.0-java11 as graalvm
+RUN gu install native-image
+
+COPY . /home/app/surveysapi
+WORKDIR /home/app/surveysapi
+
+RUN native-image --no-server -cp ./target/surveys-api*.jar
+
+FROM frolvlad/alpine-glibc
+RUN apk update &amp;&amp; apk add libstdc++
+EXPOSE 8080
+COPY --from=graalvm /home/app/surveysapi/surveysapi /app/surveysapi
+ENTRYPOINT [&#34;/app/surveysapi&#34;]
+</code></pre>
+<p>And then add the following script <code>build-docker.sh</code>:</p>
+<pre><code>#!/bin/sh
+docker build ../ --file ./Dockerfile -t surveysapi
+echo
+echo
+echo &#34;To run the docker container execute:&#34;
+echo &#34;    $ docker run -p 8080:8080 surveysapi&#34;
+</code></pre>
+<p>Make script executable and run using <code>./build-docker.sh</code><br>Then run generate image:</p>
+<pre><code>$ docker run -p 8080:8080 surveysapi
+/app/surveysapi: /usr/lib/libstdc++.so.6: no version information available (required by /app/surveysapi)
+11:11:21.908 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 34ms. Server Running: http://e0903c2812fb:8080
+
+</code></pre>
+<h2 is-upgraded>Create native image without docker</h2>
+<p>To start building a native image the you need to run the following command:</p>
+<pre><code>$ native-image --no-server -cp surveys-api-0.1.jar
+</code></pre>
+<p>Run native image:</p>
+<pre><code>$ ./surveysapi 
+13:37:06.911 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 61ms. Server Running: http://localhost:8080
+
+</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>
