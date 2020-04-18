@@ -331,6 +331,9 @@ File `App.kt`
   What to do next:
   - val, var
   - fun
+  - (default) visibility modifiers
+  - open/close classes/methods
+  - extension methods
   - const val
   - data class
   - primary constructor
