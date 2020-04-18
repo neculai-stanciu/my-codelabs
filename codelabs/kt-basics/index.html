@@ -57,8 +57,17 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Setup" duration="0">
+      <google-codelab-step label="Install/Setup" duration="0">
         <ul>
+<li><strong>Install kotlin on macos using brew</strong></li>
+</ul>
+<pre><code>  &gt; brew install kotlin
+
+  // test the installation
+  &gt; kotlin -version
+  &gt; kotlinc -version
+</code></pre>
+<ul>
 <li><strong>Gradle</strong></li>
 </ul>
 <p>File <code>build.gradle</code></p>
@@ -126,13 +135,75 @@
       </google-codelab-step>
     
       <google-codelab-step label="&#34;Hello Kotlin world!&#34;" duration="0">
-        <p>tbd</p>
+        <p>There are quite a few ways to create the kotlin application <code>bootstrap</code>.</p>
 <ul>
-<li>top level main</li>
-<li>top level main simplified (w/o vararg...)</li>
-<li>&#34;the java way&#34; with companion object</li>
-<li>kt script file (notes: KEEP, Micronaut)</li>
+<li><strong>Top level main method</strong></li>
 </ul>
+<p>File <code>App.kt</code></p>
+<pre><code>  fun main(vararg args: String) {
+    println(&#34;Hello Kotlin!&#34;)
+  }
+</code></pre>
+<p><em>Compile and run the application</em></p>
+<pre><code>  cd $prj_home/src/main/kotlin
+  kotlinc ro/jtonic/handson/kotlin/basics/App.kt AppKt
+  kotlin -classpath AppKt.jar ro.jtonic.handson.kotlin.basics.AppKt
+</code></pre>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/fd1ac5fff2eefd1440e1450020294c4e65f016d2" target="_blank"><em>github</em></a></p>
+<ul>
+<li><strong>Top level main (simplified)</strong></li>
+</ul>
+<p>File <code>App.kt</code></p>
+<pre><code>  fun main() {
+    println(&#34;Hello Kotlin!&#34;)
+  }
+</code></pre>
+<p><em>Compile and run the application</em></p>
+<pre><code>  cd $prj_home/src/main/kotlin
+  kotlinc ro/jtonic/handson/kotlin/basics/App.kt AppKt
+  kotlin -classpath AppKt.jar ro.jtonic.handson.kotlin.basics.AppKt
+</code></pre>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/734dc7bd0d3e1cf53c64bee5c5d2714efab6e35c" target="_blank"><em>github</em></a></p>
+<ul>
+<li><strong>The &#34;java way&#34; with companion object</strong></li>
+</ul>
+<p>File <code>App.kt</code></p>
+<pre><code>  class App {
+
+    companion object {
+
+      @JvmStatic
+      fun main(vararg args: String) {
+        println(&#34;Hello Kotlin!&#34;)
+      }
+    }
+  }
+</code></pre>
+<p><em>Compile and run the application</em></p>
+<pre><code>  cd $prj_home/src/main/kotlin
+  kotlinc ro/jtonic/handson/kotlin/basics/App.kt AppKt
+  kotlin -classpath AppKt.jar ro.jtonic.handson.kotlin.basics.AppKt
+</code></pre>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/bd8668fc965ccbe06d1e90f22f39c29dd233b752" target="_blank"><em>github</em></a></p>
+<ul>
+<li><strong>kotlin scripting</strong></li>
+</ul>
+<p>Create a <code>main.kts</code> script file outside the src folder (e.g. $prj_home/scripts/main.kts).</p>
+<p>File <code>main.kts</code></p>
+<pre><code>  val message = &#34;Hello Kotlin!&#34;
+  println(&#34;Hello Kotlin!&#34;)
+</code></pre>
+<p><em>Run the script</em></p>
+<pre><code>  cd $prj_home/scripts
+  kotlinc -script main.kts
+</code></pre>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>Jetbrains works on an improved support for kotlin scripting. For additional details please consult <a href="https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md" target="_blank">KEEP-75</a></li>
+<li>Kotlin community provides some useful tools which simplifies and extend the out-of-the-box scripting support.</li>
+<li>For kotlin-based cli I recommend <code>micronaut</code> and <code>picocli</code>.</li>
+</ul>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/8bc8edc155aee03f3835d80eee38f26e565b0d1b" target="_blank"><em>github</em></a></p>
 
 
       </google-codelab-step>
@@ -162,7 +233,7 @@
     user?.address shouldBe &#34;Mihai Bravu&#34;
   }
 </code></pre>
-<p>Show it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/f6240e22b4d192ead921439ca43ded04fc6fb44c" target="_blank">github</a></p>
+<p>See it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/f6240e22b4d192ead921439ca43ded04fc6fb44c" target="_blank">github</a></p>
 <ul>
 <li><strong>elvis operator</strong> (<code>?:</code>)</li>
 </ul>
@@ -176,7 +247,7 @@
 
   }
 </code></pre>
-<p>Show it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/afade3bcd15793ff398c2b39c4c288df8fd26cbf" target="_blank">github</a></p>
+<p>See it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/afade3bcd15793ff398c2b39c4c288df8fd26cbf" target="_blank">github</a></p>
 <ul>
 <li><strong>safe cast operator</strong> (<code>as?</code>)</li>
 </ul>
@@ -224,7 +295,7 @@
 <li>it is thrown at assignment site</li>
 <li>it should be avoided in application written entirely in kotlin. It is used when calling java API from kotlin</li>
 </ul>
-<p>Show it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/4f88d00e359ce3573051aa68bce14e2999992d99" target="_blank">github</a></p>
+<p>See it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/4f88d00e359ce3573051aa68bce14e2999992d99" target="_blank">github</a></p>
 
 
       </google-codelab-step>

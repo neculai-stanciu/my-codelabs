@@ -38,7 +38,17 @@ It went GA on **February 15, 2016**
 
 * Compiles directly to machine code (**Kotlin/Native**) – in Tech Preview
 
-## Setup
+## Install/Setup
+
+* **Install kotlin on macos using brew**
+
+```sh
+  > brew install kotlin
+
+  // test the installation
+  > kotlin -version
+  > kotlinc -version
+```
 
 * **Gradle**
 
@@ -111,12 +121,103 @@ It went GA on **February 15, 2016**
 
 ## **"Hello Kotlin world!"**
 
-  tbd
+  There are quite a few ways to create the kotlin application `bootstrap`.
 
-  - top level main
-  - top level main simplified (w/o vararg...)
-  - "the java way" with companion object
-  - kt script file (notes: KEEP, Micronaut)
+* **Top level main method**
+
+  File `App.kt`
+
+```kotlin
+  fun main(vararg args: String) {
+    println("Hello Kotlin!")
+  }
+```
+
+  *Compile and run the application*
+
+```sh
+  cd $prj_home/src/main/kotlin
+  kotlinc ro/jtonic/handson/kotlin/basics/App.kt AppKt
+  kotlin -classpath AppKt.jar ro.jtonic.handson.kotlin.basics.AppKt
+```
+
+  *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/fd1ac5fff2eefd1440e1450020294c4e65f016d2)*
+
+
+* **Top level main (simplified)**
+
+  File `App.kt`
+
+```kotlin
+  fun main() {
+    println("Hello Kotlin!")
+  }
+```
+
+  *Compile and run the application*
+
+```sh
+  cd $prj_home/src/main/kotlin
+  kotlinc ro/jtonic/handson/kotlin/basics/App.kt AppKt
+  kotlin -classpath AppKt.jar ro.jtonic.handson.kotlin.basics.AppKt
+```
+
+  *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/734dc7bd0d3e1cf53c64bee5c5d2714efab6e35c)*
+
+
+* **The "java way" with companion object**
+
+File `App.kt`
+
+```kotlin
+  class App {
+
+    companion object {
+
+      @JvmStatic
+      fun main(vararg args: String) {
+        println("Hello Kotlin!")
+      }
+    }
+  }
+```
+
+  *Compile and run the application*
+
+```sh
+  cd $prj_home/src/main/kotlin
+  kotlinc ro/jtonic/handson/kotlin/basics/App.kt AppKt
+  kotlin -classpath AppKt.jar ro.jtonic.handson.kotlin.basics.AppKt
+```
+
+  *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/bd8668fc965ccbe06d1e90f22f39c29dd233b752)*
+
+* **kotlin scripting**
+
+  Create a `main.kts` script file outside the src folder (e.g. $prj_home/scripts/main.kts).
+
+  File `main.kts`
+
+```kotlin
+  val message = "Hello Kotlin!"
+  println("Hello Kotlin!")
+```
+
+  *Run the script*
+
+```sh
+  cd $prj_home/scripts
+  kotlinc -script main.kts
+```
+
+  **Notes:**
+  - Jetbrains works on an improved support for kotlin scripting.
+  For additional details please consult [KEEP-75](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md)
+  - Kotlin community provides some useful tools which simplifies and extend the out-of-the-box scripting support.
+  - For kotlin-based cli I recommend `micronaut` and `picocli`.
+
+  *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/8bc8edc155aee03f3835d80eee38f26e565b0d1b)*
+
 
 ## Kotlin main features
 
@@ -148,7 +249,7 @@ It went GA on **February 15, 2016**
   }
 ```
 
-  > Show it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/f6240e22b4d192ead921439ca43ded04fc6fb44c)
+  > See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/f6240e22b4d192ead921439ca43ded04fc6fb44c)
 
 * **elvis operator** (`?:`)
 
@@ -164,7 +265,7 @@ It went GA on **February 15, 2016**
   }
 ```
 
-  > Show it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/afade3bcd15793ff398c2b39c4c288df8fd26cbf)
+  > See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/afade3bcd15793ff398c2b39c4c288df8fd26cbf)
 
 * **safe cast operator** (`as?`)
 
@@ -214,7 +315,7 @@ It went GA on **February 15, 2016**
   - it is thrown at assignment site
   - it should be avoided in application written entirely in kotlin. It is used when calling java API from kotlin
 
-  > Show it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/4f88d00e359ce3573051aa68bce14e2999992d99)
+  > See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/4f88d00e359ce3573051aa68bce14e2999992d99)
 
 ## Kotlin plugins for IntelliJ Idea
 
