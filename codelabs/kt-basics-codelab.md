@@ -1,5 +1,6 @@
 author: Antonel-Ernest Pazargic
-title: JavaScript basics
+title: Kotlin basics
+summary: First baby steps into the fascinated Kotlin world
 id: kt-basics
 categories: jvm
 status: draft
