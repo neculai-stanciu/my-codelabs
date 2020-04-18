@@ -57,11 +57,11 @@
     "format": "html",
     "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
-    "updated": "2020-04-18T08:40:13+03:00",
+    "updated": "2020-04-18T09:05:40+03:00",
     "id": "kt-basics",
     "duration": 0,
     "title": "Kotlin basics",
-    "summary": "First baby steps into the fascinated Kotlin world",
+    "summary": "First baby steps into the fascinating Kotlin world",
     "source": "kt-basics-codelab.md",
     "theme": "",
     "status": [
