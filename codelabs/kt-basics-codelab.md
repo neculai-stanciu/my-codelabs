@@ -320,12 +320,136 @@ File `App.kt`
 
 ## Kotlin plugins for IntelliJ Idea
 
-  TBD
-  - convert from java to kotlin
-  - decompile
-  - kotlin scratch file
-  - kotlin REPL
-  - kotlin worksheet
+  **Notes:**
+  - The information presented in this section is based on **IntelliJ Idea Ultimate 2020.1** and **kotlin plugin 1.3.72**.
+
+* **Install Kotlin Idea plugin**
+
+  - Select `Help | Find Actions...` from main menu  (or press `cmd-shift-a`)
+  - Type `plugins` and hit `Enter`
+  - Enable the kotlin plugin by following the steps highlighted in the image below
+
+  ![kotlin idea plugin](assets/kt-basics-codelab/install_kotlin_idea_plugin.png)
+
+* **Convert from java to kotlin**
+
+  - Open the java file to convert, or just select it in the project tool window
+  - Select `Help | Find Actions...` from main menu  (or press cmd-shift-a)
+  - Type `convert java file to kotlin file` and hit Enter
+
+  ![convert to kt](assets/kt-basics-codelab/convert_java_to_kotlin.png)
+
+  The following java file
+
+```java
+public class Person {
+
+  private String name;
+  private int age;
+
+  // constructor, getter and setters (28 lines of code)
+}
+```
+  gets converted to the following kotlin
+
+```kotlin
+  class Person(var name: String, var age: Int)
+```
+
+  > See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/c0fab8fd23cc072920541d2920b8f5e80e24165b)
+
+* **Decompile kotlin to java**
+
+  Doesn't work any longer with 2020.1 and kotlin 1.3.71 :(
+
+* **Kotlin scratch file**
+
+  Scratch files is an amazing idea features.
+
+  It allows development by experimenting.
+
+  Kotlin plugin contributes to the scratch feature feature.
+
+  How to:
+  - Open `Find Action...`
+  - Type `scratch file`
+
+  ![scratch file](assets/kt-basics-codelab/kt_scratch_file_1.png)
+
+  - Type `kotlin`
+
+  ![scratch file](assets/kt-basics-codelab/kt_scratch_file_2.png)
+
+  - Select a project module classpath
+
+  ![scratch file](assets/kt-basics-codelab/kt_scratch_file_3.png)
+
+  - Run the scratch file kotlin code, when the interactive is checked out
+
+  ![scratch file](assets/kt-basics-codelab/kt_scratch_file_4.png)
+
+  **Notes:**
+  - A scratch file can be renamed. One can give it a meaningful name.
+  - A scratch file has IDE visibility. It can be seen in every project.
+
+* **Kotlin REPL**
+
+  How to:
+  - Open `Find Action...`
+  - Type `kotlin REPL`
+
+  ![kotlin repl](assets/kt-basics-codelab/kotlin_repl_1.png)
+
+  - Choose a project module
+
+  ![kotlin repl](assets/kt-basics-codelab/kotlin_repl_2.png)
+
+  - Start coding.
+
+    For execution press `cmd-enter`
+
+  ![kotlin repl](assets/kt-basics-codelab/kotlin_repl_3.png)
+
+  - Show quick documentation in REPL
+
+  ![kotlin repl](assets/kt-basics-codelab/kotlin_repl_4.png)
+
+
+  **Notes:**
+  - (Almost) all supports in the IDE editor works in REPL as well:
+    - autocomplete,
+    - automatic imports,
+    - compilation errors
+    - quick source
+    - quick documentation
+    - and much more....
+
+* **Kotlin worksheet**
+
+  How to:
+  - Open `Find Action...`
+  - Type `kotlin REPL`
+
+  ![kotlin worksheet](assets/kt-basics-codelab/kotlin_ws_1.png)
+
+  - Start coding
+
+  See Idea inspection and hint in action.
+
+  ![kotlin worksheet](assets/kt-basics-codelab/kotlin_ws_2.png)
+
+  - Click the green arrow button to execute the code if the interactive mode is off.
+
+  ![kotlin worksheet](assets/kt-basics-codelab/kotlin_ws_3.png)
+
+  **Notes:**
+
+  There are some similarities between the kotlin scratch file and kotlin worksheet.
+
+  The worksheet:
+  - file is stored in project, it can be versioned.
+  - has kts file extension (it is a kotlin script file)
+  - requires the `kotlin-script-runtime` in project classpath. If it is not then Idea offers to add it.
 
 ## OOP in Kotlin
 

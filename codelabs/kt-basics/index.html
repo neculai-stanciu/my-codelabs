@@ -301,13 +301,126 @@
       </google-codelab-step>
     
       <google-codelab-step label="Kotlin plugins for IntelliJ Idea" duration="0">
-        <p>TBD</p>
+        <p><strong>Notes:</strong></p>
 <ul>
-<li>convert from java to kotlin</li>
-<li>decompile</li>
-<li>kotlin scratch file</li>
-<li>kotlin REPL</li>
-<li>kotlin worksheet</li>
+<li>The information presented in this section is based on <strong>IntelliJ Idea Ultimate 2020.1</strong> and <strong>kotlin plugin 1.3.72</strong>.</li>
+<li><strong>Install Kotlin Idea plugin</strong><ul>
+<li>Select <code>Help | Find Actions...</code> from main menu  (or press <code>cmd-shift-a</code>)</li>
+<li>Type <code>plugins</code> and hit <code>Enter</code></li>
+<li>Enable the kotlin plugin by following the steps highlighted in the image below</li>
+</ul>
+</li>
+</ul>
+<p class="image-container"><img alt="kotlin idea plugin" src="img/e47f3fea4ded21c3.png"></p>
+<ul>
+<li><strong>Convert from java to kotlin</strong><ul>
+<li>Open the java file to convert, or just select it in the project tool window</li>
+<li>Select <code>Help | Find Actions...</code> from main menu  (or press cmd-shift-a)</li>
+<li>Type <code>convert java file to kotlin file</code> and hit Enter</li>
+</ul>
+</li>
+</ul>
+<p class="image-container"><img alt="convert to kt" src="img/9fee1889e3aa7eed.png"></p>
+<p>The following java file</p>
+<pre><code>public class Person {
+
+  private String name;
+  private int age;
+
+  // constructor, getter and setters (28 lines of code)
+}
+</code></pre>
+<p>gets converted to the following kotlin</p>
+<pre><code>  class Person(var name: String, var age: Int)
+</code></pre>
+<p>See it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/c0fab8fd23cc072920541d2920b8f5e80e24165b" target="_blank">github</a></p>
+<ul>
+<li><strong>Decompile kotlin to java</strong></li>
+</ul>
+<p>Doesn&#39;t work any longer with 2020.1 and kotlin 1.3.71 :(</p>
+<ul>
+<li><strong>Kotlin scratch file</strong></li>
+</ul>
+<p>Scratch files is an amazing idea features.</p>
+<p>It allows development by experimenting.</p>
+<p>Kotlin plugin contributes to the scratch feature feature.</p>
+<p>How to:</p>
+<ul>
+<li>Open <code>Find Action...</code></li>
+<li>Type <code>scratch file</code></li>
+</ul>
+<p class="image-container"><img alt="scratch file" src="img/db6822d172505f36.png"></p>
+<ul>
+<li>Type <code>kotlin</code></li>
+</ul>
+<p class="image-container"><img alt="scratch file" src="img/4397b508fcc18c7c.png"></p>
+<ul>
+<li>Select a project module classpath</li>
+</ul>
+<p class="image-container"><img alt="scratch file" src="img/8bb0f5ddfab46c36.png"></p>
+<ul>
+<li>Run the scratch file kotlin code, when the interactive is checked out</li>
+</ul>
+<p class="image-container"><img alt="scratch file" src="img/e467fe052b9aebe4.png"></p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>A scratch file can be renamed. One can give it a meaningful name.</li>
+<li>A scratch file has IDE visibility. It can be seen in every project.</li>
+<li><strong>Kotlin REPL</strong></li>
+</ul>
+<p>How to:</p>
+<ul>
+<li>Open <code>Find Action...</code></li>
+<li>Type <code>kotlin REPL</code></li>
+</ul>
+<p class="image-container"><img alt="kotlin repl" src="img/a4c3708d82757631.png"></p>
+<ul>
+<li>Choose a project module</li>
+</ul>
+<p class="image-container"><img alt="kotlin repl" src="img/c1fb0e85f9f4f63b.png"></p>
+<ul>
+<li>Start coding.For execution press <code>cmd-enter</code></li>
+</ul>
+<p class="image-container"><img alt="kotlin repl" src="img/13fe2f58b813c4b9.png"></p>
+<ul>
+<li>Show quick documentation in REPL</li>
+</ul>
+<p class="image-container"><img alt="kotlin repl" src="img/36a146df4584e0b8.png"></p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>(Almost) all supports in the IDE editor works in REPL as well:<ul>
+<li>autocomplete,</li>
+<li>automatic imports,</li>
+<li>compilation errors</li>
+<li>quick source</li>
+<li>quick documentation</li>
+<li>and much more....</li>
+</ul>
+</li>
+<li><strong>Kotlin worksheet</strong></li>
+</ul>
+<p>How to:</p>
+<ul>
+<li>Open <code>Find Action...</code></li>
+<li>Type <code>kotlin REPL</code></li>
+</ul>
+<p class="image-container"><img alt="kotlin worksheet" src="img/80c876d17312cef1.png"></p>
+<ul>
+<li>Start coding</li>
+</ul>
+<p>See Idea inspection and hint in action.</p>
+<p class="image-container"><img alt="kotlin worksheet" src="img/5c9c4a32f9456d3c.png"></p>
+<ul>
+<li>Click the green arrow button to execute the code if the interactive mode is off.</li>
+</ul>
+<p class="image-container"><img alt="kotlin worksheet" src="img/da407a0f1e143c71.png"></p>
+<p><strong>Notes:</strong></p>
+<p>There are some similarities between the kotlin scratch file and kotlin worksheet.</p>
+<p>The worksheet:</p>
+<ul>
+<li>file is stored in project, it can be versioned.</li>
+<li>has kts file extension (it is a kotlin script file)</li>
+<li>requires the <code>kotlin-script-runtime</code> in project classpath. If it is not then Idea offers to add it.</li>
 </ul>
 
 
