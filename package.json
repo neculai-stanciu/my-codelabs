@@ -4,7 +4,7 @@
   "description": "simple codelabs",
   "main": "collect-codelabs.js",
   "scripts": {
-    "start": "http-server .",
+    "start": "http-server --port 8082 .",
     "prestart": "npm run generate && npm run collect:codelabs",
     "generate": "npm run generate:codelabs & npm run generate:presentations",
     "generate:codelabs": "node generate-codelabs.js",
@@ -28,6 +28,7 @@
     "reveal-md": "^3.4.7"
   },
   "dependencies": {
-    "@dxdeveloperexperience/codelab-generator": "^1.0.7"
+    "@dxdeveloperexperience/codelab-generator": "^1.0.7",
+    "rimraf": "^3.0.2"
   }
 }

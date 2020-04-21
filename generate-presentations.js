@@ -1,12 +1,14 @@
 const { exec } = require("child_process");
 const path = require("path");
 const fs = require("fs");
+const rimraf = require("rimraf");
 
 // note expects reveal-md installed globally
 const generateStaticPresentation = (markdownPath, themePath) => {
   const presentationName = path.basename(markdownPath, '.md');
+  rimraf(`presentations/${presentationName}`, function () { console.log("done"); });
   // todo: add theme support
-  const revealCommand = `reveal-md ./${markdownPath} --static=presentations/${presentationName}`;
+  const revealCommand = `reveal-md ./${markdownPath} --theme ../../theme/my-theme.css --static=presentations/${presentationName}`;
   console.log("command: ", revealCommand);
   exec(revealCommand, (error, stdout, stderr) => {
     if (error) {
