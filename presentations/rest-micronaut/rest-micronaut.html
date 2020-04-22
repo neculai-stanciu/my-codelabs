@@ -133,7 +133,17 @@ public class HelloController {
         return "Hello World"; //#3
     }
 }
-```
+```</script></section><section  data-markdown><script type="text/template">
+# Routing examples
+
+| Template               | Description                         | Matching URI            |
+| ---------------------- | ----------------------------------- | ----------------------- |
+| /books/{id}            | Simple match                        | /books/1                |
+| /books/{id:2}          | A variable of 2 characters max      | /books/10               |
+| /books{/id}            | An optional URI variable            | /books/10 or /books     |
+| /book{/id:[a-zA-Z]+}   | An optional URI variable with regex | /books/foo              |
+| /books{?max,offset}    | Optional query parameters           | /books?max=10&offset=10 |
+| /books{/path:.*}{.ext} | Regex path match with extension     | /books/foo/bar.xml      |
 </script></section><section  data-markdown><script type="text/template">
 # `@Introspected` 
 
@@ -146,17 +156,37 @@ class MyBean {
 * AOT Reflection-free replacement for `java.beans.Introspector`
 * Set/get bean properties, create instances
 * Includes `AnnotationMetadata`
-</script></section><section  data-markdown><script type="text/template"># Routing examples
+  </script></section><section  data-markdown><script type="text/template"># Filter support
 
-| Template               | Description                         | Matching URI            |
-| ---------------------- | ----------------------------------- | ----------------------- |
-| /books/{id}            | Simple match                        | /books/1                |
-| /books/{id:2}          | A variable of 2 characters max      | /books/10               |
-| /books{/id}            | An optional URI variable            | /books/10 or /books     |
-| /book{/id:[a-zA-Z]+}   | An optional URI variable with regex | /books/foo              |
-| /books{?max,offset}    | Optional query parameters           | /books?max=10&offset=10 |
-| /books{/path:.*}{.ext} | Regex path match with extension     | /books/foo/bar.xml      |
-</script></section><section  data-markdown><script type="text/template"># Filter support
+The Micronaut HTTP server supports the ability to apply filters to request/response processing in a similar, but reactive, way to Servlet filters in traditional Java applications.
+</script></section><section  data-markdown><script type="text/template">
+# Writing a Filter
+
+```java
+import io.micronaut.http.*;
+import io.micronaut.http.annotation.Filter;
+import io.micronaut.http.filter.*;
+import org.reactivestreams.Publisher;
+
+@Filter("/hello/**") 
+public class TraceFilter implements HttpServerFilter {
+    private final TraceService traceService;
+
+    public TraceFilter(TraceService traceService) {
+        this.traceService = traceService;
+    }
+
+    @Override
+    public Publisher<MutableHttpResponse<?>> doFilter(HttpRequest<?> request, ServerFilterChain chain) {
+        return traceService.trace(request)
+                           .switchMap(aBoolean -> chain.proceed(request)) 
+                           .doOnNext(res ->
+                                res.getHeaders().add("X-Trace-Enabled", "true")
+                           );
+    }
+
+}
+```
 </script></section><section  data-markdown><script type="text/template"># Error handling
 </script></section><section  data-markdown><script type="text/template">
 # Local error example
@@ -214,9 +244,8 @@ class VersionedController {
 </script></section><section  data-markdown><script type="text/template">
 ## Documentation
 
-- [Introduction to Micronaut Framework](https://www.baeldung.com/micronaut)
-- [Micronaut deep dive](https://www.youtube.com/watch?v=S5yfTfPeue8)
-</script></section><section  data-markdown><script type="text/template"></script></section></div>
+* [Introduction to Micronaut Framework](https://www.baeldung.com/micronaut)
+* [Micronaut deep dive](https://www.youtube.com/watch?v=S5yfTfPeue8)</script></section></div>
     </div>
 
     <script src="./js/reveal.js"></script>
