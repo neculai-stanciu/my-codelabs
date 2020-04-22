@@ -4,7 +4,7 @@
   "description": "simple codelabs",
   "main": "collect-codelabs.js",
   "scripts": {
-    "start": "http-server --port 8082 .",
+    "start": "http-server .",
     "prestart": "npm run generate && npm run collect:codelabs",
     "generate": "npm run generate:codelabs & npm run generate:presentations",
     "generate:codelabs": "node generate-codelabs.js",
