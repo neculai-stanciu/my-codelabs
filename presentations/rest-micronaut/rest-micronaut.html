@@ -120,6 +120,14 @@ Reflection-based IoC frameworks load and cache reflection data for every single 
 | Slow Dynamic Class Loading | No Dynamic Class Loaders         |
 </script></section><section  data-markdown><script type="text/template"># A controller in Micronaut
 
+```groovy
+// build.gradle key dependencies
+ annotationProcessor enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion")
+ annotationProcessor "io.micronaut:micronaut-inject-java"
+ implementation enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion")
+ implementation "io.micronaut:micronaut-inject"
+```
+
 ```java
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
@@ -133,7 +141,16 @@ public class HelloController {
         return "Hello World"; //#3
     }
 }
-```</script></section><section  data-markdown><script type="text/template">
+```
+</script></section><section  data-markdown><script type="text/template"># Run 
+
+```bash
+$ ./gradlew run
+> Task :run
+[main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 972ms. 
+Server Running: http://localhost:28933
+```
+</script></section><section  data-markdown><script type="text/template">
 # Routing examples
 
 | Template               | Description                         | Matching URI            |
@@ -148,15 +165,38 @@ public class HelloController {
 # `@Introspected` 
 
 ```java
+import io.micronaut.core.annotation.Introspected;
+
 @Introspected
-class MyBean {
-    private List<String> names; //getter/setter omitted
+public class Person {
+
+    private String name;
+    private int age = 18;
+
+    public Person(String name) {
+        this.name = name;
+    }
+  // ... getters and setters
 }
 ```
 * AOT Reflection-free replacement for `java.beans.Introspector`
 * Set/get bean properties, create instances
 * Includes `AnnotationMetadata`
-  </script></section><section  data-markdown><script type="text/template"># Filter support
+</script></section><section  data-markdown><script type="text/template"># BeanIntrospector example
+
+```java
+  final BeanIntrospection<Person> introspection = BeanIntrospection
+  .getIntrospection(Person.class); 
+  Person person = introspection.instantiate("John"); 
+  System.out.println("Hello " + person.getName());
+
+  final BeanProperty<Person, String> property = introspection
+  .getRequiredProperty("name", String.class); 
+  property.set(person, "Fred"); 
+  String name = property.get(person); 
+  System.out.println("Hello " + person.getName());
+```
+</script></section><section  data-markdown><script type="text/template"># Filter support
 
 The Micronaut HTTP server supports the ability to apply filters to request/response processing in a similar, but reactive, way to Servlet filters in traditional Java applications.
 </script></section><section  data-markdown><script type="text/template">
@@ -240,7 +280,13 @@ class VersionedController {
     String helloV2() {
         return "helloV2";
     }
-```</script></section><section  data-markdown><script type="text/template">## Questions ?
+```
+Request a specific version:
+
+```bash
+$ curl http://localhost:8080 -H "X-API-VERSION:1"
+```
+</script></section><section  data-markdown><script type="text/template">## Questions ?
 </script></section><section  data-markdown><script type="text/template">
 ## Documentation
 

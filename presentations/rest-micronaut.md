@@ -133,6 +133,14 @@ Reflection-based IoC frameworks load and cache reflection data for every single 
 ---
 # A controller in Micronaut
 
+```groovy
+// build.gradle key dependencies
+ annotationProcessor enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion")
+ annotationProcessor "io.micronaut:micronaut-inject-java"
+ implementation enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion")
+ implementation "io.micronaut:micronaut-inject"
+```
+
 ```java
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
@@ -147,6 +155,17 @@ public class HelloController {
     }
 }
 ```
+
+---
+# Run 
+
+```bash
+$ ./gradlew run
+> Task :run
+[main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 972ms. 
+Server Running: http://localhost:28933
+```
+
 ---
 
 # Routing examples
@@ -165,15 +184,40 @@ public class HelloController {
 # `@Introspected` 
 
 ```java
+import io.micronaut.core.annotation.Introspected;
+
 @Introspected
-class MyBean {
-    private List<String> names; //getter/setter omitted
+public class Person {
+
+    private String name;
+    private int age = 18;
+
+    public Person(String name) {
+        this.name = name;
+    }
+  // ... getters and setters
 }
 ```
 * AOT Reflection-free replacement for `java.beans.Introspector`
 * Set/get bean properties, create instances
 * Includes `AnnotationMetadata`
-  
+
+---
+# BeanIntrospector example
+
+```java
+  final BeanIntrospection<Person> introspection = BeanIntrospection
+  .getIntrospection(Person.class); 
+  Person person = introspection.instantiate("John"); 
+  System.out.println("Hello " + person.getName());
+
+  final BeanProperty<Person, String> property = introspection
+  .getRequiredProperty("name", String.class); 
+  property.set(person, "Fred"); 
+  String name = property.get(person); 
+  System.out.println("Hello " + person.getName());
+```
+
 ---
 # Filter support
 
@@ -270,6 +314,12 @@ class VersionedController {
         return "helloV2";
     }
 ```
+Request a specific version:
+
+```bash
+$ curl http://localhost:8080 -H "X-API-VERSION:1"
+```
+
 ---
 ## Questions ?
 
