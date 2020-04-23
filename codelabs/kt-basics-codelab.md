@@ -193,6 +193,22 @@ File `App.kt`
 
   *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/bd8668fc965ccbe06d1e90f22f39c29dd233b752)*
 
+* **Main method inside an object (singleton)**
+
+File `App.kt`
+
+```kotlin
+object App {
+
+  @JvmStatic
+  fun main(vararg args: String) {
+    println("Hello Kotlin!")
+  }
+}
+```
+
+  *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/e09ae472dbdf6412ff7ae779604db62e5ef10ea4)*
+
 * **kotlin scripting**
 
   Create a `main.kts` script file outside the src folder (e.g. $prj_home/scripts/main.kts).
@@ -451,6 +467,173 @@ public class Person {
   - has kts file extension (it is a kotlin script file)
   - requires the `kotlin-script-runtime` in project classpath. If it is not then Idea offers to add it.
 
+
+
+
+
+
+
+
+
+
+
+### **My favorites kotlin features**
+---
+
+* **Pattern matching** (`when`)
+
+```kotlin
+  // code here
+```
+
+  https://kotlinlang.org/docs/reference/whatsnew13.html#capturing-when-subject-in-a-variable
+
+  *See it on [github]()*
+
+* **Data classes**
+
+```kotlin
+  // code here
+```
+  *See it on [github]()*
+
+* **Extension methods**
+
+```kotlin
+  // code here
+```
+  *See it on [github]()*
+
+
+* **(Multi line) string interpolation**
+
+```kotlin
+  // code here
+```
+  *See it on [github]()*
+
+
+* **Type inference**
+
+```kotlin
+  // val var
+  // fun sum(a: Int, b: Int) = a + b
+```
+  *See it on [github]()*
+
+
+* **Expressions (almost) everywhere**
+
+```kotlin
+  // if () then else
+  // when
+  // try catch
+```
+  *See it on [github]()*
+
+* **Scope methods (`run`, `let`, `with`, `apply`, `also`)**
+
+```kotlin
+  // code here
+```
+  *See it on [github]()*
+
+
+* **Reified types and inline methods**
+
+```kotlin
+  // if () then else
+  // when
+  // try catch
+```
+  *See it on [github]()*
+
+* **Immutable/mutable collections**
+
+```kotlin
+  // if () then else
+  // when
+  // try catch
+```
+  *See it on [github]()*
+
+* **Aliases**
+
+```kotlin
+  // if () then else
+  // when
+  // try catch
+```
+  *See it on [github]()*
+
+* **Lambda with receiver**
+
+```kotlin
+  // if () then else
+  // when
+  // try catch
+```
+  *See it on [github]()*
+
+
+* **Nested functions**
+
+```kotlin
+  // if () then else
+  // when
+  // try catch
+```
+  *See it on [github]()*
+
+
+* **apply**
+
+```kotlin
+  // if () then else
+  // when
+  // try catch
+```
+  *See it on [github]()*
+
+* **lateinit var**
+
+```kotlin
+  // if () then else
+  // when
+  // try catch
+```
+  *See it on [github]()*
+
+* **named and default parameters**
+
+```kotlin
+  //
+```
+  *See it on [github]()*
+
+* **Sealed classes (ADT)**
+
+```kotlin
+  //
+```
+  *See it on [github]()*
+
+
+* **Inline classes**
+
+```kotlin
+  //
+```
+  *See it on [github]()*
+
+
+
+
+
+##
+
+TBD
+
 ## OOP in Kotlin
 
   What to do next:
@@ -462,10 +645,6 @@ public class Person {
   - const val
   - data class
   - primary constructor
-  - inheritance, implementation
-  - custom getters/setters
-  - primary and secondary constructors
-  - singleton with object
   - companion object
   - delegation (by)
   - generics (reified)
@@ -479,15 +658,17 @@ This will be moved in a separate codelab!!!
 
 **Options**
 
-  1. Design patterns in kotlin
-  2. Kotlin collections
-  3. Scripting in kotlin (cli)
-  4. Functional programming in kotlin
-  5. Reactive programming in kotlin
-  6. Kotlin coroutines
-  7. Kotlin 1.4
-  8. Micronaut and Kotlin
-  9. Kotlin JS
-  10. Kotlin Multi Platform Programming
-  11. Kotlin DSL
-  12. SpringBoot and Kotlin
+  1. Java/Kotlin interoperability
+  2. OOP in Kotlin
+  3. Design patterns in kotlin
+  4. Kotlin collections
+  5. Scripting in kotlin (cli)
+  6. SpringBoot and Kotlin
+  7. Reactive programming in kotlin
+  8. Kotlin coroutines
+  9. Functional programming in kotlin
+  10. Kotlin 1.4
+  11. Micronaut and Kotlin
+  12. Kotlin JS
+  13. Kotlin Multi Platform Programming
+  14. Kotlin DSL

@@ -186,6 +186,19 @@
 </code></pre>
 <p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/bd8668fc965ccbe06d1e90f22f39c29dd233b752" target="_blank"><em>github</em></a></p>
 <ul>
+<li><strong>Main method inside an object (singleton)</strong></li>
+</ul>
+<p>File <code>App.kt</code></p>
+<pre><code>object App {
+
+  @JvmStatic
+  fun main(vararg args: String) {
+    println(&#34;Hello Kotlin!&#34;)
+  }
+}
+</code></pre>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/e09ae472dbdf6412ff7ae779604db62e5ef10ea4" target="_blank"><em>github</em></a></p>
+<ul>
 <li><strong>kotlin scripting</strong></li>
 </ul>
 <p>Create a <code>main.kts</code> script file outside the src folder (e.g. $prj_home/scripts/main.kts).</p>
@@ -422,6 +435,128 @@
 <li>has kts file extension (it is a kotlin script file)</li>
 <li>requires the <code>kotlin-script-runtime</code> in project classpath. If it is not then Idea offers to add it.</li>
 </ul>
+<h2 is-upgraded><strong>My favorites kotlin features</strong></h2>
+<ul>
+<li><strong>Pattern matching</strong> (<code>when</code>)</li>
+</ul>
+<pre><code>  // code here
+</code></pre>
+<p>https://kotlinlang.org/docs/reference/whatsnew13.html#capturing-when-subject-in-a-variable</p>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Data classes</strong></li>
+</ul>
+<pre><code>  // code here
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Extension methods</strong></li>
+</ul>
+<pre><code>  // code here
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>(Multi line) string interpolation</strong></li>
+</ul>
+<pre><code>  // code here
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Type inference</strong></li>
+</ul>
+<pre><code>  // val var
+  // fun sum(a: Int, b: Int) = a + b
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Expressions (almost) everywhere</strong></li>
+</ul>
+<pre><code>  // if () then else
+  // when
+  // try catch
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Scope methods (</strong><code>run</code><strong>, </strong><code>let</code><strong>, </strong><code>with</code><strong>, </strong><code>apply</code><strong>, </strong><code>also</code><strong>)</strong></li>
+</ul>
+<pre><code>  // code here
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Reified types and inline methods</strong></li>
+</ul>
+<pre><code>  // if () then else
+  // when
+  // try catch
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Immutable/mutable collections</strong></li>
+</ul>
+<pre><code>  // if () then else
+  // when
+  // try catch
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Aliases</strong></li>
+</ul>
+<pre><code>  // if () then else
+  // when
+  // try catch
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Lambda with receiver</strong></li>
+</ul>
+<pre><code>  // if () then else
+  // when
+  // try catch
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Nested functions</strong></li>
+</ul>
+<pre><code>  // if () then else
+  // when
+  // try catch
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>apply</strong></li>
+</ul>
+<pre><code>  // if () then else
+  // when
+  // try catch
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>lateinit var</strong></li>
+</ul>
+<pre><code>  // if () then else
+  // when
+  // try catch
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>named and default parameters</strong></li>
+</ul>
+<pre><code>  //
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Sealed classes (ADT)</strong></li>
+</ul>
+<pre><code>  //
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Inline classes</strong></li>
+</ul>
+<pre><code>  //
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<p>TBD</p>
 
 
       </google-codelab-step>
@@ -437,10 +572,6 @@
 <li>const val</li>
 <li>data class</li>
 <li>primary constructor</li>
-<li>inheritance, implementation</li>
-<li>custom getters/setters</li>
-<li>primary and secondary constructors</li>
-<li>singleton with object</li>
 <li>companion object</li>
 <li>delegation (by)</li>
 <li>generics (reified)</li>
@@ -456,18 +587,20 @@
       <google-codelab-step label="What&#39;s next?" duration="0">
         <p><strong>Options</strong></p>
 <ol type="1">
+<li>Java/Kotlin interoperability</li>
+<li>OOP in Kotlin</li>
 <li>Design patterns in kotlin</li>
 <li>Kotlin collections</li>
 <li>Scripting in kotlin (cli)</li>
-<li>Functional programming in kotlin</li>
+<li>SpringBoot and Kotlin</li>
 <li>Reactive programming in kotlin</li>
 <li>Kotlin coroutines</li>
+<li>Functional programming in kotlin</li>
 <li>Kotlin 1.4</li>
 <li>Micronaut and Kotlin</li>
 <li>Kotlin JS</li>
 <li>Kotlin Multi Platform Programming</li>
 <li>Kotlin DSL</li>
-<li>SpringBoot and Kotlin</li>
 </ol>
 
 
