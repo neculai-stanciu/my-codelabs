@@ -312,7 +312,212 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Kotlin plugins for IntelliJ Idea" duration="0">
+      <google-codelab-step label="My favorite kotlin features" duration="0">
+        <ul>
+<li><strong>Pattern matching</strong> (<code>when</code>)</li>
+</ul>
+<pre><code>    &#34;test pattern matching with when (1)&#34; {
+
+        val no = 7
+
+        val day: String = when(no) {
+          6, 7 -&gt; &#34;weekend&#34;
+          else -&gt; &#34;week day&#34;
+        }
+
+      day shouldBe &#34;weekend&#34;
+    }
+</code></pre>
+<pre><code>    &#34;test pattern matching with when (2)&#34; {
+
+      val person = Person(&#34;Tony&#34;, 18) as Any
+
+      val personInfo: String = when(person) {
+        is String -&gt; person
+        is Person -&gt; person.name  //smart cast
+        else -&gt; person.toString()
+      }
+      personInfo shouldBe &#34;Tony&#34;
+    }
+</code></pre>
+<p>See <a href="https://kotlinlang.org/docs/reference/whatsnew13.html#capturing-when-subject-in-a-variable" target="_blank">doc</a></p>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/1d76432b5c381260f1ec98a911c0576baa80242b" target="_blank"><em>github</em></a></p>
+<ul>
+<li><strong>Smart cast</strong><ul>
+<li>In if, when and other kt constructs</li>
+</ul>
+</li>
+</ul>
+<pre><code>    &#34;test smart cast&#34; {
+
+      val person = Person(&#34;Tony&#34;, 18) as Any
+
+      val personInfo = if(person is Person) {
+        person.name
+      } else {
+        person.toString()
+      }
+
+      personInfo shouldBe &#34;Tony&#34;
+    }
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Data classes</strong><ul>
+<li>provides getters/setters, all args constructor, equals/hashCode, toString, copy, destruction</li>
+</ul>
+</li>
+</ul>
+<pre><code>    public class Survey {
+
+      private String id;
+      private String name;
+      private String description;
+      private String category;
+      // 82 lines of code (getters/setters/hashCode...)
+</code></pre>
+<pre><code>  data class Survey(var id: String, var name: String, var description: String, var category: String)
+</code></pre>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/3c1783fbc128e3d5ecec0a4395ad913be1c76289" target="_blank"><em>github</em></a></p>
+<ul>
+<li><strong>Expressions (almost) everywhere</strong><ul>
+<li>if, then, catch, generators are all expressions.</li>
+</ul>
+</li>
+</ul>
+<pre><code>    &#34;test expression is almost everywhere (try/catch)&#34; {
+
+      val age = try {
+        Integer.parseInt(&#34;tony&#39;s age&#34;)
+      } catch (e: Exception) {
+        90
+      }
+
+      age shouldBe 90
+    }
+</code></pre>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/f9f3610f42f952dd50c3456d9a29afbf1a88e2ae" target="_blank"><em>github</em></a></p>
+<ul>
+<li><strong>Extension methods/properties</strong></li>
+</ul>
+<pre><code>    &#34;test extension method&#34; {
+
+      fun Employee.fullName() = &#34;${this.firstName} ${this.lastName}&#34;
+
+      val tony = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 18)
+
+      tony.fullName() shouldBe &#34;Antonel Pazargic&#34;
+    }
+</code></pre>
+<pre><code>    val Employee.fullName: String
+          get() =
+            &#34;${this.firstName} ${this.lastName}&#34;
+
+    &#34;test extension property&#34; {
+
+      val tony = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 18)
+
+      tony.fullName shouldBe &#34;Antonel Pazargic&#34;
+    }
+</code></pre>
+<p><em>See it on github </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/75e094fcff2b9a5c0a6b428f88a54c3af0041cf3" target="_blank"><em>here</em></a><em> and </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/29eb9f721b4e0e256b4c49040945ff7d72e21e30" target="_blank"><em>here</em></a></p>
+<ul>
+<li><strong>(Multi line) string interpolation, named and default method parameter</strong></li>
+</ul>
+<pre><code>    &#34;test multiline string interpolation, named and default parameter&#34; {
+
+      @Language(&#34;json&#34;)
+      fun toJson(firstName: String, lastName: String, age: Int = 18) = &#34;&#34;&#34;
+        {
+          &#34;firstName&#34;: &#34;$firstName&#34;,
+          &#34;lastName&#34;: &#34;$lastName&#34;,
+          &#34;age&#34;: $age
+        }
+      &#34;&#34;&#34;.trimIndent()
+
+      toJson(firstName = &#34;Antonel&#34;, lastName = &#34;Pazargic&#34;) shouldContain &#34;&#34;&#34;&#34;age&#34;: 18&#34;&#34;&#34;
+    }
+</code></pre>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/8e3f2a98101c46cc0fa64d8df6ec6aa9bf284805" target="_blank"><em>github</em></a></p>
+<ul>
+<li><strong>Type inference</strong></li>
+</ul>
+<pre><code>      val emp1: Employee = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 50)
+      val emp2 = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 50)
+
+      fun getName(employee: Employee): String {
+        return employee.firstName
+      }
+      fun sum(a: Int, b: Int) = a + b
+</code></pre>
+<p><em>See it on [github]()</em></p>
+<ul>
+<li><strong>Scope methods (</strong><code>run</code><strong>, </strong><code>let</code><strong>, </strong><code>with</code><strong>, </strong><code>apply</code><strong>, </strong><code>also</code><strong>)</strong><ul>
+<li>Some of the above mentioned methods use lambda with receiver</li>
+</ul>
+</li>
+</ul>
+<pre><code>    &#34;test scope methods&#34; {
+
+      with(Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;)) {
+        firstName shouldBe &#34;Antonel&#34;
+        lastName shouldBe &#34;Pazargic&#34;
+        age shouldBe 18
+      }
+    }
+</code></pre>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/b2dc624f215edbb0293dffc1dce69e7372a70328" target="_blank"><em>github</em></a></p>
+<ul>
+<li><strong>Nested functions</strong></li>
+</ul>
+<pre><code>    &#34;test nested function&#34; {
+
+      fun double(a: Int): Int {
+
+        fun multiply(a1: Int, a2: Int) = a1 * a2
+
+        return multiply(a, a)
+      }
+
+      double(2) shouldBe 4
+    }
+</code></pre>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/89bb314a8ffa550c3d63475d55d42e805c5b58eb" target="_blank"><em>github</em></a></p>
+<ul>
+<li><strong>Operator overloaded</strong></li>
+</ul>
+<pre><code>    &#34;test operator overloaded&#34; {
+
+      operator fun Employee.plus(other: Employee) = this.salary + other.salary
+
+      val employee1 = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 50, 10000)
+      val employee2 = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 20, 1000)
+
+      employee1 + employee2 shouldBe 11000
+    }
+</code></pre>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/2ad0c824e76cefd94548336ab961211ca0c8aae5" target="_blank"><em>github</em></a></p>
+<ul>
+<li>There are many others useful kotlin features<ul>
+<li>apply</li>
+<li>reified types and inline methods</li>
+<li>type alias</li>
+<li>lateinit var (tests - Junit, TestNG, springboot)</li>
+<li>sealed classes (ADT)</li>
+<li>lambda with receiver</li>
+<li>contracts</li>
+<li>operators overloaded</li>
+<li>mutable/immutable collections</li>
+<li><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/2ad0c824e76cefd94548336ab961211ca0c8aae5" target="_blank">tailreq</a></li>
+<li>a lot more...</li>
+</ul>
+</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Kotlin plugin for IntelliJ Idea" duration="0">
         <p><strong>Notes:</strong></p>
 <ul>
 <li>The information presented in this section is based on <strong>IntelliJ Idea Ultimate 2020.1</strong> and <strong>kotlin plugin 1.3.72</strong>.</li>
@@ -438,208 +643,14 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="My favorite kotlin features" duration="0">
+      <google-codelab-step label="References" duration="0">
         <ul>
-<li><strong>Pattern matching</strong> (<code>when</code>)</li>
+<li><a href="https://kotlinlang.org/docs/reference/" target="_blank">Kotlin reference documentation</a></li>
+<li><a href="play.kotlinlang.org" target="_blank">Kotlin playground</a></li>
+<li><a href="http://try.kotlinlang.org/" target="_blank">Kotlin koans</a></li>
+<li><a href="https://www.jetbrains.com/help/education/install-edutools-plugin.html?section=Kotlin" target="_blank">EduTools Idea plugin</a></li>
+<li><a href="https://www.manning.com/books/kotlin-in-action" target="_blank">Kotlin in action(book)</a></li>
 </ul>
-<pre><code>    &#34;test pattern matching with when (1)&#34; {
-
-        val no = 7
-
-        val day: String = when(no) {
-          6, 7 -&gt; &#34;weekend&#34;
-          else -&gt; &#34;week day&#34;
-        }
-
-      day shouldBe &#34;weekend&#34;
-    }
-</code></pre>
-<pre><code>    &#34;test pattern matching with when (2)&#34; {
-
-      val person = Person(&#34;Tony&#34;, 18) as Any
-
-      val personInfo: String = when(person) {
-        is String -&gt; person
-        is Person -&gt; person.name  //smart cast
-        else -&gt; person.toString()
-      }
-      personInfo shouldBe &#34;Tony&#34;
-    }
-</code></pre>
-<p>See <a href="https://kotlinlang.org/docs/reference/whatsnew13.html#capturing-when-subject-in-a-variable" target="_blank">doc</a></p>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/1d76432b5c381260f1ec98a911c0576baa80242b" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>Smart cast</strong><ul>
-<li>In if, when and other kt constructs</li>
-</ul>
-</li>
-</ul>
-<pre><code>    &#34;test smart cast&#34; {
-
-      val person = Person(&#34;Tony&#34;, 18) as Any
-
-      val personInfo = if(person is Person) {
-        person.name
-      } else {
-        person.toString()
-      }
-
-      personInfo shouldBe &#34;Tony&#34;
-    }
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Data classes</strong><ul>
-<li>provides getters/setters, all args constructor, equals/hashCode, toString, copy, destruction</li>
-</ul>
-</li>
-</ul>
-<pre><code>    public class Survey {
-
-      private String id;
-      private String name;
-      private String description;
-      private String category;
-      // 82 lines of code (getters/setters/hashCode...)
-</code></pre>
-<pre><code>  data class Survey(var id: String, var name: String, var description: String, var category: String)
-</code></pre>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/3c1783fbc128e3d5ecec0a4395ad913be1c76289" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>Expressions (almost) everywhere</strong><ul>
-<li>if, then, catch, generators are all expressions.</li>
-</ul>
-</li>
-</ul>
-<pre><code>    &#34;test expression is almost everywhere (try/catch)&#34; {
-
-      val age = try {
-        Integer.parseInt(&#34;tony&#39;s age&#34;)
-      } catch (e: Exception) {
-        90
-      }
-
-      age shouldBe 90
-    }
-</code></pre>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/f9f3610f42f952dd50c3456d9a29afbf1a88e2ae" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>Extension methods/properties</strong></li>
-</ul>
-<pre><code>    &#34;test extension method&#34; {
-
-      fun Employee.fullName() = &#34;${this.firstName} ${this.lastName}&#34;
-
-      val tony = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 18)
-
-      tony.fullName() shouldBe &#34;Antonel Pazargic&#34;
-    }
-</code></pre>
-<pre><code>    val Employee.fullName: String
-          get() =
-            &#34;${this.firstName} ${this.lastName}&#34;
-
-    &#34;test extension property&#34; {
-
-      val tony = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 18)
-
-      tony.fullName shouldBe &#34;Antonel Pazargic&#34;
-    }
-</code></pre>
-<p><em>See it on github </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/75e094fcff2b9a5c0a6b428f88a54c3af0041cf3" target="_blank"><em>here</em></a><em> and </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/29eb9f721b4e0e256b4c49040945ff7d72e21e30" target="_blank"><em>here</em></a></p>
-<ul>
-<li><strong>(Multi line) string interpolation</strong></li>
-</ul>
-<pre><code>  // code here
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Type inference</strong></li>
-</ul>
-<pre><code>  // val var
-  // fun sum(a: Int, b: Int) = a + b
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Scope methods (</strong><code>run</code><strong>, </strong><code>let</code><strong>, </strong><code>with</code><strong>, </strong><code>apply</code><strong>, </strong><code>also</code><strong>)</strong></li>
-</ul>
-<pre><code>  // code here
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Reified types and inline methods</strong></li>
-</ul>
-<pre><code>  // if () then else
-  // when
-  // try catch
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Immutable/mutable collections</strong></li>
-</ul>
-<pre><code>  // if () then else
-  // when
-  // try catch
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Aliases</strong></li>
-</ul>
-<pre><code>  // if () then else
-  // when
-  // try catch
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Lambda with receiver</strong></li>
-</ul>
-<pre><code>  // if () then else
-  // when
-  // try catch
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Nested functions</strong></li>
-</ul>
-<pre><code>  // if () then else
-  // when
-  // try catch
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>apply</strong></li>
-</ul>
-<pre><code>  // if () then else
-  // when
-  // try catch
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>lateinit var</strong></li>
-</ul>
-<pre><code>  // if () then else
-  // when
-  // try catch
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>named and default parameters</strong></li>
-</ul>
-<pre><code>  //
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Sealed classes (ADT)</strong></li>
-</ul>
-<pre><code>  //
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Inline classes</strong></li>
-</ul>
-<pre><code>  //
-</code></pre>
-<p><em>See it on [github]()</em></p>
 
 
       </google-codelab-step>
@@ -647,8 +658,8 @@
       <google-codelab-step label="What&#39;s next?" duration="0">
         <p><strong>Options</strong></p>
 <ol type="1">
+<li><strong>OOP in Kotlin</strong></li>
 <li>Java/Kotlin interoperability</li>
-<li>OOP in Kotlin</li>
 <li>Design patterns in kotlin</li>
 <li>Kotlin collections</li>
 <li>Scripting in kotlin (cli)</li>

@@ -332,139 +332,6 @@ object App {
 
   > See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/4f88d00e359ce3573051aa68bce14e2999992d99)
 
-## Kotlin plugins for IntelliJ Idea
-
-  **Notes:**
-  - The information presented in this section is based on **IntelliJ Idea Ultimate 2020.1** and **kotlin plugin 1.3.72**.
-
-* **Install Kotlin Idea plugin**
-
-  - Select `Help | Find Actions...` from main menu  (or press `cmd-shift-a`)
-  - Type `plugins` and hit `Enter`
-  - Enable the kotlin plugin by following the steps highlighted in the image below
-
-  ![kotlin idea plugin](assets/kt-basics-codelab/install_kotlin_idea_plugin.png)
-
-* **Convert from java to kotlin**
-
-  - Open the java file to convert, or just select it in the project tool window
-  - Select `Help | Find Actions...` from main menu  (or press cmd-shift-a)
-  - Type `convert java file to kotlin file` and hit Enter
-
-  ![convert to kt](assets/kt-basics-codelab/convert_java_to_kotlin.png)
-
-  The following java file
-
-```java
-public class Person {
-
-  private String name;
-  private int age;
-
-  // constructor, getter and setters (28 lines of code)
-}
-```
-  gets converted to the following kotlin
-
-```kotlin
-  class Person(var name: String, var age: Int)
-```
-
-  > See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/c0fab8fd23cc072920541d2920b8f5e80e24165b)
-
-* **Decompile kotlin to java**
-
-  Doesn't work any longer with 2020.1 and kotlin 1.3.71 :(
-
-* **Kotlin scratch file**
-
-  Scratch files is an amazing idea features.
-
-  It allows development by experimenting.
-
-  Kotlin plugin contributes to the scratch feature feature.
-
-  How to:
-  - Open `Find Action...`
-  - Type `scratch file`
-
-  ![scratch file](assets/kt-basics-codelab/kt_scratch_file_1.png)
-
-  - Type `kotlin`
-
-  ![scratch file](assets/kt-basics-codelab/kt_scratch_file_2.png)
-
-  - Select a project module classpath
-
-  ![scratch file](assets/kt-basics-codelab/kt_scratch_file_3.png)
-
-  - Run the scratch file kotlin code, when the interactive is checked out
-
-  ![scratch file](assets/kt-basics-codelab/kt_scratch_file_4.png)
-
-  **Notes:**
-  - A scratch file can be renamed. One can give it a meaningful name.
-  - A scratch file has IDE visibility. It can be seen in every project.
-
-* **Kotlin REPL**
-
-  How to:
-  - Open `Find Action...`
-  - Type `kotlin REPL`
-
-  ![kotlin repl](assets/kt-basics-codelab/kotlin_repl_1.png)
-
-  - Choose a project module
-
-  ![kotlin repl](assets/kt-basics-codelab/kotlin_repl_2.png)
-
-  - Start coding.
-
-    For execution press `cmd-enter`
-
-  ![kotlin repl](assets/kt-basics-codelab/kotlin_repl_3.png)
-
-  - Show quick documentation in REPL
-
-  ![kotlin repl](assets/kt-basics-codelab/kotlin_repl_4.png)
-
-
-  **Notes:**
-  - (Almost) all supports in the IDE editor works in REPL as well:
-    - autocomplete,
-    - automatic imports,
-    - compilation errors
-    - quick source
-    - quick documentation
-    - and much more....
-
-* **Kotlin worksheet**
-
-  How to:
-  - Open `Find Action...`
-  - Type `kotlin REPL`
-
-  ![kotlin worksheet](assets/kt-basics-codelab/kotlin_ws_1.png)
-
-  - Start coding
-
-  See Idea inspection and hint in action.
-
-  ![kotlin worksheet](assets/kt-basics-codelab/kotlin_ws_2.png)
-
-  - Click the green arrow button to execute the code if the interactive mode is off.
-
-  ![kotlin worksheet](assets/kt-basics-codelab/kotlin_ws_3.png)
-
-  **Notes:**
-
-  There are some similarities between the kotlin scratch file and kotlin worksheet.
-
-  The worksheet:
-  - file is stored in project, it can be versioned.
-  - has kts file extension (it is a kotlin script file)
-  - requires the `kotlin-script-runtime` in project classpath. If it is not then Idea offers to add it.
-
 
 
 
@@ -599,125 +466,252 @@ public class Person {
   *See it on github [here](https://github.com/jtonic/tony_software_development_cookbook/commit/75e094fcff2b9a5c0a6b428f88a54c3af0041cf3) and [here](https://github.com/jtonic/tony_software_development_cookbook/commit/29eb9f721b4e0e256b4c49040945ff7d72e21e30)*
 
 
-* **(Multi line) string interpolation**
+* **(Multi line) string interpolation, named and default method parameter**
 
 ```kotlin
-  // code here
+    "test multiline string interpolation, named and default parameter" {
+
+      @Language("json")
+      fun toJson(firstName: String, lastName: String, age: Int = 18) = """
+        {
+          "firstName": "$firstName",
+          "lastName": "$lastName",
+          "age": $age
+        }
+      """.trimIndent()
+
+      toJson(firstName = "Antonel", lastName = "Pazargic") shouldContain """"age": 18"""
+    }
 ```
-  *See it on [github]()*
+  *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/8e3f2a98101c46cc0fa64d8df6ec6aa9bf284805)*
 
 
 * **Type inference**
 
 ```kotlin
-  // val var
-  // fun sum(a: Int, b: Int) = a + b
+      val emp1: Employee = Employee("Antonel", "Pazargic", 50)
+      val emp2 = Employee("Antonel", "Pazargic", 50)
+
+      fun getName(employee: Employee): String {
+        return employee.firstName
+      }
+      fun sum(a: Int, b: Int) = a + b
 ```
   *See it on [github]()*
 
 
 * **Scope methods (`run`, `let`, `with`, `apply`, `also`)**
 
-```kotlin
-  // code here
-```
-  *See it on [github]()*
-
-
-* **Reified types and inline methods**
+  - Some of the above mentioned methods use lambda with receiver
 
 ```kotlin
-  // if () then else
-  // when
-  // try catch
+    "test scope methods" {
+
+      with(Employee("Antonel", "Pazargic")) {
+        firstName shouldBe "Antonel"
+        lastName shouldBe "Pazargic"
+        age shouldBe 18
+      }
+    }
 ```
-  *See it on [github]()*
-
-* **Immutable/mutable collections**
-
-```kotlin
-  // if () then else
-  // when
-  // try catch
-```
-  *See it on [github]()*
-
-* **Aliases**
-
-```kotlin
-  // if () then else
-  // when
-  // try catch
-```
-  *See it on [github]()*
-
-* **Lambda with receiver**
-
-```kotlin
-  // if () then else
-  // when
-  // try catch
-```
-  *See it on [github]()*
+  *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/b2dc624f215edbb0293dffc1dce69e7372a70328)*
 
 
 * **Nested functions**
 
 ```kotlin
-  // if () then else
-  // when
-  // try catch
+    "test nested function" {
+
+      fun double(a: Int): Int {
+
+        fun multiply(a1: Int, a2: Int) = a1 * a2
+
+        return multiply(a, a)
+      }
+
+      double(2) shouldBe 4
+    }
 ```
-  *See it on [github]()*
+  *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/89bb314a8ffa550c3d63475d55d42e805c5b58eb)*
 
-
-* **apply**
+* **Operator overloaded**
 
 ```kotlin
-  // if () then else
-  // when
-  // try catch
-```
-  *See it on [github]()*
+    "test operator overloaded" {
 
-* **lateinit var**
+      operator fun Employee.plus(other: Employee) = this.salary + other.salary
+
+      val employee1 = Employee("Antonel", "Pazargic", 50, 10000)
+      val employee2 = Employee("Antonel", "Pazargic", 20, 1000)
+
+      employee1 + employee2 shouldBe 11000
+    }
+```
+  *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/2ad0c824e76cefd94548336ab961211ca0c8aae5)*
+
+* There are many others useful kotlin features
+
+  - apply
+  - reified types and inline methods
+  - type alias
+  - lateinit var (tests - Junit, TestNG, springboot)
+  - sealed classes (ADT)
+  - lambda with receiver
+  - contracts
+  - operators overloaded
+  - mutable/immutable collections
+  - [tailreq](https://github.com/jtonic/tony_software_development_cookbook/commit/2ad0c824e76cefd94548336ab961211ca0c8aae5)
+  - a lot more...
+
+
+## Kotlin plugin for IntelliJ Idea
+
+  **Notes:**
+  - The information presented in this section is based on **IntelliJ Idea Ultimate 2020.1** and **kotlin plugin 1.3.72**.
+
+* **Install Kotlin Idea plugin**
+
+  - Select `Help | Find Actions...` from main menu  (or press `cmd-shift-a`)
+  - Type `plugins` and hit `Enter`
+  - Enable the kotlin plugin by following the steps highlighted in the image below
+
+  ![kotlin idea plugin](assets/kt-basics-codelab/install_kotlin_idea_plugin.png)
+
+* **Convert from java to kotlin**
+
+  - Open the java file to convert, or just select it in the project tool window
+  - Select `Help | Find Actions...` from main menu  (or press cmd-shift-a)
+  - Type `convert java file to kotlin file` and hit Enter
+
+  ![convert to kt](assets/kt-basics-codelab/convert_java_to_kotlin.png)
+
+  The following java file
+
+```java
+public class Person {
+
+  private String name;
+  private int age;
+
+  // constructor, getter and setters (28 lines of code)
+}
+```
+  gets converted to the following kotlin
 
 ```kotlin
-  // if () then else
-  // when
-  // try catch
+  class Person(var name: String, var age: Int)
 ```
-  *See it on [github]()*
 
-* **named and default parameters**
+  > See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/c0fab8fd23cc072920541d2920b8f5e80e24165b)
 
-```kotlin
-  //
-```
-  *See it on [github]()*
+* **Decompile kotlin to java**
 
-* **Sealed classes (ADT)**
+  Doesn't work any longer with 2020.1 and kotlin 1.3.71 :(
 
-```kotlin
-  //
-```
-  *See it on [github]()*
+* **Kotlin scratch file**
+
+  Scratch files is an amazing idea features.
+
+  It allows development by experimenting.
+
+  Kotlin plugin contributes to the scratch feature feature.
+
+  How to:
+  - Open `Find Action...`
+  - Type `scratch file`
+
+  ![scratch file](assets/kt-basics-codelab/kt_scratch_file_1.png)
+
+  - Type `kotlin`
+
+  ![scratch file](assets/kt-basics-codelab/kt_scratch_file_2.png)
+
+  - Select a project module classpath
+
+  ![scratch file](assets/kt-basics-codelab/kt_scratch_file_3.png)
+
+  - Run the scratch file kotlin code, when the interactive is checked out
+
+  ![scratch file](assets/kt-basics-codelab/kt_scratch_file_4.png)
+
+  **Notes:**
+  - A scratch file can be renamed. One can give it a meaningful name.
+  - A scratch file has IDE visibility. It can be seen in every project.
+
+* **Kotlin REPL**
+
+  How to:
+  - Open `Find Action...`
+  - Type `kotlin REPL`
+
+  ![kotlin repl](assets/kt-basics-codelab/kotlin_repl_1.png)
+
+  - Choose a project module
+
+  ![kotlin repl](assets/kt-basics-codelab/kotlin_repl_2.png)
+
+  - Start coding.
+
+    For execution press `cmd-enter`
+
+  ![kotlin repl](assets/kt-basics-codelab/kotlin_repl_3.png)
+
+  - Show quick documentation in REPL
+
+  ![kotlin repl](assets/kt-basics-codelab/kotlin_repl_4.png)
 
 
-* **Inline classes**
+  **Notes:**
+  - (Almost) all supports in the IDE editor works in REPL as well:
+    - autocomplete,
+    - automatic imports,
+    - compilation errors
+    - quick source
+    - quick documentation
+    - and much more....
 
-```kotlin
-  //
-```
-  *See it on [github]()*
+* **Kotlin worksheet**
 
+  How to:
+  - Open `Find Action...`
+  - Type `kotlin REPL`
+
+  ![kotlin worksheet](assets/kt-basics-codelab/kotlin_ws_1.png)
+
+  - Start coding
+
+  See Idea inspection and hint in action.
+
+  ![kotlin worksheet](assets/kt-basics-codelab/kotlin_ws_2.png)
+
+  - Click the green arrow button to execute the code if the interactive mode is off.
+
+  ![kotlin worksheet](assets/kt-basics-codelab/kotlin_ws_3.png)
+
+  **Notes:**
+
+  There are some similarities between the kotlin scratch file and kotlin worksheet.
+
+  The worksheet:
+  - file is stored in project, it can be versioned.
+  - has kts file extension (it is a kotlin script file)
+  - requires the `kotlin-script-runtime` in project classpath. If it is not then Idea offers to add it.
+
+
+## References
+
+  - [Kotlin reference documentation](https://kotlinlang.org/docs/reference/)
+  - [Kotlin playground](play.kotlinlang.org)
+  - [Kotlin koans](http://try.kotlinlang.org/)
+  - [EduTools Idea plugin](https://www.jetbrains.com/help/education/install-edutools-plugin.html?section=Kotlin)
+  - [Kotlin in action(book)](https://www.manning.com/books/kotlin-in-action)
 
 ## What’s next?
 
 **Options**
 
-  1. Java/Kotlin interoperability
-  2. OOP in Kotlin
+  1. **OOP in Kotlin**
+  2. Java/Kotlin interoperability
   3. Design patterns in kotlin
   4. Kotlin collections
   5. Scripting in kotlin (cli)
