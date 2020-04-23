@@ -9,9 +9,6 @@ feedback link: https://github.com/neculai-stanciu/my-codelabs/issues
 
 # Generate a Micronaut app's Native Image with GraalVM
 
-## Install GraalVM and native-image tool
-Duration: 5:00
-
 ## Add Micronaut dependencies for graal
 
 Add the following dependency:

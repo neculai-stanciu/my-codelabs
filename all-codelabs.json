@@ -4,60 +4,7 @@
     "format": "html",
     "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
-    "updated": "2020-04-14T19:47:50+03:00",
-    "id": "js-basic",
-    "duration": 120,
-    "title": "Javscript basic",
-    "summary": "Javscript basic codelabs",
-    "source": "js-basic-codelab.md",
-    "theme": "",
-    "status": [
-      "draft"
-    ],
-    "category": [
-      "web"
-    ],
-    "tags": [
-      "js"
-    ],
-    "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
-    "url": "js-basic",
-    "containsPresentation": true,
-    "containsDemo": false
-  },
-  {
-    "environment": "web",
-    "format": "html",
-    "prefix": "https://storage.googleapis.com",
-    "mainga": "UA-49880327-14",
-    "updated": "2020-04-13T19:24:15+03:00",
-    "id": "js-modules",
-    "duration": 0,
-    "title": "JS modules",
-    "summary": "A simple introduction to JS modules",
-    "source": "js-modules-codelab.md",
-    "theme": "",
-    "status": [
-      "draft"
-    ],
-    "category": [
-      "web"
-    ],
-    "tags": [
-      "js"
-    ],
-    "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
-    "ga": "0",
-    "url": "js-modules",
-    "containsPresentation": true,
-    "containsDemo": false
-  },
-  {
-    "environment": "web",
-    "format": "html",
-    "prefix": "https://storage.googleapis.com",
-    "mainga": "UA-49880327-14",
-    "updated": "2020-04-19T07:30:56+03:00",
+    "updated": "2020-04-21T17:53:50+03:00",
     "id": "kt-basics",
     "duration": 0,
     "title": "Kotlin basics",
@@ -81,9 +28,9 @@
     "format": "html",
     "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
-    "updated": "2020-04-17T14:16:39+03:00",
+    "updated": "2020-04-22T17:12:21+03:00",
     "id": "native-image",
-    "duration": 5,
+    "duration": 0,
     "title": "Generate a Micronaut app's Native Image with GraalVM",
     "summary": "A step by step tutorial for native-image generation for a Micronaut web application",
     "source": "native-image.md",
@@ -123,7 +70,7 @@
     "tags": [],
     "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
     "url": "rest",
-    "containsPresentation": true,
+    "containsPresentation": false,
     "containsDemo": false
   },
   {
@@ -131,7 +78,7 @@
     "format": "html",
     "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
-    "updated": "2020-04-17T14:43:35+03:00",
+    "updated": "2020-04-21T22:12:40+03:00",
     "id": "rest-micronaut",
     "duration": 25,
     "title": "Micronaut REST api implementation",
@@ -149,7 +96,7 @@
     ],
     "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
     "url": "rest-micronaut",
-    "containsPresentation": false,
+    "containsPresentation": true,
     "containsDemo": false
   },
   {

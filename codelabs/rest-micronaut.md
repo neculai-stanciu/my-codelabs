@@ -157,13 +157,221 @@ Negative
  </path>
 ```
 
-## Todo
+## Bean Introspection
 
-- Bean introspection
-- Config and replace
-- Validation 
-- [Api versioning](https://docs.micronaut.io/1.2.6/guide/index.html#apiVersioning)
-- [Serving static resources](https://docs.micronaut.io/1.2.6/guide/index.html#staticResources)
-- [Error Handling](https://docs.micronaut.io/1.2.6/guide/index.html#errorHandling)
-- [Reactive request processing](https://docs.micronaut.io/1.2.6/guide/index.html#reactiveServer)
-- [Using project Lombok](https://docs.micronaut.io/1.2.6/guide/index.html#_using_project_lombok)
+Since Micronaut 1.1, a compilation time replacement for the JDK’s [Introspector](https://docs.oracle.com/javase/8/docs/api/java/beans/Introspector.html) class has been included.
+
+The [BeanIntrospector](https://docs.micronaut.io/latest/api/io/micronaut/core/beans/BeanIntrospector.html) and [BeanIntrospection](https://docs.micronaut.io/latest/api/io/micronaut/core/beans/BeanIntrospection.html) interfaces allow looking up bean introspections that allow you to instantiate and read/write bean properties without using reflection or caching reflective metadata which consumes excessive memory for large beans.
+Making a Bean Available for Introspection
+
+### Use the @Introspected Annotation
+
+The [@Introspected](https://docs.micronaut.io/latest/api/io/micronaut/core/annotation/Introspected.html) annotation can be used on any class which you want to make available for introspection, simply annotate the class with [@Introspected](https://docs.micronaut.io/latest/api/io/micronaut/core/annotation/Introspected.html):
+
+```java
+import io.micronaut.core.annotation.Introspected;
+
+@Introspected
+public class Person {
+
+    private String name;
+    private int age = 18;
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+}
+```
+
+## Http routing
+
+### URI Paths
+
+The value of the **@Controller** annotation is a [RFC-6570 URI template](https://tools.ietf.org/html/rfc6570) you can therefore embed URI variables within the path using the syntax defined by the URI template specification.
+
+Positive
+: Many other frameworks, including Spring, implement the URI template specification
+
+### URI template example
+
+```java
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.PathVariable;
+
+@Controller("/issues")
+public class IssuesController {
+
+    @Get("/{number}")
+    public String issue(@PathVariable Integer number) {
+        return "Issue # " + number + "!";
+    }
+}
+```
+
+Positive
+: Note that the URI template in the previous example requires that the number variable is specified. You can specify optional URI templates with the syntax: /issues{/number} and by annotating the number parameter with **@Nullable**.
+
+### More routing examples
+
+| Template               | Description                         | Matching URI            |
+| ---------------------- | ----------------------------------- | ----------------------- |
+| /books/{id}            | Simple match                        | /books/1                |
+| /books/{id:2}          | A variable of 2 characters max      | /books/10               |
+| /books{/id}            | An optional URI variable            | /books/10 or /books     |
+| /book{/id:[a-zA-Z]+}   | An optional URI variable with regex | /books/foo              |
+| /books{?max,offset}    | Optional query parameters           | /books?max=10&offset=10 |
+| /books{/path:.*}{.ext} | Regex path match with extension     | /books/foo/bar.xml      |
+
+## [Error Handling](https://docs.micronaut.io/latest/guide/index.html#errorHandling)
+
+Sometimes with distributed applications, bad things happen. Having a good way to handle errors is important.
+
+The [Error](https://docs.micronaut.io/latest/api/io/micronaut/http/annotation/Error.html) annotation supports defining either an exception class or an HTTP status. Methods decorated with the annotation will be invoked as the result of other controller methods. The annotation also supports the notion of global and local, local being the default.
+
+Local error handlers will only respond to methods defined in the same controller. Global error handlers can respond to any method in any controller. A local error handler is always searched for first when resolving which handler to execute.
+
+```java
+  @Error(exception = ConstraintViolationException.class)
+  public Map<String, Object> onSavedFailed(HttpRequest request, ConstraintViolationException ex) {
+    final Map<String, Object> model = new HashMap<>();
+    model.put("errors", messageSource.violationsMessages(ex.getConstraintViolations()));
+    return model;
+  }
+```
+
+You can check a full example in [surveys-api here](https://github.com/neculai-stanciu/micronaut-sessions/blob/5f0471a9de487991a365cbfced9ac9ce8312efda/surveys-api/src/main/java/com/nstanciu/tutorials/mn/surveys/resource/SurveyResource.java#L59)
+
+### Global error handler
+
+```java
+  @Error(global = true)
+  public HttpResponse<JsonError> error(HttpRequest request, Throwable e) {
+    JsonError error = new JsonError("Bad Things Happened: " + e.getMessage())
+        .link(Link.SELF, Link.of(request.getUri()));
+
+    return HttpResponse.<JsonError>serverError()
+        .body(error);
+  }
+```
+
+You can check a full example in [surveys-api here](https://github.com/neculai-stanciu/micronaut-sessions/blob/5f0471a9de487991a365cbfced9ac9ce8312efda/surveys-api/src/main/java/com/nstanciu/tutorials/mn/surveys/error/JsonParseErrorHandler.java#L13)
+
+### ExceptionHandler
+
+Additionally you can implement a [ExceptionHandler](https://docs.micronaut.io/latest/api/io/micronaut/http/server/exceptions/ExceptionHandler.html); a generic hook for handling exceptions that occurs during the execution of an HTTP request.
+
+Imagine your app throws an NotFoundException the requested resource is not available:
+You can implement an exception handler:
+
+```java
+@Produces
+@Singleton
+@Requires(classes = {NotFoundException.class, ExceptionHandler.class})
+public class NotFoundExceptionHandler implements ExceptionHandler<NotFoundException, HttpResponse> {
+
+    @Override
+    public HttpResponse handle(HttpRequest request, NotFoundException exception) {
+        return HttpResponse.ok(0);
+    }
+}
+```
+
+Negative
+: An **@Error** annotation capturing an exception has precedence over an implementation of **ExceptionHandler** capturing the same exception.
+
+
+## [Api versioning](https://docs.micronaut.io/latest/guide/index.html#apiVersioning)
+
+Since 1.1.x, Micronaut supports API versioning via a dedicated @Version annotation.
+
+The following example demonstrates how to version an API:
+
+```java
+import io.micronaut.core.version.annotation.Version;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+
+@Controller("/versioned")
+class VersionedController {
+
+    @Version("1") 
+    @Get("/hello")
+    String helloV1() {
+        return "helloV1";
+    }
+
+    @Version("2") 
+    @Get("/hello")
+    String helloV2() {
+        return "helloV2";
+    }
+```
+
+You should then enabling versioning by setting `micronaut.router.versioning.enabled` to `true` in application.yml:
+
+```yml
+micronaut:
+    router:
+        versioning:
+            enabled: true
+```
+
+By default Micronaut has 2 out-of-the-box strategies for resolving the version that are based on an HTTP header named `X-API-VERSION` or a request parameter named `api-version`, however this is configurable. A full configuration example can be seen below:
+
+```yml
+micronaut:
+    router:
+        versioning:
+            enabled: true
+            parameter:
+                enabled: false
+                names: 'v,api-version'
+            header:
+                enabled: true
+                names:
+                    - 'X-API-VERSION'
+                    - 'Accept-Version
+```
+
+### Default Version
+
+It is possible to supply a default version through configuration.
+
+```yml
+micronaut:
+    router:
+        versioning:
+            enabled: true
+            default-version: 3
+```
+
+A route will **not** be matched if the following conditions are met:
+
+- The default version is configured
+- No version is found in the request
+- The route defines a version
+- The route version does not match the default version
+
+If the incoming request specifies a version then the default version has no effect.
+
+## Api example
+
+You can check example of an REST api with Micronaut [here](https://github.com/neculai-stanciu/micronaut-sessions/tree/master/surveys-api)
+<!-- ## [Reactive request processing](https://docs.micronaut.io/latest/guide/index.html#reactiveServer) -->
