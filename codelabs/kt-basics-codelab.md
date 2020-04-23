@@ -120,7 +120,7 @@ It went GA on **February 15, 2016**
   **Notes:**
   - Kotlin can be use with ant build tool. See how [here](https://kotlinlang.org/docs/reference/using-ant.html)
 
-## **"Hello Kotlin world!"**
+## **Hello Kotlin world!**
 
   There are quite a few ways to create the kotlin application `bootstrap`.
 
@@ -236,9 +236,7 @@ object App {
   *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/8bc8edc155aee03f3835d80eee38f26e565b0d1b)*
 
 
-## Kotlin main features
-
-### **Null safety**
+## **Kotlin null safety**
 ---
 
 * **Not null versus nullable types** (`T and T?`)
@@ -477,32 +475,128 @@ public class Person {
 
 
 
-### **My favorites kotlin features**
+## **My favorite kotlin features**
 ---
 
 * **Pattern matching** (`when`)
 
 ```kotlin
-  // code here
+    "test pattern matching with when (1)" {
+
+        val no = 7
+
+        val day: String = when(no) {
+          6, 7 -> "weekend"
+          else -> "week day"
+        }
+
+      day shouldBe "weekend"
+    }
 ```
 
-  https://kotlinlang.org/docs/reference/whatsnew13.html#capturing-when-subject-in-a-variable
+```kotlin
+    "test pattern matching with when (2)" {
 
+      val person = Person("Tony", 18) as Any
+
+      val personInfo: String = when(person) {
+        is String -> person
+        is Person -> person.name  //smart cast
+        else -> person.toString()
+      }
+      personInfo shouldBe "Tony"
+    }
+```
+
+  See [doc](https://kotlinlang.org/docs/reference/whatsnew13.html#capturing-when-subject-in-a-variable)
+
+  *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/1d76432b5c381260f1ec98a911c0576baa80242b)*
+
+* **Smart cast**
+
+  - In if, when and other kt constructs
+
+```kotlin
+    "test smart cast" {
+
+      val person = Person("Tony", 18) as Any
+
+      val personInfo = if(person is Person) {
+        person.name
+      } else {
+        person.toString()
+      }
+
+      personInfo shouldBe "Tony"
+    }
+```
   *See it on [github]()*
 
 * **Data classes**
 
-```kotlin
-  // code here
-```
-  *See it on [github]()*
+  - provides getters/setters, all args constructor, equals/hashCode, toString, copy, destruction
 
-* **Extension methods**
+```java
+    public class Survey {
+
+      private String id;
+      private String name;
+      private String description;
+      private String category;
+      // 82 lines of code (getters/setters/hashCode...)
+```
 
 ```kotlin
-  // code here
+  data class Survey(var id: String, var name: String, var description: String, var category: String)
 ```
-  *See it on [github]()*
+  *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/3c1783fbc128e3d5ecec0a4395ad913be1c76289)*
+
+
+* **Expressions (almost) everywhere**
+
+  - if, then, catch, generators are all expressions.
+
+```kotlin
+    "test expression is almost everywhere (try/catch)" {
+
+      val age = try {
+        Integer.parseInt("tony's age")
+      } catch (e: Exception) {
+        90
+      }
+
+      age shouldBe 90
+    }
+```
+  *See it on [github](https://github.com/jtonic/tony_software_development_cookbook/commit/f9f3610f42f952dd50c3456d9a29afbf1a88e2ae)*
+
+
+* **Extension methods/properties**
+
+```kotlin
+    "test extension method" {
+
+      fun Employee.fullName() = "${this.firstName} ${this.lastName}"
+
+      val tony = Employee("Antonel", "Pazargic", 18)
+
+      tony.fullName() shouldBe "Antonel Pazargic"
+    }
+```
+```kotlin
+
+    val Employee.fullName: String
+          get() =
+            "${this.firstName} ${this.lastName}"
+
+    "test extension property" {
+
+      val tony = Employee("Antonel", "Pazargic", 18)
+
+      tony.fullName shouldBe "Antonel Pazargic"
+    }
+```
+  *See it on github [here](https://github.com/jtonic/tony_software_development_cookbook/commit/75e094fcff2b9a5c0a6b428f88a54c3af0041cf3) and [here](https://github.com/jtonic/tony_software_development_cookbook/commit/29eb9f721b4e0e256b4c49040945ff7d72e21e30)*
 
 
 * **(Multi line) string interpolation**
@@ -521,15 +615,6 @@ public class Person {
 ```
   *See it on [github]()*
 
-
-* **Expressions (almost) everywhere**
-
-```kotlin
-  // if () then else
-  // when
-  // try catch
-```
-  *See it on [github]()*
 
 * **Scope methods (`run`, `let`, `with`, `apply`, `also`)**
 
@@ -626,33 +711,6 @@ public class Person {
 ```
   *See it on [github]()*
 
-
-
-
-
-##
-
-TBD
-
-## OOP in Kotlin
-
-  What to do next:
-  - val, var
-  - fun
-  - (default) visibility modifiers
-  - open/close classes/methods
-  - extension methods
-  - const val
-  - data class
-  - primary constructor
-  - companion object
-  - delegation (by)
-  - generics (reified)
-  - aliases
-  - inline classes
-  - kotlin type hierarchy
-
-This will be moved in a separate codelab!!!
 
 ## What’s next?
 

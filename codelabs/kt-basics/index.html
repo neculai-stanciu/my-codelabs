@@ -134,7 +134,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="&#34;Hello Kotlin world!&#34;" duration="0">
+      <google-codelab-step label="Hello Kotlin world!" duration="0">
         <p>There are quite a few ways to create the kotlin application <code>bootstrap</code>.</p>
 <ul>
 <li><strong>Top level main method</strong></li>
@@ -212,7 +212,7 @@
 </code></pre>
 <p><strong>Notes:</strong></p>
 <ul>
-<li>Jetbrains works on an improved support for kotlin scripting.<br>For additional details please consult <a href="https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md" target="_blank">KEEP-75</a></li>
+<li>Jetbrains works on an improved support for kotlin scripting. For additional details please consult <a href="https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md" target="_blank">KEEP-75</a></li>
 <li>Kotlin community provides some useful tools which simplifies and extend the out-of-the-box scripting support.</li>
 <li>For kotlin-based cli I recommend <code>micronaut</code> and <code>picocli</code>.</li>
 </ul>
@@ -221,9 +221,8 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Kotlin main features" duration="0">
-        <h2 is-upgraded><strong>Null safety</strong></h2>
-<ul>
+      <google-codelab-step label="Kotlin null safety" duration="0">
+        <ul>
 <li><strong>Not null versus nullable types</strong> (<code>T and T?</code>)</li>
 </ul>
 <pre><code>  fun print(msg: String?) {}
@@ -435,26 +434,119 @@
 <li>has kts file extension (it is a kotlin script file)</li>
 <li>requires the <code>kotlin-script-runtime</code> in project classpath. If it is not then Idea offers to add it.</li>
 </ul>
-<h2 is-upgraded><strong>My favorites kotlin features</strong></h2>
-<ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="My favorite kotlin features" duration="0">
+        <ul>
 <li><strong>Pattern matching</strong> (<code>when</code>)</li>
 </ul>
-<pre><code>  // code here
+<pre><code>    &#34;test pattern matching with when (1)&#34; {
+
+        val no = 7
+
+        val day: String = when(no) {
+          6, 7 -&gt; &#34;weekend&#34;
+          else -&gt; &#34;week day&#34;
+        }
+
+      day shouldBe &#34;weekend&#34;
+    }
 </code></pre>
-<p>https://kotlinlang.org/docs/reference/whatsnew13.html#capturing-when-subject-in-a-variable</p>
+<pre><code>    &#34;test pattern matching with when (2)&#34; {
+
+      val person = Person(&#34;Tony&#34;, 18) as Any
+
+      val personInfo: String = when(person) {
+        is String -&gt; person
+        is Person -&gt; person.name  //smart cast
+        else -&gt; person.toString()
+      }
+      personInfo shouldBe &#34;Tony&#34;
+    }
+</code></pre>
+<p>See <a href="https://kotlinlang.org/docs/reference/whatsnew13.html#capturing-when-subject-in-a-variable" target="_blank">doc</a></p>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/1d76432b5c381260f1ec98a911c0576baa80242b" target="_blank"><em>github</em></a></p>
+<ul>
+<li><strong>Smart cast</strong><ul>
+<li>In if, when and other kt constructs</li>
+</ul>
+</li>
+</ul>
+<pre><code>    &#34;test smart cast&#34; {
+
+      val person = Person(&#34;Tony&#34;, 18) as Any
+
+      val personInfo = if(person is Person) {
+        person.name
+      } else {
+        person.toString()
+      }
+
+      personInfo shouldBe &#34;Tony&#34;
+    }
+</code></pre>
 <p><em>See it on [github]()</em></p>
 <ul>
-<li><strong>Data classes</strong></li>
+<li><strong>Data classes</strong><ul>
+<li>provides getters/setters, all args constructor, equals/hashCode, toString, copy, destruction</li>
 </ul>
-<pre><code>  // code here
+</li>
+</ul>
+<pre><code>    public class Survey {
+
+      private String id;
+      private String name;
+      private String description;
+      private String category;
+      // 82 lines of code (getters/setters/hashCode...)
 </code></pre>
-<p><em>See it on [github]()</em></p>
+<pre><code>  data class Survey(var id: String, var name: String, var description: String, var category: String)
+</code></pre>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/3c1783fbc128e3d5ecec0a4395ad913be1c76289" target="_blank"><em>github</em></a></p>
 <ul>
-<li><strong>Extension methods</strong></li>
+<li><strong>Expressions (almost) everywhere</strong><ul>
+<li>if, then, catch, generators are all expressions.</li>
 </ul>
-<pre><code>  // code here
+</li>
+</ul>
+<pre><code>    &#34;test expression is almost everywhere (try/catch)&#34; {
+
+      val age = try {
+        Integer.parseInt(&#34;tony&#39;s age&#34;)
+      } catch (e: Exception) {
+        90
+      }
+
+      age shouldBe 90
+    }
 </code></pre>
-<p><em>See it on [github]()</em></p>
+<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/f9f3610f42f952dd50c3456d9a29afbf1a88e2ae" target="_blank"><em>github</em></a></p>
+<ul>
+<li><strong>Extension methods/properties</strong></li>
+</ul>
+<pre><code>    &#34;test extension method&#34; {
+
+      fun Employee.fullName() = &#34;${this.firstName} ${this.lastName}&#34;
+
+      val tony = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 18)
+
+      tony.fullName() shouldBe &#34;Antonel Pazargic&#34;
+    }
+</code></pre>
+<pre><code>    val Employee.fullName: String
+          get() =
+            &#34;${this.firstName} ${this.lastName}&#34;
+
+    &#34;test extension property&#34; {
+
+      val tony = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 18)
+
+      tony.fullName shouldBe &#34;Antonel Pazargic&#34;
+    }
+</code></pre>
+<p><em>See it on github </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/75e094fcff2b9a5c0a6b428f88a54c3af0041cf3" target="_blank"><em>here</em></a><em> and </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/29eb9f721b4e0e256b4c49040945ff7d72e21e30" target="_blank"><em>here</em></a></p>
 <ul>
 <li><strong>(Multi line) string interpolation</strong></li>
 </ul>
@@ -466,14 +558,6 @@
 </ul>
 <pre><code>  // val var
   // fun sum(a: Int, b: Int) = a + b
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Expressions (almost) everywhere</strong></li>
-</ul>
-<pre><code>  // if () then else
-  // when
-  // try catch
 </code></pre>
 <p><em>See it on [github]()</em></p>
 <ul>
@@ -556,30 +640,6 @@
 <pre><code>  //
 </code></pre>
 <p><em>See it on [github]()</em></p>
-<p>TBD</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="OOP in Kotlin" duration="0">
-        <p>What to do next:</p>
-<ul>
-<li>val, var</li>
-<li>fun</li>
-<li>(default) visibility modifiers</li>
-<li>open/close classes/methods</li>
-<li>extension methods</li>
-<li>const val</li>
-<li>data class</li>
-<li>primary constructor</li>
-<li>companion object</li>
-<li>delegation (by)</li>
-<li>generics (reified)</li>
-<li>aliases</li>
-<li>inline classes</li>
-<li>kotlin type hierarchy</li>
-</ul>
-<p>This will be moved in a separate codelab!!!</p>
 
 
       </google-codelab-step>
