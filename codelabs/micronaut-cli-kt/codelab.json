@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-07-25T21:16:43+03:00",
+  "id": "micronaut-cli-kt",
+  "duration": 0,
+  "title": "Micronaut kotlin cli (httpclient)",
+  "summary": "How to create a cli app with micronaut, picocli and kotlin",
+  "source": "micronaut-cli-kt-codelab.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "jvm"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
+  "url": "micronaut-cli-kt"
+}

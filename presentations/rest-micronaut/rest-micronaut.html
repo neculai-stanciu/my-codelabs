@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <title>reveal-md</title>
-    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./dist/reveal.css" />
     <link rel="stylesheet" href="_assets/../../theme/my-theme.css" id="theme" />
     <link rel="stylesheet" href="./css/highlight/zenburn.css" />
-    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
 
   </head>
   <body>
@@ -294,8 +293,13 @@ $ curl http://localhost:8080 -H "X-API-VERSION:1"
 * [Micronaut deep dive](https://www.youtube.com/watch?v=S5yfTfPeue8)</script></section></div>
     </div>
 
-    <script src="./js/reveal.js"></script>
+    <script src="./dist/reveal.js"></script>
 
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
     <script>
       function extend() {
         var target = {};
@@ -310,16 +314,6 @@ $ curl http://localhost:8080 -H "X-API-VERSION:1"
         return target;
       }
 
-      // Optional libraries used to extend on reveal.js
-      var deps = [
-        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-        { src: './plugin/zoom-js/zoom.js', async: true },
-        { src: './plugin/notes/notes.js', async: true },
-        { src: './plugin/math/math.js', async: true }
-      ];
-
       // default options to init reveal.js
       var defaultOptions = {
         controls: true,
@@ -327,11 +321,17 @@ $ curl http://localhost:8080 -H "X-API-VERSION:1"
         history: true,
         center: true,
         transition: 'default', // none/fade/slide/convex/concave/zoom
-        dependencies: deps
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
       };
 
       // options from URL query string
-      var queryOptions = Reveal.getQueryHash() || {};
+      var queryOptions = Reveal().getQueryHash() || {};
 
       var options = extend(defaultOptions, {}, queryOptions);
     </script>
