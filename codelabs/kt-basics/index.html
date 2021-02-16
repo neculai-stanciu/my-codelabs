@@ -7,23 +7,20 @@
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
   <title>Kotlin basics</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
-  <style>
-    .success {
-      color: #1e8e3e;
-    }
-    .error {
-      color: red;
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
     }
   </style>
+  
 </head>
-<body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="kt-basics"
-                  title="Kotlin basics"
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Kotlin basics"
                   environment="web"
                   feedback-link="https://github.com/neculai-stanciu/my-codelabs/issues">
     
@@ -528,7 +525,7 @@
 </ul>
 </li>
 </ul>
-<p class="image-container"><img alt="kotlin idea plugin" src="img/e47f3fea4ded21c3.png"></p>
+<p><img alt="kotlin idea plugin" src="img\e47f3fea4ded21c3.png"></p>
 <ul>
 <li><strong>Convert from java to kotlin</strong><ul>
 <li>Open the java file to convert, or just select it in the project tool window</li>
@@ -537,7 +534,7 @@
 </ul>
 </li>
 </ul>
-<p class="image-container"><img alt="convert to kt" src="img/9fee1889e3aa7eed.png"></p>
+<p><img alt="convert to kt" src="img\9fee1889e3aa7eed.png"></p>
 <p>The following java file</p>
 <pre><code>public class Person {
 
@@ -566,19 +563,19 @@
 <li>Open <code>Find Action...</code></li>
 <li>Type <code>scratch file</code></li>
 </ul>
-<p class="image-container"><img alt="scratch file" src="img/db6822d172505f36.png"></p>
+<p><img alt="scratch file" src="img\db6822d172505f36.png"></p>
 <ul>
 <li>Type <code>kotlin</code></li>
 </ul>
-<p class="image-container"><img alt="scratch file" src="img/4397b508fcc18c7c.png"></p>
+<p><img alt="scratch file" src="img\4397b508fcc18c7c.png"></p>
 <ul>
 <li>Select a project module classpath</li>
 </ul>
-<p class="image-container"><img alt="scratch file" src="img/8bb0f5ddfab46c36.png"></p>
+<p><img alt="scratch file" src="img\8bb0f5ddfab46c36.png"></p>
 <ul>
 <li>Run the scratch file kotlin code, when the interactive is checked out</li>
 </ul>
-<p class="image-container"><img alt="scratch file" src="img/e467fe052b9aebe4.png"></p>
+<p><img alt="scratch file" src="img\e467fe052b9aebe4.png"></p>
 <p><strong>Notes:</strong></p>
 <ul>
 <li>A scratch file can be renamed. One can give it a meaningful name.</li>
@@ -590,19 +587,19 @@
 <li>Open <code>Find Action...</code></li>
 <li>Type <code>kotlin REPL</code></li>
 </ul>
-<p class="image-container"><img alt="kotlin repl" src="img/a4c3708d82757631.png"></p>
+<p><img alt="kotlin repl" src="img\a4c3708d82757631.png"></p>
 <ul>
 <li>Choose a project module</li>
 </ul>
-<p class="image-container"><img alt="kotlin repl" src="img/c1fb0e85f9f4f63b.png"></p>
+<p><img alt="kotlin repl" src="img\c1fb0e85f9f4f63b.png"></p>
 <ul>
 <li>Start coding.For execution press <code>cmd-enter</code></li>
 </ul>
-<p class="image-container"><img alt="kotlin repl" src="img/13fe2f58b813c4b9.png"></p>
+<p><img alt="kotlin repl" src="img\13fe2f58b813c4b9.png"></p>
 <ul>
 <li>Show quick documentation in REPL</li>
 </ul>
-<p class="image-container"><img alt="kotlin repl" src="img/36a146df4584e0b8.png"></p>
+<p><img alt="kotlin repl" src="img\36a146df4584e0b8.png"></p>
 <p><strong>Notes:</strong></p>
 <ul>
 <li>(Almost) all supports in the IDE editor works in REPL as well:<ul>
@@ -621,16 +618,16 @@
 <li>Open <code>Find Action...</code></li>
 <li>Type <code>kotlin REPL</code></li>
 </ul>
-<p class="image-container"><img alt="kotlin worksheet" src="img/80c876d17312cef1.png"></p>
+<p><img alt="kotlin worksheet" src="img\80c876d17312cef1.png"></p>
 <ul>
 <li>Start coding</li>
 </ul>
 <p>See Idea inspection and hint in action.</p>
-<p class="image-container"><img alt="kotlin worksheet" src="img/5c9c4a32f9456d3c.png"></p>
+<p><img alt="kotlin worksheet" src="img\5c9c4a32f9456d3c.png"></p>
 <ul>
 <li>Click the green arrow button to execute the code if the interactive mode is off.</li>
 </ul>
-<p class="image-container"><img alt="kotlin worksheet" src="img/da407a0f1e143c71.png"></p>
+<p><img alt="kotlin worksheet" src="img\da407a0f1e143c71.png"></p>
 <p><strong>Notes:</strong></p>
 <p>There are some similarities between the kotlin scratch file and kotlin worksheet.</p>
 <p>The worksheet:</p>
@@ -679,10 +676,33 @@
     
   </google-codelab>
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
 
 </body>
 </html>

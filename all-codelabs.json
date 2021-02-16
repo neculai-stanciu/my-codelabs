@@ -1,15 +1,16 @@
 [
   {
     "environment": "web",
+    "source": "kt-basics-codelab.md",
     "format": "html",
-    "prefix": "https://storage.googleapis.com",
+    "prefix": "../../",
     "mainga": "UA-49880327-14",
-    "updated": "2020-07-25T21:16:43+03:00",
+    "updated": "2021-02-16T21:22:06+02:00",
     "id": "kt-basics",
     "duration": 0,
     "title": "Kotlin basics",
+    "author": "Antonel-Ernest Pazargic",
     "summary": "First baby steps into the fascinating Kotlin world",
-    "source": "kt-basics-codelab.md",
     "theme": "",
     "status": [
       "draft"
@@ -25,15 +26,16 @@
   },
   {
     "environment": "web",
+    "source": "micronaut-cli-kt-codelab.md",
     "format": "html",
-    "prefix": "https://storage.googleapis.com",
+    "prefix": "../../",
     "mainga": "UA-49880327-14",
-    "updated": "2020-07-25T21:16:43+03:00",
+    "updated": "2021-02-16T21:22:06+02:00",
     "id": "micronaut-cli-kt",
     "duration": 0,
     "title": "Micronaut kotlin cli (httpclient)",
+    "author": "Antonel-Ernest Pazargic",
     "summary": "How to create a cli app with micronaut, picocli and kotlin",
-    "source": "micronaut-cli-kt-codelab.md",
     "theme": "",
     "status": [
       "draft"
@@ -49,15 +51,16 @@
   },
   {
     "environment": "web",
+    "source": "native-image.md",
     "format": "html",
-    "prefix": "https://storage.googleapis.com",
+    "prefix": "../../",
     "mainga": "UA-49880327-14",
-    "updated": "2020-07-25T21:16:43+03:00",
+    "updated": "2021-02-16T21:22:06+02:00",
     "id": "native-image",
     "duration": 0,
     "title": "Generate a Micronaut app's Native Image with GraalVM",
+    "author": "Stanciu Neculai",
     "summary": "A step by step tutorial for native-image generation for a Micronaut web application",
-    "source": "native-image.md",
     "theme": "",
     "status": [
       "draft"
@@ -75,15 +78,16 @@
   },
   {
     "environment": "web",
+    "source": "rest-codelab.md",
     "format": "html",
-    "prefix": "https://storage.googleapis.com",
+    "prefix": "../../",
     "mainga": "UA-49880327-14",
-    "updated": "2020-07-25T21:16:43+03:00",
+    "updated": "2021-02-16T21:22:06+02:00",
     "id": "rest",
     "duration": 65,
     "title": "Representational state transfer",
+    "author": "Stanciu Neculai",
     "summary": "Representational state transfer (REST) is a software architectural style that defines a set of constraints to be used for creating Web services. Web services that conform to the REST architectural style, called RESTful Web services, provide interoperability between computer systems on the Internet.",
-    "source": "rest-codelab.md",
     "theme": "",
     "status": [
       "draft"
@@ -99,15 +103,16 @@
   },
   {
     "environment": "web",
+    "source": "rest-micronaut.md",
     "format": "html",
-    "prefix": "https://storage.googleapis.com",
+    "prefix": "../../",
     "mainga": "UA-49880327-14",
-    "updated": "2020-07-25T21:16:43+03:00",
+    "updated": "2021-02-16T21:22:06+02:00",
     "id": "rest-micronaut",
     "duration": 25,
     "title": "Micronaut REST api implementation",
+    "author": "Stanciu Neculai",
     "summary": "A step by step tutorial for a REST api using Micronaut framework.",
-    "source": "rest-micronaut.md",
     "theme": "",
     "status": [
       "draft"
@@ -120,20 +125,21 @@
     ],
     "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
     "url": "rest-micronaut",
-    "containsPresentation": true,
+    "containsPresentation": false,
     "containsDemo": false
   },
   {
     "environment": "web",
+    "source": "setup-micronaut.codelab.md",
     "format": "html",
-    "prefix": "https://storage.googleapis.com",
+    "prefix": "../../",
     "mainga": "UA-49880327-14",
-    "updated": "2020-07-25T21:16:43+03:00",
+    "updated": "2021-02-16T21:22:06+02:00",
     "id": "setup-micronaut",
     "duration": 20,
     "title": "Setup micronaut CLI",
+    "author": "Stanciu Neculai",
     "summary": "In this moment Micronaut CLI is the way to go to generate a micronaut project. In this tutorial we will install this tool and create a",
-    "source": "setup-micronaut.codelab.md",
     "theme": "",
     "status": [
       "draft"

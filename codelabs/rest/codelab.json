@@ -1,14 +1,15 @@
 {
   "environment": "web",
+  "source": "rest-codelab.md",
   "format": "html",
-  "prefix": "https://storage.googleapis.com",
+  "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2020-07-25T21:16:43+03:00",
+  "updated": "2021-02-16T21:22:06+02:00",
   "id": "rest",
   "duration": 65,
   "title": "Representational state transfer",
+  "author": "Stanciu Neculai",
   "summary": "Representational state transfer (REST) is a software architectural style that defines a set of constraints to be used for creating Web services. Web services that conform to the REST architectural style, called RESTful Web services, provide interoperability between computer systems on the Internet.",
-  "source": "rest-codelab.md",
   "theme": "",
   "status": [
     "draft"
