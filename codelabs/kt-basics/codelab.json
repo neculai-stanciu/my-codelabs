@@ -1,15 +1,14 @@
 {
   "environment": "web",
-  "source": "kt-basics-codelab.md",
   "format": "html",
-  "prefix": "../../",
+  "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2021-02-16T21:22:06+02:00",
   "id": "kt-basics",
   "duration": 0,
   "title": "Kotlin basics",
-  "author": "Antonel-Ernest Pazargic",
   "summary": "First baby steps into the fascinating Kotlin world",
+  "source": "kt-basics-codelab.md",
   "theme": "",
   "status": [
     "draft"

@@ -7,702 +7,247 @@
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
   <title>Kotlin basics</title>
-  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <style is="custom-style">
-    body {
-      font-family: "Roboto",sans-serif;
-      background: var(--google-codelab-background, #F8F9FA);
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
     }
   </style>
-  
 </head>
-<body unresolved class="fullbleed">
-
-  <google-codelab title="Kotlin basics"
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="kt-basics"
+                  title="Kotlin basics"
                   environment="web"
                   feedback-link="https://github.com/neculai-stanciu/my-codelabs/issues">
     
       <google-codelab-step label="History" duration="0">
-        <p>Kotlin was started by <strong>Jetbrains</strong> in 2010</p>
-<p>It went GA on <strong>February 15, 2016</strong></p>
-<p><strong>Google IO 2017</strong> - Google announced  Kotlin as an official programming language for Android development</p>
-<p><strong>Google IO 2019</strong> - Kotlin-first (many new APIs and features will be offered first in Kotlin)</p>
+        <p> Kotlin was started by <strong>Jetbrains</strong> in 2010  It went GA on <strong>February 15, 2016Google IO 2017</strong> - Google announced  Kotlin as an official programming language for Android development  <strong>Google IO 2019</strong> - Kotlin-first (many new APIs and features will be offered first in Kotlin)  </p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Kotlin strengths" duration="0">
         <ul>
-<li>It is concise, expressive, <strong>toolable</strong>, <strong>interoperable</strong> and pragmatic</li>
-<li>It&#39;s a statically typed programming language</li>
-<li>Inspired by<ul>
-<li><strong>Scala</strong> (case classes, pattern match)</li>
-<li><strong>C#</strong> (extension methods, properties, with and using constructs)</li>
-<li><strong>Groovy</strong> (default ‘it&#39; parameter in lambda expressions)</li>
-<li><strong>Swift</strong> (down-casting, subclassing and implementation)</li>
-<li><strong>Haskell</strong> (ranges)</li>
+<li>It is concise, expressive, <strong>toolable</strong>, <strong>interoperable</strong> and pragmatic  </li>
+<li>It&#39;s a statically typed programming language  </li>
+<li>Inspired by <ul>
+<li><strong>Scala</strong> (case classes, pattern match) </li>
+<li><strong>C#</strong> (extension methods, properties, with and using constructs) </li>
+<li><strong>Groovy</strong> (default ‘it&#39; parameter in lambda expressions) </li>
+<li><strong>Swift</strong> (down-casting, subclassing and implementation) </li>
+<li><strong>Haskell</strong> (ranges)  </li>
 </ul>
 </li>
-<li>Compile to bytecode and run on <strong>JVM / Android</strong> (compatible with Java 6)</li>
+<li>Compile to bytecode and run on <strong>JVM / Android</strong> (compatible with Java 6)  </li>
 <li>Can compile to <strong>javascript source code</strong></li>
-<li>Can be used as <strong>scripting language</strong> (kts extension- Gradle/Kotlin)</li>
-<li>Compiles directly to machine code (<strong>Kotlin/Native</strong>) – in Tech Preview</li>
+<li>Can be used as <strong>scripting language</strong> (kts extension- Gradle/Kotlin)  </li>
+<li>Compiles directly to machine code (<strong>Kotlin/Native</strong>) – in Tech Preview  Install/Setup </li>
+<li><strong>Install kotlin on macos using brew</strong>  &#34;`sh brew install kotlin  // test the installation kotlin -version kotlinc -version &#34;`  </li>
+<li><strong>Gradle</strong>  File <code>build.gradlegroovy<br>plugins {<br>  id &#39;org.jetbrains.kotlin.jvm&#39; version &#39;1.3.72&#39;<br>}<br>dependencies {<br>  implementation &#34;org.jetbrains.kotlin:kotlin-stdlib-jdk8&#34;<br>}<br></code></li>
+<li><strong>Kotlin DSL for Gradle</strong>  File <code>build.gradle.ktskotlin<br>plugins {<br>kotlin(&#34;jvm&#34;) version &#34;1.3.72&#34;<br>}<br>dependencies {<br>implementation(kotlin(&#34;stdlib-jdk8&#34;))<br>}</code><br>  See further details about kotlin gradle setup <a href="https://kotlinlang.org/docs/reference/using-gradle.html" target="_blank">here</a></li>
+<li><strong>Maven</strong>  File <code>pom.xml</code>  &#34;`xml <pre><code>  &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+  &lt;artifactId&gt;kotlin-stdlib-jdk8&lt;/artifactId&gt;
+  &lt;version&gt;1.3.72&lt;/version&gt;
+</code></pre>
+${project.basedir}/src/main/kotlin${project.basedir}/src/test/kotlin<pre><code>  &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+  &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;${kotlin.version}&lt;/version&gt;
+</code></pre>
+<pre><code>  &lt;executions&gt;
+      &lt;execution&gt;
+          &lt;id&gt;compile&lt;/id&gt;
+          &lt;goals&gt; &lt;goal&gt;compile&lt;/goal&gt; &lt;/goals&gt;
+      &lt;/execution&gt;
+</code></pre>
+<pre><code>      &lt;execution&gt;
+          &lt;id&gt;test-compile&lt;/id&gt;
+          &lt;goals&gt; &lt;goal&gt;test-compile&lt;/goal&gt; &lt;/goals&gt;
+      &lt;/execution&gt;
+  &lt;/executions&gt;
+</code></pre>
+  &#34;` See further details about kotlin maven setup <a href="https://kotlinlang.org/docs/reference/using-maven.html" target="_blank">here</a><strong>Notes:</strong><ul>
+<li>Kotlin can be use with ant build tool. See how <a href="https://kotlinlang.org/docs/reference/using-ant.html" target="_blank">here</a><strong>Hello Kotlin world!</strong> There are quite a few ways to create the kotlin application <code>bootstrap</code>.  </li>
 </ul>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Install/Setup" duration="0">
-        <ul>
-<li><strong>Install kotlin on macos using brew</strong></li>
+</li>
+<li><strong>Top level main method</strong>  File <code>App.ktkotlin<br>fun main(vararg args: String) {<br>println(&#34;Hello Kotlin!&#34;)<br>}</code><em><br>Compile and run the application</em><code>sh<br>cd $prj_home/src/main/kotlin<br>kotlinc ro/jtonic/handson/kotlin/basics/App.kt AppKt<br>kotlin -classpath AppKt.jar ro.jtonic.handson.kotlin.basics.AppKt</code><em><br>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/fd1ac5fff2eefd1440e1450020294c4e65f016d2" target="_blank"><em>github</em></a></li>
+<li><strong>Top level main (simplified)</strong>  File <code>App.ktkotlin<br>fun main() {<br>println(&#34;Hello Kotlin!&#34;)<br>}</code><em><br>Compile and run the application</em><code>sh<br>cd $prj_home/src/main/kotlin<br>kotlinc ro/jtonic/handson/kotlin/basics/App.kt AppKt<br>kotlin -classpath AppKt.jar ro.jtonic.handson.kotlin.basics.AppKt</code><em><br>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/734dc7bd0d3e1cf53c64bee5c5d2714efab6e35c" target="_blank"><em>github</em></a></li>
+<li><strong>The &#34;java way&#34; with companion object</strong>  File <code>App.kt</code>  &#34;`kotlin class App {  companion object {    @JvmStatic   fun main(vararg args: String) { <pre><code>println(&#34;Hello Kotlin!&#34;)
+</code></pre>
+} } } <br><br><code>*Compile and run the application*</code><br><br>sh cd $prj_home/src/main/kotlin kotlinc ro/jtonic/handson/kotlin/basics/App.kt AppKt kotlin -classpath AppKt.jar ro.jtonic.handson.kotlin.basics.AppKt &#34;`  <em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/bd8668fc965ccbe06d1e90f22f39c29dd233b752" target="_blank"><em>github</em></a></li>
+<li><strong>Main method inside an object (singleton)</strong>  File <code>App.ktkotlin<br>object App {<br><br>@JvmStatic<br>fun main(vararg args: String) {<br>println(&#34;Hello Kotlin!&#34;)<br>}<br>}</code><em><br>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/e09ae472dbdf6412ff7ae779604db62e5ef10ea4" target="_blank"><em>github</em></a></li>
+<li><strong>kotlin scripting</strong>  Create a <code>main.kts</code> script file outside the src folder (e.g. $prj_home/scripts/main.kts).  File <code>main.ktskotlin<br>val message = &#34;Hello Kotlin!&#34;<br>println(&#34;Hello Kotlin!&#34;)</code><em><br>Run the script</em><code>sh<br>cd $prj_home/scripts<br>kotlinc -script main.kts</code><strong><br>Notes:</strong><ul>
+<li>Jetbrains works on an improved support for kotlin scripting. For additional details please consult <a href="https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md" target="_blank">KEEP-75</a></li>
+<li>Kotlin community provides some useful tools which simplifies and extend the out-of-the-box scripting support. </li>
+<li>For kotlin-based cli I recommend <code>micronaut</code> and <code>picocli</code>.  <em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/8bc8edc155aee03f3835d80eee38f26e565b0d1b" target="_blank"><em>github</em></a><strong>Kotlin null safety</strong>—  </li>
 </ul>
-<pre><code>  &gt; brew install kotlin
-
-  // test the installation
-  &gt; kotlin -version
-  &gt; kotlinc -version
+</li>
+<li><strong>Not null versus nullable types</strong> (<code>T and T?</code>)  <code>kotlin<br>fun print(msg: String?) {}<br>fun printPage(msg: String) {}<br><br>print(&#34;Hello kotlin&#34;)<br>print(null)<br>printPage(null) // compilation error<br></code></li>
+<li><strong>safe call operator</strong> (<code>?.</code>)  <code>kotlin<br>&#34;test safe call operator&#34; {<br>data class User(val name: String, val address: String)<br><br>var user: User? = null<br>user?.address shouldBe null<br><br>user = User(&#34;Tony&#34;, &#34;Mihai Bravu&#34;)<br>user?.address shouldBe &#34;Mihai Bravu&#34;<br>}<br></code>See it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/f6240e22b4d192ead921439ca43ded04fc6fb44c" target="_blank">github</a></li>
+<li><strong>elvis operator</strong> (<code>?:</code>)  <code>kotlin<br>&#34;test elvis operator&#34; {<br><br>var address: String? = null<br>address ?: &#34;unknown address&#34; shouldBe &#34;unknown address&#34;<br><br>address = &#34;Kotlin Island&#34;<br>address shouldBe &#34;Kotlin Island&#34;<br><br>}<br></code>See it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/afade3bcd15793ff398c2b39c4c288df8fd26cbf" target="_blank">github</a></li>
+<li><strong>safe cast operator</strong> (<code>as?</code>)  <code>kotlin<br>&#34;test safe cast operator&#34; {<br><br>  val jtonic = User(&#34;jtonic&#34;, &#34;Mihai Bravu&#34;) as Any<br>  val tony = Person(&#34;Tony&#34;, 18) as Any<br><br>  (jtonic as? User) shouldNotBe null<br>  (tony as? User) shouldBe null<br><br>  val jtonicUserAddress = (jtonic as? User)?.address<br>  val tonyUserAddress = (tony as? User)?.address<br><br>  jtonicUserAddress shouldBe &#34;Mihai Bravu&#34;<br>  tonyUserAddress shouldBe null<br><br>}<br></code></li>
+<li><strong>Not null assertion</strong> (<code>!!</code>)  &#34;`kotlin  &#34;test not null assertion&#34; {    fun length(s: String?): Int { <pre><code>val notNullString: String = s!! //Kotlin.KotlinNullPointerException
+return notNullString.length
 </code></pre>
-<ul>
-<li><strong>Gradle</strong></li>
-</ul>
-<p>File <code>build.gradle</code></p>
-<pre><code>  plugins {
-      id &#39;org.jetbrains.kotlin.jvm&#39; version &#39;1.3.72&#39;
-  }
-  dependencies {
-      implementation &#34;org.jetbrains.kotlin:kotlin-stdlib-jdk8&#34;
-  }
+}    length(&#34;jtonic&#34;) shouldBe 6    shouldThrow { <pre><code>length(null)
 </code></pre>
-<ul>
-<li><strong>Kotlin DSL for Gradle</strong></li>
-</ul>
-<p>File <code>build.gradle.kts</code></p>
-<pre><code>  plugins {
-    kotlin(&#34;jvm&#34;) version &#34;1.3.72&#34;
-  }
-  dependencies {
-    implementation(kotlin(&#34;stdlib-jdk8&#34;))
-  }
+}    shouldThrow { <pre><code>length(null)
 </code></pre>
-<p>See further details about kotlin gradle setup <a href="https://kotlinlang.org/docs/reference/using-gradle.html" target="_blank">here</a></p>
-<ul>
-<li><strong>Maven</strong></li>
-</ul>
-<p>File <code>pom.xml</code></p>
-<pre><code>  &lt;dependencies&gt;
-      &lt;dependency&gt;
-          &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-          &lt;artifactId&gt;kotlin-stdlib-jdk8&lt;/artifactId&gt;
-          &lt;version&gt;1.3.72&lt;/version&gt;
-      &lt;/dependency&gt;
-  &lt;/dependencies&gt;
-
-  &lt;build&gt;
-    &lt;sourceDirectory&gt;${project.basedir}/src/main/kotlin&lt;/sourceDirectory&gt;
-    &lt;testSourceDirectory&gt;${project.basedir}/src/test/kotlin&lt;/testSourceDirectory&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-          &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-          &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
-          &lt;version&gt;${kotlin.version}&lt;/version&gt;
-
-          &lt;executions&gt;
-              &lt;execution&gt;
-                  &lt;id&gt;compile&lt;/id&gt;
-                  &lt;goals&gt; &lt;goal&gt;compile&lt;/goal&gt; &lt;/goals&gt;
-              &lt;/execution&gt;
-
-              &lt;execution&gt;
-                  &lt;id&gt;test-compile&lt;/id&gt;
-                  &lt;goals&gt; &lt;goal&gt;test-compile&lt;/goal&gt; &lt;/goals&gt;
-              &lt;/execution&gt;
-          &lt;/executions&gt;
-      &lt;/plugin&gt;
-  &lt;/plugins&gt;
-</code></pre>
-<p>See further details about kotlin maven setup <a href="https://kotlinlang.org/docs/reference/using-maven.html" target="_blank">here</a></p>
-<p><strong>Notes:</strong></p>
-<ul>
-<li>Kotlin can be use with ant build tool. See how <a href="https://kotlinlang.org/docs/reference/using-ant.html" target="_blank">here</a></li>
-</ul>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Hello Kotlin world!" duration="0">
-        <p>There are quite a few ways to create the kotlin application <code>bootstrap</code>.</p>
-<ul>
-<li><strong>Top level main method</strong></li>
-</ul>
-<p>File <code>App.kt</code></p>
-<pre><code>  fun main(vararg args: String) {
-    println(&#34;Hello Kotlin!&#34;)
-  }
-</code></pre>
-<p><em>Compile and run the application</em></p>
-<pre><code>  cd $prj_home/src/main/kotlin
-  kotlinc ro/jtonic/handson/kotlin/basics/App.kt AppKt
-  kotlin -classpath AppKt.jar ro.jtonic.handson.kotlin.basics.AppKt
-</code></pre>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/fd1ac5fff2eefd1440e1450020294c4e65f016d2" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>Top level main (simplified)</strong></li>
-</ul>
-<p>File <code>App.kt</code></p>
-<pre><code>  fun main() {
-    println(&#34;Hello Kotlin!&#34;)
-  }
-</code></pre>
-<p><em>Compile and run the application</em></p>
-<pre><code>  cd $prj_home/src/main/kotlin
-  kotlinc ro/jtonic/handson/kotlin/basics/App.kt AppKt
-  kotlin -classpath AppKt.jar ro.jtonic.handson.kotlin.basics.AppKt
-</code></pre>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/734dc7bd0d3e1cf53c64bee5c5d2714efab6e35c" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>The &#34;java way&#34; with companion object</strong></li>
-</ul>
-<p>File <code>App.kt</code></p>
-<pre><code>  class App {
-
-    companion object {
-
-      @JvmStatic
-      fun main(vararg args: String) {
-        println(&#34;Hello Kotlin!&#34;)
-      }
-    }
-  }
-</code></pre>
-<p><em>Compile and run the application</em></p>
-<pre><code>  cd $prj_home/src/main/kotlin
-  kotlinc ro/jtonic/handson/kotlin/basics/App.kt AppKt
-  kotlin -classpath AppKt.jar ro.jtonic.handson.kotlin.basics.AppKt
-</code></pre>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/bd8668fc965ccbe06d1e90f22f39c29dd233b752" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>Main method inside an object (singleton)</strong></li>
-</ul>
-<p>File <code>App.kt</code></p>
-<pre><code>object App {
-
-  @JvmStatic
-  fun main(vararg args: String) {
-    println(&#34;Hello Kotlin!&#34;)
-  }
-}
-</code></pre>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/e09ae472dbdf6412ff7ae779604db62e5ef10ea4" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>kotlin scripting</strong></li>
-</ul>
-<p>Create a <code>main.kts</code> script file outside the src folder (e.g. $prj_home/scripts/main.kts).</p>
-<p>File <code>main.kts</code></p>
-<pre><code>  val message = &#34;Hello Kotlin!&#34;
-  println(&#34;Hello Kotlin!&#34;)
-</code></pre>
-<p><em>Run the script</em></p>
-<pre><code>  cd $prj_home/scripts
-  kotlinc -script main.kts
-</code></pre>
-<p><strong>Notes:</strong></p>
-<ul>
-<li>Jetbrains works on an improved support for kotlin scripting.<br>For additional details please consult <a href="https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md" target="_blank">KEEP-75</a></li>
-<li>Kotlin community provides some useful tools which simplifies and extend the out-of-the-box scripting support.</li>
-<li>For kotlin-based cli I recommend <code>micronaut</code> and <code>picocli</code>.</li>
-</ul>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/8bc8edc155aee03f3835d80eee38f26e565b0d1b" target="_blank"><em>github</em></a></p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Kotlin null safety" duration="0">
-        <ul>
-<li><strong>Not null versus nullable types</strong> (<code>T and T?</code>)</li>
-</ul>
-<pre><code>  fun print(msg: String?) {}
-  fun printPage(msg: String) {}
-
-  print(&#34;Hello kotlin&#34;)
-  print(null)
-  printPage(null) // compilation error
-</code></pre>
-<ul>
-<li><strong>safe call operator</strong> (<code>?.</code>)</li>
-</ul>
-<pre><code>  &#34;test safe call operator&#34; {
-    data class User(val name: String, val address: String)
-
-    var user: User? = null
-    user?.address shouldBe null
-
-    user = User(&#34;Tony&#34;, &#34;Mihai Bravu&#34;)
-    user?.address shouldBe &#34;Mihai Bravu&#34;
-  }
-</code></pre>
-<p>See it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/f6240e22b4d192ead921439ca43ded04fc6fb44c" target="_blank">github</a></p>
-<ul>
-<li><strong>elvis operator</strong> (<code>?:</code>)</li>
-</ul>
-<pre><code>  &#34;test elvis operator&#34; {
-
-    var address: String? = null
-    address ?: &#34;unknown address&#34; shouldBe &#34;unknown address&#34;
-
-    address = &#34;Kotlin Island&#34;
-    address shouldBe &#34;Kotlin Island&#34;
-
-  }
-</code></pre>
-<p>See it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/afade3bcd15793ff398c2b39c4c288df8fd26cbf" target="_blank">github</a></p>
-<ul>
-<li><strong>safe cast operator</strong> (<code>as?</code>)</li>
-</ul>
-<pre><code>  &#34;test safe cast operator&#34; {
-
-      val jtonic = User(&#34;jtonic&#34;, &#34;Mihai Bravu&#34;) as Any
-      val tony = Person(&#34;Tony&#34;, 18) as Any
-
-      (jtonic as? User) shouldNotBe null
-      (tony as? User) shouldBe null
-
-      val jtonicUserAddress = (jtonic as? User)?.address
-      val tonyUserAddress = (tony as? User)?.address
-
-      jtonicUserAddress shouldBe &#34;Mihai Bravu&#34;
-      tonyUserAddress shouldBe null
-
-  }
-</code></pre>
-<ul>
-<li><strong>Not null assertion</strong> (<code>!!</code>)</li>
-</ul>
-<pre><code>    &#34;test not null assertion&#34; {
-
-      fun length(s: String?): Int {
-        val notNullString: String = s!! //Kotlin.KotlinNullPointerException
-        return notNullString.length
-      }
-
-      length(&#34;jtonic&#34;) shouldBe 6
-
-      shouldThrow&lt;NullPointerException&gt; {
-        length(null)
-      }
-
-      shouldThrow&lt;KotlinNullPointerException&gt; {
-        length(null)
-      }
-
-    }
-</code></pre>
-<p><strong>Notes:</strong></p>
-<ul>
+}  } &#34;`  <strong>Notes:</strong><ul>
 <li>throws <code>KotlinNullPointerException</code> which extends <code>java.lang.NullPointerException</code></li>
-<li>it is thrown at assignment site</li>
-<li>it should be avoided in application written entirely in kotlin. It is used when calling java API from kotlin</li>
-</ul>
-<p>See it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/4f88d00e359ce3573051aa68bce14e2999992d99" target="_blank">github</a></p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="My favorite kotlin features" duration="0">
-        <ul>
-<li><strong>Pattern matching</strong> (<code>when</code>)</li>
-</ul>
-<pre><code>    &#34;test pattern matching with when (1)&#34; {
-
-        val no = 7
-
-        val day: String = when(no) {
-          6, 7 -&gt; &#34;weekend&#34;
-          else -&gt; &#34;week day&#34;
-        }
-
-      day shouldBe &#34;weekend&#34;
-    }
-</code></pre>
-<pre><code>    &#34;test pattern matching with when (2)&#34; {
-
-      val person = Person(&#34;Tony&#34;, 18) as Any
-
-      val personInfo: String = when(person) {
-        is String -&gt; person
-        is Person -&gt; person.name  //smart cast
-        else -&gt; person.toString()
-      }
-      personInfo shouldBe &#34;Tony&#34;
-    }
-</code></pre>
-<p>See <a href="https://kotlinlang.org/docs/reference/whatsnew13.html#capturing-when-subject-in-a-variable" target="_blank">doc</a></p>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/1d76432b5c381260f1ec98a911c0576baa80242b" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>Smart cast</strong><ul>
-<li>In if, when and other kt constructs</li>
+<li>it is thrown at assignment site </li>
+<li>it should be avoided in application written entirely in kotlin. It is used when calling java API from kotlin  See it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/4f88d00e359ce3573051aa68bce14e2999992d99" target="_blank">github</a><strong>My favorite kotlin features</strong>—  </li>
 </ul>
 </li>
-</ul>
-<pre><code>    &#34;test smart cast&#34; {
-
-      val person = Person(&#34;Tony&#34;, 18) as Any
-
-      val personInfo = if(person is Person) {
-        person.name
-      } else {
-        person.toString()
-      }
-
-      personInfo shouldBe &#34;Tony&#34;
-    }
+<li><strong>Pattern matching</strong> (<code>when</code>)  &#34;`kotlin &#34;test pattern matching with when (1)&#34; {  <pre><code>val no = 7
 </code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Data classes</strong><ul>
-<li>provides getters/setters, all args constructor, equals/hashCode, toString, copy, destruction</li>
-</ul>
-</li>
-</ul>
-<pre><code>    public class Survey {
-
-      private String id;
-      private String name;
-      private String description;
-      private String category;
-      // 82 lines of code (getters/setters/hashCode...)
-</code></pre>
-<pre><code>  data class Survey(var id: String, var name: String, var description: String, var category: String)
-</code></pre>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/3c1783fbc128e3d5ecec0a4395ad913be1c76289" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>Expressions (almost) everywhere</strong><ul>
-<li>if, then, catch, generators are all expressions.</li>
-</ul>
-</li>
-</ul>
-<pre><code>    &#34;test expression is almost everywhere (try/catch)&#34; {
-
-      val age = try {
-        Integer.parseInt(&#34;tony&#39;s age&#34;)
-      } catch (e: Exception) {
-        90
-      }
-
-      age shouldBe 90
-    }
-</code></pre>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/f9f3610f42f952dd50c3456d9a29afbf1a88e2ae" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>Extension methods/properties</strong></li>
-</ul>
-<pre><code>    &#34;test extension method&#34; {
-
-      fun Employee.fullName() = &#34;${this.firstName} ${this.lastName}&#34;
-
-      val tony = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 18)
-
-      tony.fullName() shouldBe &#34;Antonel Pazargic&#34;
-    }
-</code></pre>
-<pre><code>    val Employee.fullName: String
-          get() =
-            &#34;${this.firstName} ${this.lastName}&#34;
-
-    &#34;test extension property&#34; {
-
-      val tony = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 18)
-
-      tony.fullName shouldBe &#34;Antonel Pazargic&#34;
-    }
-</code></pre>
-<p><em>See it on github </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/75e094fcff2b9a5c0a6b428f88a54c3af0041cf3" target="_blank"><em>here</em></a><em> and </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/29eb9f721b4e0e256b4c49040945ff7d72e21e30" target="_blank"><em>here</em></a></p>
-<ul>
-<li><strong>(Multi line) string interpolation, named and default method parameter</strong></li>
-</ul>
-<pre><code>    &#34;test multiline string interpolation, named and default parameter&#34; {
-
-      @Language(&#34;json&#34;)
-      fun toJson(firstName: String, lastName: String, age: Int = 18) = &#34;&#34;&#34;
-        {
-          &#34;firstName&#34;: &#34;$firstName&#34;,
-          &#34;lastName&#34;: &#34;$lastName&#34;,
-          &#34;age&#34;: $age
-        }
-      &#34;&#34;&#34;.trimIndent()
-
-      toJson(firstName = &#34;Antonel&#34;, lastName = &#34;Pazargic&#34;) shouldContain &#34;&#34;&#34;&#34;age&#34;: 18&#34;&#34;&#34;
-    }
-</code></pre>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/8e3f2a98101c46cc0fa64d8df6ec6aa9bf284805" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>Type inference</strong></li>
-</ul>
-<pre><code>      val emp1: Employee = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 50)
-      val emp2 = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 50)
-
-      fun getName(employee: Employee): String {
-        return employee.firstName
-      }
-      fun sum(a: Int, b: Int) = a + b
-</code></pre>
-<p><em>See it on [github]()</em></p>
-<ul>
-<li><strong>Scope methods (</strong><code>run</code><strong>, </strong><code>let</code><strong>, </strong><code>with</code><strong>, </strong><code>apply</code><strong>, </strong><code>also</code><strong>)</strong><ul>
-<li>Some of the above mentioned methods use lambda with receiver</li>
-</ul>
-</li>
-</ul>
-<pre><code>    &#34;test scope methods&#34; {
-
-      with(Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;)) {
-        firstName shouldBe &#34;Antonel&#34;
-        lastName shouldBe &#34;Pazargic&#34;
-        age shouldBe 18
-      }
-    }
-</code></pre>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/b2dc624f215edbb0293dffc1dce69e7372a70328" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>Nested functions</strong></li>
-</ul>
-<pre><code>    &#34;test nested function&#34; {
-
-      fun double(a: Int): Int {
-
-        fun multiply(a1: Int, a2: Int) = a1 * a2
-
-        return multiply(a, a)
-      }
-
-      double(2) shouldBe 4
-    }
-</code></pre>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/89bb314a8ffa550c3d63475d55d42e805c5b58eb" target="_blank"><em>github</em></a></p>
-<ul>
-<li><strong>Operator overloaded</strong></li>
-</ul>
-<pre><code>    &#34;test operator overloaded&#34; {
-
-      operator fun Employee.plus(other: Employee) = this.salary + other.salary
-
-      val employee1 = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 50, 10000)
-      val employee2 = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 20, 1000)
-
-      employee1 + employee2 shouldBe 11000
-    }
-</code></pre>
-<p><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/2ad0c824e76cefd94548336ab961211ca0c8aae5" target="_blank"><em>github</em></a></p>
-<ul>
-<li>There are many others useful kotlin features<ul>
-<li>apply</li>
-<li>reified types and inline methods</li>
-<li>type alias</li>
-<li>lateinit var (tests - Junit, TestNG, springboot)</li>
-<li>sealed classes (ADT)</li>
-<li>lambda with receiver</li>
-<li>contracts</li>
-<li>operators overloaded</li>
-<li>mutable/immutable collections</li>
-<li><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/2ad0c824e76cefd94548336ab961211ca0c8aae5" target="_blank">tailreq</a></li>
-<li>a lot more...</li>
-</ul>
-</li>
-</ul>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Kotlin plugin for IntelliJ Idea" duration="0">
-        <p><strong>Notes:</strong></p>
-<ul>
-<li>The information presented in this section is based on <strong>IntelliJ Idea Ultimate 2020.1</strong> and <strong>kotlin plugin 1.3.72</strong>.</li>
-<li><strong>Install Kotlin Idea plugin</strong><ul>
-<li>Select <code>Help | Find Actions...</code> from main menu  (or press <code>cmd-shift-a</code>)</li>
-<li>Type <code>plugins</code> and hit <code>Enter</code></li>
-<li>Enable the kotlin plugin by following the steps highlighted in the image below</li>
-</ul>
-</li>
-</ul>
-<p><img alt="kotlin idea plugin" src="img\e47f3fea4ded21c3.png"></p>
-<ul>
-<li><strong>Convert from java to kotlin</strong><ul>
-<li>Open the java file to convert, or just select it in the project tool window</li>
-<li>Select <code>Help | Find Actions...</code> from main menu  (or press cmd-shift-a)</li>
-<li>Type <code>convert java file to kotlin file</code> and hit Enter</li>
-</ul>
-</li>
-</ul>
-<p><img alt="convert to kt" src="img\9fee1889e3aa7eed.png"></p>
-<p>The following java file</p>
-<pre><code>public class Person {
-
-  private String name;
-  private int age;
-
-  // constructor, getter and setters (28 lines of code)
+<pre><code>val day: String = when(no) {
+  6, 7 -&gt; &#34;weekend&#34;
+  else -&gt; &#34;week day&#34;
 }
 </code></pre>
-<p>gets converted to the following kotlin</p>
-<pre><code>  class Person(var name: String, var age: Int)
+   day shouldBe &#34;weekend&#34; } <br><br>kotlin &#34;test pattern matching with when (2)&#34; {    val person = Person(&#34;Tony&#34;, 18) as Any    val personInfo: String = when(person) { <pre><code>is String -&gt; person
+is Person -&gt; person.name  //smart cast
+else -&gt; person.toString()
 </code></pre>
-<p>See it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/c0fab8fd23cc072920541d2920b8f5e80e24165b" target="_blank">github</a></p>
-<ul>
-<li><strong>Decompile kotlin to java</strong></li>
-</ul>
-<p>Doesn&#39;t work any longer with 2020.1 and kotlin 1.3.71 :(</p>
-<ul>
-<li><strong>Kotlin scratch file</strong></li>
-</ul>
-<p>Scratch files is an amazing idea features.</p>
-<p>It allows development by experimenting.</p>
-<p>Kotlin plugin contributes to the scratch feature feature.</p>
-<p>How to:</p>
-<ul>
-<li>Open <code>Find Action...</code></li>
-<li>Type <code>scratch file</code></li>
-</ul>
-<p><img alt="scratch file" src="img\db6822d172505f36.png"></p>
-<ul>
-<li>Type <code>kotlin</code></li>
-</ul>
-<p><img alt="scratch file" src="img\4397b508fcc18c7c.png"></p>
-<ul>
-<li>Select a project module classpath</li>
-</ul>
-<p><img alt="scratch file" src="img\8bb0f5ddfab46c36.png"></p>
-<ul>
-<li>Run the scratch file kotlin code, when the interactive is checked out</li>
-</ul>
-<p><img alt="scratch file" src="img\e467fe052b9aebe4.png"></p>
-<p><strong>Notes:</strong></p>
-<ul>
-<li>A scratch file can be renamed. One can give it a meaningful name.</li>
-<li>A scratch file has IDE visibility. It can be seen in every project.</li>
-<li><strong>Kotlin REPL</strong></li>
-</ul>
-<p>How to:</p>
-<ul>
-<li>Open <code>Find Action...</code></li>
-<li>Type <code>kotlin REPL</code></li>
-</ul>
-<p><img alt="kotlin repl" src="img\a4c3708d82757631.png"></p>
-<ul>
-<li>Choose a project module</li>
-</ul>
-<p><img alt="kotlin repl" src="img\c1fb0e85f9f4f63b.png"></p>
-<ul>
-<li>Start coding.For execution press <code>cmd-enter</code></li>
-</ul>
-<p><img alt="kotlin repl" src="img\13fe2f58b813c4b9.png"></p>
-<ul>
-<li>Show quick documentation in REPL</li>
-</ul>
-<p><img alt="kotlin repl" src="img\36a146df4584e0b8.png"></p>
-<p><strong>Notes:</strong></p>
-<ul>
-<li>(Almost) all supports in the IDE editor works in REPL as well:<ul>
-<li>autocomplete,</li>
-<li>automatic imports,</li>
-<li>compilation errors</li>
-<li>quick source</li>
-<li>quick documentation</li>
-<li>and much more....</li>
+}   personInfo shouldBe &#34;Tony&#34; } &#34;`  See <a href="https://kotlinlang.org/docs/reference/whatsnew13.html#capturing-when-subject-in-a-variable" target="_blank">doc</a><em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/1d76432b5c381260f1ec98a911c0576baa80242b" target="_blank"><em>github</em></a></li>
+<li><strong>Smart cast</strong><ul>
+<li>In if, when and other kt constructs  <code>kotlin<br>&#34;test smart cast&#34; {<br><br>val person = Person(&#34;Tony&#34;, 18) as Any<br><br>val personInfo = if(person is Person) {<br>person.name<br>} else {<br>person.toString()<br>}<br><br>personInfo shouldBe &#34;Tony&#34;<br>}</code><em><br>See it on [github]()</em></li>
 </ul>
 </li>
-<li><strong>Kotlin worksheet</strong></li>
+<li><strong>Data classes</strong><ul>
+<li>provides getters/setters, all args constructor, equals/hashCode, toString, copy, destruction  <code>java<br>public class Survey {<br><br>private String id;<br>private String name;<br>private String description;<br>private String category;<br>// 82 lines of code (getters/setters/hashCode...)<br>kotlin<br>data class Survey(var id: String, var name: String, var description: String, var category: String)</code><em><br>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/3c1783fbc128e3d5ecec0a4395ad913be1c76289" target="_blank"><em>github</em></a></li>
 </ul>
-<p>How to:</p>
-<ul>
+</li>
+<li><strong>Expressions (almost) everywhere</strong><ul>
+<li>if, then, catch, generators are all expressions.  <code>kotlin<br>&#34;test expression is almost everywhere (try/catch)&#34; {<br><br>val age = try {<br>Integer.parseInt(&#34;tony&#39;s age&#34;)<br>} catch (e: Exception) {<br>90<br>}<br><br>age shouldBe 90<br>}</code><em><br>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/f9f3610f42f952dd50c3456d9a29afbf1a88e2ae" target="_blank"><em>github</em></a></li>
+</ul>
+</li>
+<li><strong>Extension methods/properties</strong><code>kotlin<br>&#34;test extension method&#34; {<br><br>  fun Employee.fullName() = &#34;${this.firstName} ${this.lastName}&#34;<br><br>  val tony = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 18)<br><br>  tony.fullName() shouldBe &#34;Antonel Pazargic&#34;<br>}</code><br> &#34;`kotlin  val Employee.fullName: String <pre><code>  get() =
+    &#34;${this.firstName} ${this.lastName}&#34;
+</code></pre>
+ &#34;test extension property&#34; {    val tony = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 18)    tony.fullName shouldBe &#34;Antonel Pazargic&#34; } &#34;` <em>See it on github </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/75e094fcff2b9a5c0a6b428f88a54c3af0041cf3" target="_blank"><em>here</em></a><em> and </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/29eb9f721b4e0e256b4c49040945ff7d72e21e30" target="_blank"><em>here</em></a></li>
+<li><strong>(Multi line) string interpolation, named and default method parameter</strong>  &#34;`kotlin &#34;test multiline string interpolation, named and default parameter&#34; {    @Language(&#34;json&#34;)   fun toJson(firstName: String, lastName: String, age: Int = 18) = &#34;&#34;&#34; <pre><code>{
+  &#34;firstName&#34;: &#34;$firstName&#34;,
+  &#34;lastName&#34;: &#34;$lastName&#34;,
+  &#34;age&#34;: $age
+}
+</code></pre>
+&#34;&#34;&#34;.trimIndent()    toJson(firstName = &#34;Antonel&#34;, lastName = &#34;Pazargic&#34;) shouldContain &#34;&#34;&#34;&#34;age&#34;: 18&#34;&#34;&#34; } &#34;` <em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/8e3f2a98101c46cc0fa64d8df6ec6aa9bf284805" target="_blank"><em>github</em></a></li>
+<li><strong>Type inference</strong>  &#34;`kotlin   val emp1: Employee = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 50)   val emp2 = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 50)    fun getName(employee: Employee): String { <pre><code>return employee.firstName
+</code></pre>
+}   fun sum(a: Int, b: Int) = a + b &#34;` <em>See it on [github]()</em></li>
+<li><strong>Scope methods (</strong><code>run</code><strong>, </strong><code>let</code><strong>, </strong><code>with</code><strong>, </strong><code>apply</code><strong>, </strong><code>also</code><strong>)</strong><ul>
+<li>Some of the above mentioned methods use lambda with receiver  <code>kotlin<br>&#34;test scope methods&#34; {<br><br>with(Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;)) {<br>firstName shouldBe &#34;Antonel&#34;<br>lastName shouldBe &#34;Pazargic&#34;<br>age shouldBe 18<br>}<br>}</code><em><br>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/b2dc624f215edbb0293dffc1dce69e7372a70328" target="_blank"><em>github</em></a></li>
+</ul>
+</li>
+<li><strong>Nested functions</strong>  &#34;`kotlin &#34;test nested function&#34; {    fun double(a: Int): Int {  <pre><code>fun multiply(a1: Int, a2: Int) = a1 * a2
+</code></pre>
+<pre><code>return multiply(a, a)
+</code></pre>
+}    double(2) shouldBe 4 } &#34;` <em>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/89bb314a8ffa550c3d63475d55d42e805c5b58eb" target="_blank"><em>github</em></a></li>
+<li><strong>Operator overloaded</strong><code>kotlin<br>&#34;test operator overloaded&#34; {<br><br>  operator fun Employee.plus(other: Employee) = this.salary + other.salary<br><br>  val employee1 = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 50, 10000)<br>  val employee2 = Employee(&#34;Antonel&#34;, &#34;Pazargic&#34;, 20, 1000)<br><br>  employee1 + employee2 shouldBe 11000<br>}</code><em><br>See it on </em><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/2ad0c824e76cefd94548336ab961211ca0c8aae5" target="_blank"><em>github</em></a></li>
+<li>There are many others useful kotlin features  <ul>
+<li>apply </li>
+<li>reified types and inline methods </li>
+<li>type alias </li>
+<li>lateinit var (tests - Junit, TestNG, springboot) </li>
+<li>sealed classes (ADT) </li>
+<li>lambda with receiver </li>
+<li>contracts </li>
+<li>operators overloaded </li>
+<li>mutable/immutable collections </li>
+<li><a href="https://github.com/jtonic/tony_software_development_cookbook/commit/2ad0c824e76cefd94548336ab961211ca0c8aae5" target="_blank">tailreq</a></li>
+<li>a lot more...   Kotlin plugin for IntelliJ Idea <strong>Notes:</strong></li>
+<li>The information presented in this section is based on <strong>IntelliJ Idea Ultimate 2020.1</strong> and <strong>kotlin plugin 1.3.72</strong>.  </li>
+</ul>
+</li>
+<li><strong>Install Kotlin Idea plugin</strong><ul>
+<li>Select <code>Help | Find Actions...</code> from main menu  (or press <code>cmd-shift-a</code>) </li>
+<li>Type <code>plugins</code> and hit <code>Enter</code></li>
+<li>Enable the kotlin plugin by following the steps highlighted in the image below  <img alt="kotlin idea plugin" src="img\e47f3fea4ded21c3.png"></li>
+</ul>
+</li>
+<li><strong>Convert from java to kotlin</strong><ul>
+<li>Open the java file to convert, or just select it in the project tool window </li>
+<li>Select <code>Help | Find Actions...</code> from main menu  (or press cmd-shift-a) </li>
+<li>Type <code>convert java file to kotlin file</code> and hit Enter  <img alt="convert to kt" src="img\9fee1889e3aa7eed.png">  The following java file  <code>java<br>public class Person {<br><br>private String name;<br>private int age;<br><br>// constructor, getter and setters (28 lines of code)<br>}</code><br> gets converted to the following kotlin  <code>kotlin<br>class Person(var name: String, var age: Int)</code><br>  &gt; See it on <a href="https://github.com/jtonic/tony_software_development_cookbook/commit/c0fab8fd23cc072920541d2920b8f5e80e24165b" target="_blank">github</a></li>
+</ul>
+</li>
+<li><strong>Decompile kotlin to java</strong>  Doesn&#39;t work any longer with 2020.1 and kotlin 1.3.71 :(  </li>
+<li><strong>Kotlin scratch file</strong>  Scratch files is an amazing idea features.  It allows development by experimenting.  Kotlin plugin contributes to the scratch feature feature.  How to: <ul>
 <li>Open <code>Find Action...</code></li>
-<li>Type <code>kotlin REPL</code></li>
+<li>Type <code>scratch file</code><img alt="scratch file" src="img\db6822d172505f36.png"></li>
+<li>Type <code>kotlin</code><img alt="scratch file" src="img\4397b508fcc18c7c.png"></li>
+<li>Select a project module classpath  <img alt="scratch file" src="img\8bb0f5ddfab46c36.png"></li>
+<li>Run the scratch file kotlin code, when the interactive is checked out  <img alt="scratch file" src="img\e467fe052b9aebe4.png"><strong>Notes:</strong></li>
+<li>A scratch file can be renamed. One can give it a meaningful name. </li>
+<li>A scratch file has IDE visibility. It can be seen in every project.  </li>
 </ul>
-<p><img alt="kotlin worksheet" src="img\80c876d17312cef1.png"></p>
-<ul>
-<li>Start coding</li>
+</li>
+<li><strong>Kotlin REPL</strong>  How to: <ul>
+<li>Open <code>Find Action...</code></li>
+<li>Type <code>kotlin REPL</code><img alt="kotlin repl" src="img\a4c3708d82757631.png"></li>
+<li>Choose a project module  <img alt="kotlin repl" src="img\c1fb0e85f9f4f63b.png"></li>
+<li>Start coding.  For execution press <code>cmd-enter</code><img alt="kotlin repl" src="img\13fe2f58b813c4b9.png"></li>
+<li>Show quick documentation in REPL  <img alt="kotlin repl" src="img\36a146df4584e0b8.png"><strong>Notes:</strong></li>
+<li>(Almost) all supports in the IDE editor works in REPL as well: </li>
+<li>autocomplete, </li>
+<li>automatic imports, </li>
+<li>compilation errors </li>
+<li>quick source </li>
+<li>quick documentation </li>
+<li>and much more....  </li>
 </ul>
-<p>See Idea inspection and hint in action.</p>
-<p><img alt="kotlin worksheet" src="img\5c9c4a32f9456d3c.png"></p>
-<ul>
-<li>Click the green arrow button to execute the code if the interactive mode is off.</li>
-</ul>
-<p><img alt="kotlin worksheet" src="img\da407a0f1e143c71.png"></p>
-<p><strong>Notes:</strong></p>
-<p>There are some similarities between the kotlin scratch file and kotlin worksheet.</p>
-<p>The worksheet:</p>
-<ul>
-<li>file is stored in project, it can be versioned.</li>
-<li>has kts file extension (it is a kotlin script file)</li>
-<li>requires the <code>kotlin-script-runtime</code> in project classpath. If it is not then Idea offers to add it.</li>
-</ul>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="References" duration="0">
-        <ul>
+</li>
+<li><strong>Kotlin worksheet</strong>  How to: <ul>
+<li>Open <code>Find Action...</code></li>
+<li>Type <code>kotlin REPL</code><img alt="kotlin worksheet" src="img\80c876d17312cef1.png"></li>
+<li>Start coding  See Idea inspection and hint in action.  <img alt="kotlin worksheet" src="img\5c9c4a32f9456d3c.png"></li>
+<li>Click the green arrow button to execute the code if the interactive mode is off.  <img alt="kotlin worksheet" src="img\da407a0f1e143c71.png"><strong>Notes:</strong>  There are some similarities between the kotlin scratch file and kotlin worksheet.  The worksheet: </li>
+<li>file is stored in project, it can be versioned. </li>
+<li>has kts file extension (it is a kotlin script file) </li>
+<li>requires the <code>kotlin-script-runtime</code> in project classpath. If it is not then Idea offers to add it.   References </li>
 <li><a href="https://kotlinlang.org/docs/reference/" target="_blank">Kotlin reference documentation</a></li>
 <li><a href="play.kotlinlang.org" target="_blank">Kotlin playground</a></li>
 <li><a href="http://try.kotlinlang.org/" target="_blank">Kotlin koans</a></li>
 <li><a href="https://www.jetbrains.com/help/education/install-edutools-plugin.html?section=Kotlin" target="_blank">EduTools Idea plugin</a></li>
-<li><a href="https://www.manning.com/books/kotlin-in-action" target="_blank">Kotlin in action(book)</a></li>
+<li><a href="https://www.manning.com/books/kotlin-in-action" target="_blank">Kotlin in action(book)</a>What&#39;s next? <strong>Options</strong></li>
 </ul>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="What&#39;s next?" duration="0">
-        <p><strong>Options</strong></p>
 <ol type="1">
 <li><strong>OOP in Kotlin</strong></li>
-<li>Java/Kotlin interoperability</li>
-<li>Design patterns in kotlin</li>
-<li>Kotlin collections</li>
-<li>Scripting in kotlin (cli)</li>
-<li>SpringBoot and Kotlin</li>
-<li>Reactive programming in kotlin</li>
-<li>Kotlin coroutines</li>
-<li>Functional programming in kotlin</li>
-<li>Kotlin 1.4</li>
-<li>Micronaut and Kotlin</li>
-<li>Kotlin JS</li>
-<li>Kotlin Multi Platform Programming</li>
-<li>Kotlin DSL</li>
+<li>Java/Kotlin interoperability </li>
+<li>Design patterns in kotlin </li>
+<li>Kotlin collections </li>
+<li>Scripting in kotlin (cli) </li>
+<li>SpringBoot and Kotlin </li>
+<li>Reactive programming in kotlin </li>
+<li>Kotlin coroutines </li>
+<li>Functional programming in kotlin </li>
+<li>Kotlin 1.4 </li>
+<li>Micronaut and Kotlin </li>
+<li>Kotlin JS </li>
+<li>Kotlin Multi Platform Programming </li>
+<li>Kotlin DSL </li>
 </ol>
+</li>
+</ul>
 
 
       </google-codelab-step>
     
   </google-codelab>
 
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-49880327-14', 'auto');
-
-    (function() {
-      var gaCodelab = '';
-      if (gaCodelab) {
-        ga('create', gaCodelab, 'auto', {name: 'codelab'});
-      }
-
-      var gaView;
-      var parts = location.search.substring(1).split('&');
-      for (var i = 0; i < parts.length; i++) {
-        var param = parts[i].split('=');
-        if (param[0] === 'viewga') {
-          gaView = param[1];
-          break;
-        }
-      }
-      if (gaView && gaView !== gaCodelab) {
-        ga('create', gaView, 'auto', {name: 'view'});
-      }
-    })();
-  </script>
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
 
 </body>
 </html>

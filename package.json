@@ -25,7 +25,7 @@
   "devDependencies": {
     "chokidar": "^3.3.1",
     "http-server": "^0.12.3",
-    "reveal-md": "^4.1.2"
+    "reveal-md": "^5.0.0"
   },
   "dependencies": {
     "@dxdeveloperexperience/codelab-generator": "^1.0.7",

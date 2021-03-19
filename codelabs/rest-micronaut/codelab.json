@@ -1,15 +1,14 @@
 {
   "environment": "web",
-  "source": "rest-micronaut.md",
   "format": "html",
-  "prefix": "../../",
+  "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2021-02-16T21:22:06+02:00",
   "id": "rest-micronaut",
-  "duration": 25,
+  "duration": 615,
   "title": "Micronaut REST api implementation",
-  "author": "Stanciu Neculai",
   "summary": "A step by step tutorial for a REST api using Micronaut framework.",
+  "source": "rest-micronaut.md",
   "theme": "",
   "status": [
     "draft"
