@@ -15,7 +15,7 @@ jobs:
   setup-claat:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-go@v1.0.0
+      - uses: actions/setup-go@v2
       # Run claat test
       - name: Run wget to retrieve claat
         run: wget https://github.com/googlecodelabs/tools/releases/download/v2.2.0/claat-linux-amd64 -O claat
