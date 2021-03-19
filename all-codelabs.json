@@ -1,16 +1,15 @@
 [
   {
     "environment": "web",
-    "source": "kt-basics-codelab.md",
     "format": "html",
-    "prefix": "../../",
+    "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
     "updated": "2021-02-16T21:22:06+02:00",
     "id": "kt-basics",
     "duration": 0,
     "title": "Kotlin basics",
-    "author": "Antonel-Ernest Pazargic",
     "summary": "First baby steps into the fascinating Kotlin world",
+    "source": "kt-basics-codelab.md",
     "theme": "",
     "status": [
       "draft"
@@ -26,16 +25,15 @@
   },
   {
     "environment": "web",
-    "source": "micronaut-cli-kt-codelab.md",
     "format": "html",
-    "prefix": "../../",
+    "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
     "updated": "2021-02-16T21:22:06+02:00",
     "id": "micronaut-cli-kt",
     "duration": 0,
     "title": "Micronaut kotlin cli (httpclient)",
-    "author": "Antonel-Ernest Pazargic",
     "summary": "How to create a cli app with micronaut, picocli and kotlin",
+    "source": "micronaut-cli-kt-codelab.md",
     "theme": "",
     "status": [
       "draft"
@@ -51,16 +49,15 @@
   },
   {
     "environment": "web",
-    "source": "native-image.md",
     "format": "html",
-    "prefix": "../../",
+    "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
     "updated": "2021-02-16T21:22:06+02:00",
     "id": "native-image",
     "duration": 0,
     "title": "Generate a Micronaut app's Native Image with GraalVM",
-    "author": "Stanciu Neculai",
     "summary": "A step by step tutorial for native-image generation for a Micronaut web application",
+    "source": "native-image.md",
     "theme": "",
     "status": [
       "draft"
@@ -103,16 +100,15 @@
   },
   {
     "environment": "web",
-    "source": "rest-micronaut.md",
     "format": "html",
-    "prefix": "../../",
+    "prefix": "https://storage.googleapis.com",
     "mainga": "UA-49880327-14",
     "updated": "2021-02-16T21:22:06+02:00",
     "id": "rest-micronaut",
-    "duration": 25,
+    "duration": 615,
     "title": "Micronaut REST api implementation",
-    "author": "Stanciu Neculai",
     "summary": "A step by step tutorial for a REST api using Micronaut framework.",
+    "source": "rest-micronaut.md",
     "theme": "",
     "status": [
       "draft"
@@ -125,7 +121,7 @@
     ],
     "feedback": "https://github.com/neculai-stanciu/my-codelabs/issues",
     "url": "rest-micronaut",
-    "containsPresentation": false,
+    "containsPresentation": true,
     "containsDemo": false
   },
   {
