@@ -23,12 +23,12 @@
   },
   "homepage": "https://github.com/neculai-stanciu/my-codelabs#readme",
   "devDependencies": {
-    "chokidar": "^3.3.1",
-    "http-server": "^0.12.3",
-    "reveal-md": "^4.1.2"
+    "chokidar": "^3.5.3",
+    "http-server": "^14.1.1",
+    "reveal-md": "^5.4.1"
   },
   "dependencies": {
-    "@dxdeveloperexperience/codelab-generator": "^1.0.7",
-    "rimraf": "^3.0.2"
+    "@simple-org/codelab-generator": "^1.0.9",
+    "rimraf": "^4.4.0"
   }
 }

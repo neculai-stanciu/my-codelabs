@@ -9,7 +9,7 @@
   <title>Micronaut REST api implementation</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
   <style>
     .success {
       color: #1e8e3e;
@@ -28,165 +28,337 @@
                   feedback-link="https://github.com/neculai-stanciu/my-codelabs/issues">
     
       <google-codelab-step label="Generate app using Micronaut cli" duration="5">
-        <p><a href="/my-codelabs/codelabs/setup-micronaut" target="_blank">this guide</a>  We will use <strong>maven</strong> as build tool and open-api integration. For this we need to run the following command:  <code>bash<br>$ mn create-app com.ing.surveys-api --build maven --features swagger-java<br>| Generating Java project...<br>| Application created at /Users/rh69ua/Developer/stretch-ambitions/surveys-api<br>localhost:stretch-ambitions rh69ua$</code><br> After running mn the structure should look:  &#34;`bash $ tree . ├── Dockerfile ├── micronaut-cli.yml ├── mvnw ├── mvnw.cmd ├── pom.xml └── src </p>
-<pre><code>├── main
-│   ├── java
-│   │   └── com
-│   │       └── ing
-│   │           └── Application.java
-│   └── resources
-│       ├── application.yml
-│       └── logback.xml
-└── test
-    └── java
-        └── com
-            └── ing
+        <p>If you need to configure Micronaut cli please check <a href="/my-codelabs/codelabs/setup-micronaut" target="_blank">this guide</a></p>
+<p>We will use <strong>maven</strong> as build tool and open-api integration. For this we need to run the following command:</p>
+<pre><code language="language-bash" class="language-bash">$ mn create-app com.ing.surveys-api --build maven --features swagger-java
+| Generating Java project...
+| Application created at /Users/rh69ua/Developer/stretch-ambitions/surveys-api
+localhost:stretch-ambitions rh69ua$
 </code></pre>
-<p><code><br><br>Then we should do:</code><br><br>bash $ mvn clean install <br><br><code>And then run the app:</code><br><br>bash $ mvn exec:exec [INFO] Scanning for projects... [INFO] [INFO] ———————————————————————— [INFO] Building surveys-api 0.1 [INFO] ———————————————————————— [INFO] [INFO] — exec-maven-plugin:1.6.0:exec (default-cli) @ surveys-api — 20:15:31.080 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 622ms. Server Running: http://localhost:8080 &#34;`  </p>
+<p>After running mn the structure should look:</p>
+<pre><code language="language-bash" class="language-bash">$ tree
+.
+├── Dockerfile
+├── micronaut-cli.yml
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── com
+    │   │       └── ing
+    │   │           └── Application.java
+    │   └── resources
+    │       ├── application.yml
+    │       └── logback.xml
+    └── test
+        └── java
+            └── com
+                └── ing
+</code></pre>
+<p>Then we should do:</p>
+<pre><code language="language-bash" class="language-bash">$ mvn clean install
+</code></pre>
+<p>And then run the app:</p>
+<pre><code language="language-bash" class="language-bash">$ mvn exec:exec
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] Building surveys-api 0.1
+[INFO] ------------------------------------------------------------------------
+[INFO]
+[INFO] --- exec-maven-plugin:1.6.0:exec (default-cli) @ surveys-api ---
+20:15:31.080 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 622ms. Server Running: http://localhost:8080
+</code></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Add OpenAPIDefinition" duration="10">
-        <p><strong>application.yml</strong>  &#34;`yml   router: </p>
-<pre><code>static-resources:
-  swagger:
-    paths: classpath:META-INF/swagger
-    mapping: /swagger/**
-  swagger-ui:
-    paths: classpath:META-INF/swagger/views/swagger-ui
-    mapping: /swagger-ui/**
-    enabled: true
-    theme: MATERIAL
+        <p>Add swagger info in <strong>application.yml</strong></p>
+<pre><code language="language-yml" class="language-yml">  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+        enabled: true
+        theme: MATERIAL
 </code></pre>
-<p><code><br><br>Compile and start api again an you should be able to get:</code><br><br>bash $ curl http://localhost:8080/swagger/surveys-api-0.0.yml openapi: 3.0.1 info:   title: surveys-api   version: &#34;0.0&#34; &#34;`  </p>
-<h2 is-upgraded>Generating OpenAPI Views </h2>
-<p> By default the generation of views is disabled. To turn it on you have to set the following system property micronaut.openapi.views.spec. The string syntax is a series of comma-separated key-value pairs, to enable and configure the views.  <code>bash<br>micronaut.openapi.views.spec=redoc.enabled=true,rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop</code><br>  In order to configure maven with this property you should add:  &#34;`xml </p>
-<pre><code>&lt;plugins&gt;
-    &lt;plugin&gt;
-        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;configuration&gt;
-            &lt;fork&gt;true&lt;/fork&gt;
-            &lt;compilerArgs&gt;
-                &lt;arg&gt;-J-Dmicronaut.openapi.views.spec=rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop&lt;/arg&gt;
-            &lt;/compilerArgs&gt;
-        &lt;/configuration&gt;
-    &lt;/plugin&gt;
-&lt;/plugins&gt;
+<p>Compile and start api again an you should be able to get:</p>
+<pre><code language="language-bash" class="language-bash">$ curl http://localhost:8080/swagger/surveys-api-0.0.yml
+openapi: 3.0.1
+info:
+  title: surveys-api
+  version: &#34;0.0&#34;
 </code></pre>
-<p> &#34;`  </p>
+<h2 is-upgraded>Generating OpenAPI Views</h2>
+<p>By default the generation of views is disabled. To turn it on you have to set the following system property micronaut.openapi.views.spec. The string syntax is a series of comma-separated key-value pairs, to enable and configure the views.</p>
+<pre><code language="language-bash" class="language-bash">micronaut.openapi.views.spec=redoc.enabled=true,rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop
+</code></pre>
+<p>In order to configure maven with this property you should add:</p>
+<pre><code language="language-xml" class="language-xml">&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;fork&gt;true&lt;/fork&gt;
+                &lt;compilerArgs&gt;
+                    &lt;arg&gt;-J-Dmicronaut.openapi.views.spec=rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop&lt;/arg&gt;
+                &lt;/compilerArgs&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Add first controller" duration="600">
-        <pre><code>@Get(produces = MediaType.TEXT_PLAIN) //#2
-public String index() {
-    return &#34;Hello World&#34;; //#3
+      <google-codelab-step label="Add first controller" duration="10">
+        <p>In order to create a service that responds to &#34;Hello World&#34; you first need a controller. The following is an example of a controller:</p>
+<pre><code language="language-java" class="language-java">import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+
+@Controller(&#34;/hello&#34;) //#1
+public class HelloController {
+
+    @Get(produces = MediaType.TEXT_PLAIN) //#2
+    public String index() {
+        return &#34;Hello World&#34;; //#3
+    }
 }
 </code></pre>
-<p>} &#34;`  </p>
 <ol type="1">
-<li>The class is defined as a controller with the @Controller annotation mapped to the path /hello </li>
-<li>The @Get annotation is used to map the index method to all requests that use an HTTP GET </li>
-<li>A String &#34;Hello World&#34; is returned as the result  Negative </li>
+<li>The class is defined as a controller with the @Controller annotation mapped to the path /hello</li>
+<li>The @Get annotation is used to map the index method to all requests that use an HTTP GET</li>
+<li>A String &#34;Hello World&#34; is returned as the result</li>
 </ol>
-<p>In case you want to add lombok support please make sure that <strong>lombok</strong> dependency is first in <strong>annotationProcessorPaths</strong> like:  <code>xml<br>&lt;path&gt;<br>&lt;groupId&gt;org.projectlombok&lt;/groupId&gt;<br>&lt;artifactId&gt;lombok&lt;/artifactId&gt;<br>&lt;version&gt;1.18.12&lt;/version&gt;<br>&lt;/path&gt;<br></code></p>
-<p>Bean Introspection </p>
-<p> Since Micronaut 1.1, a compilation time replacement for the JDK&#39;s <a href="https://docs.oracle.com/javase/8/docs/api/java/beans/Introspector.html" target="_blank">Introspector</a> class has been included.  The <a href="https://docs.micronaut.io/latest/api/io/micronaut/core/beans/BeanIntrospector.html" target="_blank">BeanIntrospector</a> and <a href="https://docs.micronaut.io/latest/api/io/micronaut/core/beans/BeanIntrospection.html" target="_blank">BeanIntrospection</a> interfaces allow looking up bean introspections that allow you to instantiate and read/write bean properties without using reflection or caching reflective metadata which consumes excessive memory for large beans. Making a Bean Available for Introspection  </p>
-<h2 is-upgraded>Use the @Introspected Annotation </h2>
-<p> The <a href="https://docs.micronaut.io/latest/api/io/micronaut/core/annotation/Introspected.html" target="_blank">@Introspected</a> annotation can be used on any class which you want to make available for introspection, simply annotate the class with <a href="https://docs.micronaut.io/latest/api/io/micronaut/core/annotation/Introspected.html" target="_blank">@Introspected</a>:  &#34;`java import io.micronaut.core.annotation.Introspected;  @Introspected public class Person {  private String name; private int age = 18;  public Person(String name) { </p>
-<pre><code>this.name = name;
+<p>Negative : In case you want to add lombok support please make sure that <strong>lombok</strong> dependency is first in <strong>annotationProcessorPaths</strong> like:</p>
+<pre><code language="language-xml" class="language-xml">&lt;path&gt;
+  &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+  &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+  &lt;version&gt;1.18.12&lt;/version&gt;
+ &lt;/path&gt;
 </code></pre>
-<p>}  public String getName() { </p>
-<pre><code>return name;
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Bean Introspection" duration="0">
+        <p>Since Micronaut 1.1, a compilation time replacement for the JDK&#39;s <a href="https://docs.oracle.com/javase/8/docs/api/java/beans/Introspector.html" target="_blank">Introspector</a> class has been included.</p>
+<p>The <a href="https://docs.micronaut.io/latest/api/io/micronaut/core/beans/BeanIntrospector.html" target="_blank">BeanIntrospector</a> and <a href="https://docs.micronaut.io/latest/api/io/micronaut/core/beans/BeanIntrospection.html" target="_blank">BeanIntrospection</a> interfaces allow looking up bean introspections that allow you to instantiate and read/write bean properties without using reflection or caching reflective metadata which consumes excessive memory for large beans. Making a Bean Available for Introspection</p>
+<h2 is-upgraded>Use the @Introspected Annotation</h2>
+<p>The <a href="https://docs.micronaut.io/latest/api/io/micronaut/core/annotation/Introspected.html" target="_blank">@Introspected</a> annotation can be used on any class which you want to make available for introspection, simply annotate the class with <a href="https://docs.micronaut.io/latest/api/io/micronaut/core/annotation/Introspected.html" target="_blank">@Introspected</a>:</p>
+<pre><code language="language-java" class="language-java">import io.micronaut.core.annotation.Introspected;
+
+@Introspected
+public class Person {
+
+    private String name;
+    private int age = 18;
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+}
 </code></pre>
-<p>}  public void setName(String name) { </p>
-<pre><code>this.name = name;
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Http routing" duration="0">
+        <h2 is-upgraded>URI Paths</h2>
+<p>The value of the <strong>@Controller</strong> annotation is a <a href="https://tools.ietf.org/html/rfc6570" target="_blank">RFC-6570 URI template</a> you can therefore embed URI variables within the path using the syntax defined by the URI template specification.</p>
+<p>Positive : Many other frameworks, including Spring, implement the URI template specification</p>
+<h2 is-upgraded>URI template example</h2>
+<pre><code language="language-java" class="language-java">import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.PathVariable;
+
+@Controller(&#34;/issues&#34;)
+public class IssuesController {
+
+    @Get(&#34;/{number}&#34;)
+    public String issue(@PathVariable Integer number) {
+        return &#34;Issue # &#34; + number + &#34;!&#34;;
+    }
+}
 </code></pre>
-<p>}  public int getAge() { </p>
-<pre><code>return age;
+<p>Positive : Note that the URI template in the previous example requires that the number variable is specified. You can specify optional URI templates with the syntax: /issues{/number} and by annotating the number parameter with <strong>@Nullable</strong>.</p>
+<h2 is-upgraded>More routing examples</h2>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Template</p>
+</td><td colspan="1" rowspan="1"><p>Description</p>
+</td><td colspan="1" rowspan="1"><p>Matching URI</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>/books/{id}</p>
+</td><td colspan="1" rowspan="1"><p>Simple match</p>
+</td><td colspan="1" rowspan="1"><p>/books/1</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>/books/{id:2}</p>
+</td><td colspan="1" rowspan="1"><p>A variable of 2 characters max</p>
+</td><td colspan="1" rowspan="1"><p>/books/10</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>/books{/id}</p>
+</td><td colspan="1" rowspan="1"><p>An optional URI variable</p>
+</td><td colspan="1" rowspan="1"><p>/books/10 or /books</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>/book{/id:[a-zA-Z]+}</p>
+</td><td colspan="1" rowspan="1"><p>An optional URI variable with regex</p>
+</td><td colspan="1" rowspan="1"><p>/books/foo</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>/books{?max,offset}</p>
+</td><td colspan="1" rowspan="1"><p>Optional query parameters</p>
+</td><td colspan="1" rowspan="1"><p>/books?max=10&amp;offset=10</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>/books{/path:.*}{.ext}</p>
+</td><td colspan="1" rowspan="1"><p>Regex path match with extension</p>
+</td><td colspan="1" rowspan="1"><p>/books/foo/bar.xml</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Error Handling" duration="0">
+        <p>Sometimes with distributed applications, bad things happen. Having a good way to handle errors is important.</p>
+<p>The <a href="https://docs.micronaut.io/latest/api/io/micronaut/http/annotation/Error.html" target="_blank">Error</a> annotation supports defining either an exception class or an HTTP status. Methods decorated with the annotation will be invoked as the result of other controller methods. The annotation also supports the notion of global and local, local being the default.</p>
+<p>Local error handlers will only respond to methods defined in the same controller. Global error handlers can respond to any method in any controller. A local error handler is always searched for first when resolving which handler to execute.</p>
+<pre><code language="language-java" class="language-java">  @Error(exception = ConstraintViolationException.class)
+  public Map&lt;String, Object&gt; onSavedFailed(HttpRequest request, ConstraintViolationException ex) {
+    final Map&lt;String, Object&gt; model = new HashMap&lt;&gt;();
+    model.put(&#34;errors&#34;, messageSource.violationsMessages(ex.getConstraintViolations()));
+    return model;
+  }
 </code></pre>
-<p>}  public void setAge(int age) { </p>
-<pre><code>this.age = age;
+<p>You can check a full example in <a href="https://github.com/neculai-stanciu/micronaut-sessions/blob/5f0471a9de487991a365cbfced9ac9ce8312efda/surveys-api/src/main/java/com/nstanciu/tutorials/mn/surveys/resource/SurveyResource.java#L59" target="_blank">surveys-api here</a></p>
+<h2 is-upgraded>Global error handler</h2>
+<pre><code language="language-java" class="language-java">  @Error(global = true)
+  public HttpResponse&lt;JsonError&gt; error(HttpRequest request, Throwable e) {
+    JsonError error = new JsonError(&#34;Bad Things Happened: &#34; + e.getMessage())
+        .link(Link.SELF, Link.of(request.getUri()));
+
+    return HttpResponse.&lt;JsonError&gt;serverError()
+        .body(error);
+  }
 </code></pre>
-<p>} } &#34;`  </p>
-<p>Http routing </p>
-<h2 is-upgraded>URI Paths </h2>
-<p> The value of the <strong>@Controller</strong> annotation is a <a href="https://tools.ietf.org/html/rfc6570" target="_blank">RFC-6570 URI template</a> you can therefore embed URI variables within the path using the syntax defined by the URI template specification.  Positive </p>
-<p>Many other frameworks, including Spring, implement the URI template specification  </p>
-<h2 is-upgraded>URI template example </h2>
-<p> &#34;`java import io.micronaut.http.annotation.Controller; import io.micronaut.http.annotation.Get; import io.micronaut.http.annotation.PathVariable;  @Controller(&#34;/issues&#34;) public class IssuesController {  @Get(&#34;/{number}&#34;) public String issue(@PathVariable Integer number) { </p>
-<pre><code>return &#34;Issue # &#34; + number + &#34;!&#34;;
+<p>You can check a full example in <a href="https://github.com/neculai-stanciu/micronaut-sessions/blob/5f0471a9de487991a365cbfced9ac9ce8312efda/surveys-api/src/main/java/com/nstanciu/tutorials/mn/surveys/error/JsonParseErrorHandler.java#L13" target="_blank">surveys-api here</a></p>
+<h2 is-upgraded>ExceptionHandler</h2>
+<p>Additionally you can implement a <a href="https://docs.micronaut.io/latest/api/io/micronaut/http/server/exceptions/ExceptionHandler.html" target="_blank">ExceptionHandler</a>; a generic hook for handling exceptions that occurs during the execution of an HTTP request.</p>
+<p>Imagine your app throws an NotFoundException the requested resource is not available: You can implement an exception handler:</p>
+<pre><code language="language-java" class="language-java">@Produces
+@Singleton
+@Requires(classes = {NotFoundException.class, ExceptionHandler.class})
+public class NotFoundExceptionHandler implements ExceptionHandler&lt;NotFoundException, HttpResponse&gt; {
+
+    @Override
+    public HttpResponse handle(HttpRequest request, NotFoundException exception) {
+        return HttpResponse.ok(0);
+    }
+}
 </code></pre>
-<p>} } &#34;`  Positive </p>
-<p>Note that the URI template in the previous example requires that the number variable is specified. You can specify optional URI templates with the syntax: /issues{/number} and by annotating the number parameter with <strong>@Nullable</strong>.  </p>
-<h2 is-upgraded>More routing examples </h2>
-<p> | Template               | Description                         | Matching URI            | | ———————- | ———————————– | ———————– | | /books/{id}            | Simple match                        | /books/1                | | /books/{id:2}          | A variable of 2 characters max      | /books/10               | | /books{/id}            | An optional URI variable            | /books/10 or /books     | | /book{/id:[a-zA-Z]+}   | An optional URI variable with regex | /books/foo              | | /books{?max,offset}    | Optional query parameters           | /books?max=10&amp;offset=10 | | /books{/path:.*}{.ext} | Regex path match with extension     | /books/foo/bar.xml      |  </p>
-<p><a href="https://docs.micronaut.io/latest/guide/index.html#errorHandling" target="_blank">Error Handling</a></p>
-<p> Sometimes with distributed applications, bad things happen. Having a good way to handle errors is important.  The <a href="https://docs.micronaut.io/latest/api/io/micronaut/http/annotation/Error.html" target="_blank">Error</a> annotation supports defining either an exception class or an HTTP status. Methods decorated with the annotation will be invoked as the result of other controller methods. The annotation also supports the notion of global and local, local being the default.  Local error handlers will only respond to methods defined in the same controller. Global error handlers can respond to any method in any controller. A local error handler is always searched for first when resolving which handler to execute.  <code>java<br>@Error(exception = ConstraintViolationException.class)<br>public Map&lt;String, Object&gt; onSavedFailed(HttpRequest request, ConstraintViolationException ex) {<br>final Map&lt;String, Object&gt; model = new HashMap&lt;&gt;();<br>model.put(&#34;errors&#34;, messageSource.violationsMessages(ex.getConstraintViolations()));<br>return model;<br>}</code><br>  You can check a full example in <a href="https://github.com/neculai-stanciu/micronaut-sessions/blob/5f0471a9de487991a365cbfced9ac9ce8312efda/surveys-api/src/main/java/com/nstanciu/tutorials/mn/surveys/resource/SurveyResource.java#L59" target="_blank">surveys-api here</a></p>
-<h2 is-upgraded>Global error handler </h2>
-<p> &#34;`java @Error(global = true) public HttpResponse error(HttpRequest request, Throwable e) { JsonError error = new JsonError(&#34;Bad Things Happened: &#34; + e.getMessage()) </p>
-<pre><code>.link(Link.SELF, Link.of(request.getUri()));
+<p>Negative : An <strong>@Error</strong> annotation capturing an exception has precedence over an implementation of <strong>ExceptionHandler</strong> capturing the same exception.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Api versioning" duration="0">
+        <p>Since 1.1.x, Micronaut supports API versioning via a dedicated @Version annotation.</p>
+<p>The following example demonstrates how to version an API:</p>
+<pre><code language="language-java" class="language-java">import io.micronaut.core.version.annotation.Version;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+
+@Controller(&#34;/versioned&#34;)
+class VersionedController {
+
+    @Version(&#34;1&#34;) 
+    @Get(&#34;/hello&#34;)
+    String helloV1() {
+        return &#34;helloV1&#34;;
+    }
+
+    @Version(&#34;2&#34;) 
+    @Get(&#34;/hello&#34;)
+    String helloV2() {
+        return &#34;helloV2&#34;;
+    }
 </code></pre>
-<p> return HttpResponse.serverError() </p>
-<pre><code>.body(error);
+<p>You should then enabling versioning by setting <code>micronaut.router.versioning.enabled</code> to <code>true</code> in application.yml:</p>
+<pre><code language="language-yml" class="language-yml">micronaut:
+    router:
+        versioning:
+            enabled: true
 </code></pre>
-<p>} &#34;`  You can check a full example in <a href="https://github.com/neculai-stanciu/micronaut-sessions/blob/5f0471a9de487991a365cbfced9ac9ce8312efda/surveys-api/src/main/java/com/nstanciu/tutorials/mn/surveys/error/JsonParseErrorHandler.java#L13" target="_blank">surveys-api here</a></p>
-<h2 is-upgraded>ExceptionHandler </h2>
-<p> Additionally you can implement a <a href="https://docs.micronaut.io/latest/api/io/micronaut/http/server/exceptions/ExceptionHandler.html" target="_blank">ExceptionHandler</a>; a generic hook for handling exceptions that occurs during the execution of an HTTP request.  Imagine your app throws an NotFoundException the requested resource is not available: You can implement an exception handler:  &#34;`java @Produces @Singleton @Requires(classes = {NotFoundException.class, ExceptionHandler.class}) public class NotFoundExceptionHandler implements ExceptionHandler {  @Override public HttpResponse handle(HttpRequest request, NotFoundException exception) { </p>
-<pre><code>return HttpResponse.ok(0);
+<p>By default Micronaut has 2 out-of-the-box strategies for resolving the version that are based on an HTTP header named <code>X-API-VERSION</code> or a request parameter named <code>api-version</code>, however this is configurable. A full configuration example can be seen below:</p>
+<pre><code language="language-yml" class="language-yml">micronaut:
+    router:
+        versioning:
+            enabled: true
+            parameter:
+                enabled: false
+                names: &#39;v,api-version&#39;
+            header:
+                enabled: true
+                names:
+                    - &#39;X-API-VERSION&#39;
+                    - &#39;Accept-Version
 </code></pre>
-<p>} } &#34;`  Negative </p>
-<p>An <strong>@Error</strong> annotation capturing an exception has precedence over an implementation of <strong>ExceptionHandler</strong> capturing the same exception.   </p>
-<p><a href="https://docs.micronaut.io/latest/guide/index.html#apiVersioning" target="_blank">Api versioning</a></p>
-<p> Since 1.1.x, Micronaut supports API versioning via a dedicated @Version annotation.  The following example demonstrates how to version an API:  &#34;`java import io.micronaut.core.version.annotation.Version; import io.micronaut.http.annotation.Controller; import io.micronaut.http.annotation.Get;  @Controller(&#34;/versioned&#34;) class VersionedController {  @Version(&#34;1&#34;)  @Get(&#34;/hello&#34;) String helloV1() { </p>
-<pre><code>return &#34;helloV1&#34;;
+<h2 is-upgraded>Default Version</h2>
+<p>It is possible to supply a default version through configuration.</p>
+<pre><code language="language-yml" class="language-yml">micronaut:
+    router:
+        versioning:
+            enabled: true
+            default-version: 3
 </code></pre>
-<p>}  @Version(&#34;2&#34;)  @Get(&#34;/hello&#34;) String helloV2() { </p>
-<pre><code>return &#34;helloV2&#34;;
-</code></pre>
-<p>} <br><br><code>You should then enabling versioning by setting `micronaut.router.versioning.enabled` to `true` in application.yml:</code><br><br>yml micronaut: router: </p>
-<pre><code>versioning:
-    enabled: true
-</code></pre>
-<p><code><br><br>By default Micronaut has 2 out-of-the-box strategies for resolving the version that are based on an HTTP header named `X-API-VERSION` or a request parameter named `api-version`, however this is configurable. A full configuration example can be seen below:</code><br><br>yml micronaut: router: </p>
-<pre><code>versioning:
-    enabled: true
-    parameter:
-        enabled: false
-        names: &#39;v,api-version&#39;
-    header:
-        enabled: true
-        names:
-            - &#39;X-API-VERSION&#39;
-            - &#39;Accept-Version
-</code></pre>
-<p>&#34;`  </p>
-<h2 is-upgraded>Default Version </h2>
-<p> It is possible to supply a default version through configuration.  &#34;`yml micronaut: router: </p>
-<pre><code>versioning:
-    enabled: true
-    default-version: 3
-</code></pre>
-<p>&#34;`  A route will <strong>not</strong> be matched if the following conditions are met:  </p>
+<p>A route will <strong>not</strong> be matched if the following conditions are met:</p>
 <ul>
-<li>The default version is configured </li>
-<li>No version is found in the request </li>
-<li>The route defines a version </li>
-<li>The route version does not match the default version  If the incoming request specifies a version then the default version has no effect.  Api example  You can check example of an REST api with Micronaut <a href="https://github.com/neculai-stanciu/micronaut-sessions/tree/master/surveys-api" target="_blank">here</a></li>
+<li>The default version is configured</li>
+<li>No version is found in the request</li>
+<li>The route defines a version</li>
+<li>The route version does not match the default version</li>
 </ul>
+<p>If the incoming request specifies a version then the default version has no effect.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Api example" duration="0">
+        <p>You can check example of an REST api with Micronaut <a href="https://github.com/neculai-stanciu/micronaut-sessions/tree/master/surveys-api" target="_blank">here</a></p>
 
 
       </google-codelab-step>
     
   </google-codelab>
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
 
 </body>
 </html>
