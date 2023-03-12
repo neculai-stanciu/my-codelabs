@@ -10,7 +10,7 @@ const generateStaticPresentation = (markdownPath, themePath) => {
   rimraf(`presentations/${presentationName}`, {}).then(() =>  
     function () { console.log("done"); });
   // todo: add theme support
-  const revealCommand = `reveal-md ./${markdownPath} --theme ../../theme/my-theme.css --static=presentations/${presentationName}`;
+  const revealCommand = `reveal-md ./${markdownPath} --theme  ../../theme/my-theme.css --static=presentations/${presentationName}`;
 
   console.log("command: ", revealCommand);
   exec(revealCommand, (error, stdout, stderr) => {
